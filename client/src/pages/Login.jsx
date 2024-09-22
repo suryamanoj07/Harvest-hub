@@ -29,7 +29,7 @@ export const Login = () => {
             dispatch(loginInFailure(res.data.message))  
             return
         }
-        dispatch(loginInSuccess(res.data.user.username))
+        dispatch(loginInSuccess(res.data.user))
         setToken(res.data.token)
         localStorage.setItem("token",res.data.token)
         console.log(res.data.user);

@@ -4,10 +4,10 @@ import bcryptjs from "bcryptjs"
 
 export const signup = async(req,res) => {
 
-    const {username,password,email} = req.body;
+    const {username,password,email,role} = req.body;
     try{
         const hashPassword = bcryptjs.hashSync(password,10);
-        const newUser = new User({username,password:hashPassword,email});
+        const newUser = new User({username,password:hashPassword,email,role});
         await newUser.save()
 
         res.json({

@@ -112,7 +112,10 @@ export const Header = () => {
               //   src={currentUser.avatar}
               //   alt='profile'
               // />
-              <p>{currentUser}</p>
+                <div>
+                  <img src="" alt="" />
+                  <p>{currentUser.username}</p>
+                </div>
             ) : (
               <li className="font-bold  flex flex-col items-center justify-center cursor-pointer hover:text-lg">
             <IoPersonSharp className="text-xl" />

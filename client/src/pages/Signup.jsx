@@ -9,10 +9,9 @@ export const Signup = () => {
     const navigate = useNavigate()
 
     const handleChange=(e)=>{    
-        setFormData({
-            ...formData,
-            [e.target.id] : e.target.value,
-        })
+        const id = e.target.id;
+        const value = e.target.value;
+        setFormData((p) => ({ ...p, [id]: value }));
     }
 
     const submitForm=async(e)=>{
@@ -42,6 +41,18 @@ export const Signup = () => {
             <input type="text" id="username" placeholder="username" onChange={handleChange} className="border-blue-500 p-3 rounded-lg border-2" />
             <input type="email" id="email" placeholder="email" onChange={handleChange} className="border-blue-500 p-3 rounded-lg border-2" />
             <input type="password" id="password" placeholder="password" onChange={handleChange} className="border-blue-500 p-3 rounded-lg border-2" />
+            <div className="flex gap-4">
+                <p className="p-2">Role : </p>
+                <select
+                  id="role"
+                  onChange={handleChange}
+                  className="px-2 border-2 border-blue-500 rounded-lg "
+                >
+                  <option value="Farmer">Farmer</option>
+                  <option value="Customer">Customer</option>
+                  <option value="Admin">Admin</option>
+                </select>
+              </div>
             <button disabled={loading} className="bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80">{loading ? "Loading...":"Sign up"}</button>
         </form>
         <div className="flex gap-2 mt-5">
