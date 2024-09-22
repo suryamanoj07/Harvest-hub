@@ -16,10 +16,10 @@ export const Products = ({category}) => {
     <div className="food-display" id="food-dsiplay">
     <h2>Top dishes near you</h2>
     <div className="food-display-list">
-        {currentUser.role=='Customer'?food_list.map((item,index)=>{
+        {currentUser?currentUser.role=='Customer'?food_list.map((item,index)=>{
             if(category==='All'|| category===item.category){
                 return <FoodItem key={index} id={item._id} name={item.name} description={item.description} price={item.price} image={item.image} />
-            }}):"farmer"}
+            }}):"farmer":<></>}
     </div>
 </div>
   );

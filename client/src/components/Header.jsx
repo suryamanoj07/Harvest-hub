@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 // import React from 'react'
 import {
   FaSearch,
@@ -14,7 +15,7 @@ import { storeContext } from "../pages/redux/context/storeContext";
 export const Header = () => {
   const { currentUser } = useSelector((state) => state.user);
   const {cartQuantity} = useContext(storeContext)
-  // const {setToken} = useContext(storeContext)
+  const {setToken} = useContext(storeContext)
 
   // const logout = () => {
   //   localStorage.removeItem("token")
@@ -113,7 +114,7 @@ export const Header = () => {
               //   alt='profile'
               // />
                 <div className="flex flex-col justify-center items-center -ml-4">
-                  <img src={user_image} alt="" width="30px" />
+                  <img src={user_image} alt="" width="25px" />
                   <p>{currentUser.username}</p>
                 </div>
             ) : (
