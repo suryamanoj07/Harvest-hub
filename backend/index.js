@@ -5,6 +5,7 @@ import cors from 'cors'
 import productRouter from './routes/product.route.js'
 import cartRouter from './routes/cart.route.js'
 import orderRouter from './routes/order.route.js'
+import toolRouter from './routes/tools.route.js'
 
 
 mongoose.connect("mongodb+srv://manojsurya463:BjxbMbniGwKlMbmT@cluster0.tjaza.mongodb.net/MERN-farmers?retryWrites=true&w=majority&appName=Cluster0")
@@ -21,6 +22,7 @@ app.get("/",(req,res)=>res.send("working"))
 
 app.use("/api/auth",authRouter)
 app.use("/api/product",productRouter)
+app.use("/api/tool",toolRouter)
 app.use("/images",express.static('uploads'))
 app.use("/api/cart",cartRouter)
 app.use("/api/order",orderRouter)
