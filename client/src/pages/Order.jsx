@@ -5,9 +5,13 @@ import { storeContext } from './../pages/redux/context/storeContext'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import {toast} from "react-toastify"
+import { useSelector } from 'react-redux'
 
 export const Order = () => {
-  const {getTotalAmount,food_list,token,cartItems} = useContext(storeContext)
+  const {food_list,token,cartItems,tool_list} = useContext(storeContext)
+  const { currentUser } = useSelector((state) => state.user);
+
+
   const navigate = useNavigate()
   const [data,setData] = useState({
     firstName: "",
@@ -21,6 +25,18 @@ export const Order = () => {
     phone: ""
   })
 
+  const list = currentUser.role == "Customer" ? food_list : tool_list;
+
+  const getTotalAmount=()=>{
+    let totalAmount=0
+    for(const item in cartItems){
+        if(cartItems[item]>0){
+            let itemInfo = list.find((product)=>product._id===item)
+            totalAmount+= itemInfo.price*cartItems[item]
+        }
+    }return totalAmount;
+  }
+
   const onChangeHandler = (event) => {
     const name = event.target.name
     const value = event.target.value
@@ -30,7 +46,7 @@ export const Order = () => {
   const placeOrder = async(event) =>{
     event.preventDefault()
     let orderItems=[]
-    food_list.map(item=>{
+    list.map(item=>{
       if(cartItems[item._id]){
         let itemInfo = item
         itemInfo["quantity"]=cartItems[item._id] 

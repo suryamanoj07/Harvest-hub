@@ -10,8 +10,7 @@ import { useSelector } from "react-redux";
 
 const Cart = () => {
   const { currentUser } = useSelector((state) => state.user);
-  const { cartItems, food_list, removeCart, token, tool_list } =
-    useContext(storeContext);
+  const { cartItems, food_list, removeCart, token, tool_list } = useContext(storeContext);
   const navigate = useNavigate();
 
   const list = currentUser.role == "Customer" ? food_list : tool_list;
