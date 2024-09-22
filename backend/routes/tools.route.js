@@ -13,9 +13,9 @@ const storage = multer.diskStorage({
 
 const upload = multer({storage:storage})
 
-toolRouter.post("/addtool",upload.single("image"),addtool)
-toolRouter.get("/listtool",listtool)
-toolRouter.post("/deletetool/:id",deletetool)
+toolRouter.post("/add",upload.single("image"),addtool)
+toolRouter.post("/delete/:id",deletetool)
+toolRouter.get("/list",listtool)
 
 
 
