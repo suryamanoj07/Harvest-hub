@@ -1,5 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/jsx-key */
-// eslint-disable-next-line no-unused-vars
+ 
 import  { useContext,useEffect } from 'react'
 import './Cart.css'
 import { useNavigate } from 'react-router-dom';
@@ -8,7 +9,7 @@ import { toast } from 'react-toastify';
 
 const Cart = () => {
 
-  // eslint-disable-next-line no-unused-vars
+   
   const { cartItems, food_list, removeCart,getTotalAmount,token } = useContext(storeContext);
   const navigate = useNavigate();
    

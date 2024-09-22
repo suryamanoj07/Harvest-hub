@@ -12,7 +12,7 @@ import { storeContext } from "../pages/redux/context/storeContext";
 
 export const Header = () => {
   const { currentUser } = useSelector((state) => state.user);
-  const {getTotalAmount} = useContext(storeContext)
+  const {cartQuantity} = useContext(storeContext)
   // const {setToken} = useContext(storeContext)
 
   // const logout = () => {
@@ -101,7 +101,7 @@ export const Header = () => {
                 borderRadius: "50%",
               }}
             >
-              {getTotalAmount()}
+              {cartQuantity()}
             </span>
           </li>
           </Link>

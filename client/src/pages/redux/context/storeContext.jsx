@@ -30,6 +30,15 @@ const StoreContextProvider=(props)=>{
            }
     }
 
+    const cartQuantity=()=>{
+        let quantity=0
+        for(const item in cartItems){
+            if(cartItems[item]>0){
+                quantity+=cartItems[item]
+            }
+        }
+        return quantity;
+    }
 
     const getTotalAmount=()=>{
         let totalAmount=0
@@ -62,7 +71,7 @@ const StoreContextProvider=(props)=>{
         LoadData();
     },[token])
 
-    const contextValue={food_list,cartItems,setCartItems,addtoCart,removeCart,getTotalAmount,token,setToken}
+    const contextValue={food_list,cartItems,setCartItems,addtoCart,removeCart,getTotalAmount,token,setToken,cartQuantity}
 
 return (
     <storeContext.Provider value={contextValue}>
