@@ -11,16 +11,19 @@ import { Link } from "react-router-dom";
 import { useSelector } from 'react-redux';
 import { useContext } from "react";
 import { storeContext } from "../pages/redux/context/storeContext";
+import { useNavigate } from "react-router-dom";
 
 export const Header = () => {
   const { currentUser } = useSelector((state) => state.user);
   const {cartQuantity} = useContext(storeContext)
   const {setToken} = useContext(storeContext)
+  const navigate = useNavigate()
 
-  // const logout = () => {
-  //   localStorage.removeItem("token")
-  //   setToken("")
-  // }
+  const logout = () => {
+    localStorage.removeItem("token")
+    setToken("")
+    navigate("/login")
+  }
 
   return (
     <header className="bg-slate-300 shadow-md fixed top-0 left-0 min-w-full z-50">
@@ -126,7 +129,7 @@ export const Header = () => {
           </Link>
         </ul>
 
-        {currentUser ? <div className="bg-blue-500 p-1 px-3 border-blue-600 border-2 rounded-3xl cursor-pointer hover:bg-blue-400">
+        {currentUser ? <div className="bg-blue-500 p-1 px-3 border-blue-600 border-2 rounded-3xl cursor-pointer hover:bg-blue-400" onClick={logout}>
           Logout
         </div> : <></>}
       </div>

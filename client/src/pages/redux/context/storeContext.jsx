@@ -10,6 +10,8 @@ const StoreContextProvider=(props)=>{
     const [cartItems,setCartItems]=useState({})
     const [token,setToken]=useState("")
     const [food_list,setFoodList]=useState([])
+    const [tool_list,setToolList]=useState([])
+
 
     const addtoCart=async(id)=>{
        if(!cartItems[id]){
@@ -55,6 +57,11 @@ const StoreContextProvider=(props)=>{
         setFoodList(response.data.message)
     }
 
+    const fetchTool=async()=>{
+        const response = await axios.get("http://localhost:3000/api/tool/list")
+        setToolList(response.data.message)
+    }
+
     const loadCart = async(token)=>{
         const response = await axios.post("http://localhost:3000/api/cart/get",{},{headers:{token}})
         setCartItems(response.data.cartData)
@@ -63,6 +70,7 @@ const StoreContextProvider=(props)=>{
     useEffect(()=>{
         async function LoadData(){
             await fetchFood()
+            await fetchTool()
             if(localStorage.getItem("token")){
                 setToken(localStorage.getItem("token"))
                 await loadCart(localStorage.getItem("token"))
@@ -71,7 +79,7 @@ const StoreContextProvider=(props)=>{
         LoadData();
     },[token])
 
-    const contextValue={food_list,cartItems,setCartItems,addtoCart,removeCart,getTotalAmount,token,setToken,cartQuantity}
+    const contextValue={food_list,cartItems,setCartItems,addtoCart,removeCart,getTotalAmount,token,setToken,cartQuantity,tool_list}
 
 return (
     <storeContext.Provider value={contextValue}>
