@@ -4,7 +4,7 @@ import  { useContext,useEffect } from 'react'
 import './Cart.css'
 import { useNavigate } from 'react-router-dom';
 import { storeContext } from './../pages/redux/context/storeContext';
-// import { toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 const Cart = () => {
 
@@ -12,16 +12,16 @@ const Cart = () => {
   const { cartItems, food_list, removeCart,getTotalAmount,token } = useContext(storeContext);
   const navigate = useNavigate();
    
-//   useEffect(() => {
-//     if (!token) {
-//         toast.error("to place an order sign in first")
-//         navigate('/cart')
-//     }
-//     else if (getTotalAmount() === 0) {
-//       toast.error("cart cannot be empty!")
-//         navigate('/cart')
-//     }
-// }, [])
+  useEffect(() => {
+    if (!token) {
+        toast.error("to place an order sign in first")
+        navigate('/cart')
+    }
+    else if (getTotalAmount() === 0) {
+      toast.error("cart cannot be empty!")
+        navigate('/empty')
+    }
+}, [])
 
 
   return (

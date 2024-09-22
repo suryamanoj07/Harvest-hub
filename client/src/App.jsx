@@ -18,6 +18,7 @@ import Cart from './pages/Cart'
 import Verify from './pages/Verify'
 import MyOrders from './pages/Myorders'
 import Aorder from './pages/Aorders'
+import { Empty } from './components/Empty'
 
 function App() {
 
@@ -37,10 +38,10 @@ function App() {
         <Route  element={<PrivateRoute/>}>
             <Route path='/profile' element={<Profile/>}/>
             <Route path='/cart' element={<Cart/>}/>
+            <Route path='/empty' element={<Empty />}/>
             <Route path='/order' element={<Order/>}/>
             <Route path='/verify' element={<Verify/>}/>
             <Route path='/myorders' element={<MyOrders/>}/>
-
          </Route>
          <Route path="/Sidebar" element={<Sidebar />}/>
          <Route path="/add" element={<Add />}/>
