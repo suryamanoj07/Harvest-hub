@@ -4,6 +4,7 @@ import {
   FaRegHeart,
   FaShoppingBag,
 } from "react-icons/fa";
+import user_image from "./../../assets/user_img.png"
 import { IoPersonSharp } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import { useSelector } from 'react-redux';
@@ -83,21 +84,20 @@ export const Header = () => {
           </li>
           <Link to="/cart">
           <li className="flex">
-            <div className="font-bold  flex flex-col items-center justify-center cursor-pointer">
+            <div className="font-bold  flex flex-col items-center justify-center cursor-pointer p-2">
               <FaShoppingBag />
               Cart
             </div>
             <span
               style={{
-                height: "24px",
+                height: "23px",
                 backgroundColor: "red",
                 width: "20px",
                 textAlign: "center",
                 color: "white",
                 position: "relative",
-                right: "15px",
+                right: "25px",
                 bottom: "5px",
-                paddingBottom: "2px",
                 borderRadius: "50%",
               }}
             >
@@ -112,8 +112,8 @@ export const Header = () => {
               //   src={currentUser.avatar}
               //   alt='profile'
               // />
-                <div>
-                  <img src="" alt="" />
+                <div className="flex flex-col justify-center items-center -ml-4">
+                  <img src={user_image} alt="" width="30px" />
                   <p>{currentUser.username}</p>
                 </div>
             ) : (
