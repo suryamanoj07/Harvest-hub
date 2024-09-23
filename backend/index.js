@@ -5,6 +5,8 @@ import cors from 'cors'
 import productRouter from './routes/product.route.js'
 import cartRouter from './routes/cart.route.js'
 import orderRouter from './routes/order.route.js'
+import userRouter from './routes/user.route.js'
+// import profileRoutes from './routes/profile.route'
 
 
 mongoose.connect("mongodb+srv://manojsurya463:BjxbMbniGwKlMbmT@cluster0.tjaza.mongodb.net/MERN-farmers?retryWrites=true&w=majority&appName=Cluster0")
@@ -24,6 +26,8 @@ app.use("/api/product",productRouter)
 app.use("/images",express.static('uploads'))
 app.use("/api/cart",cartRouter)
 app.use("/api/order",orderRouter)
+// app.use("/api/user", userRouter)
+// app.use("/api/profile", profileRoutes)
 
 
 
