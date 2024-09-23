@@ -23,6 +23,18 @@ export const Sidebar = () => {
             <p>Orders</p>
         </div>
         </Link>
+        <Link to="/addtool">
+        <div className="flex flex-col gap-2 p-6 justify-center items-center  hover:bg-slate-300 cursor-pointer border-b-2 border-slate-400">
+            <img src={add_icon} alt="add product" className="h-6 w-6" />
+            <p>Add new Tool</p>
+        </div>
+        </Link>
+        <Link to="/listtool">
+        <div className="flex flex-col gap-2 p-6 justify-center items-center  hover:bg-slate-300 cursor-pointer border-b-2 border-slate-400">
+            <img src={order_icon} alt="add product" className="h-6 w-6" />
+            <p>All Tools</p>
+        </div>
+        </Link>
     </div>
   )
 }

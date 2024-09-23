@@ -61,8 +61,7 @@ export const Order = () => {
     let url = "http://localhost:3000"
     let response = await axios.post(url+"/api/order/place",orderData,{headers:{token}})
     if(response.data.success){
-      const {success_url} = response.data
-      window.location.replace(success_url)
+      navigate("/myorders")
     }
   }
 //     useEffect(() => {

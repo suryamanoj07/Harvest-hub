@@ -19,6 +19,8 @@ import Verify from './pages/Verify'
 import MyOrders from './pages/Myorders'
 import Aorder from './pages/Aorders'
 import { Empty } from './components/Empty'
+import { AddTool } from './components/AddTool'
+import ListTool from './components/ListTool'
 
 function App() {
 
@@ -45,7 +47,9 @@ function App() {
          </Route>
          <Route path="/Sidebar" element={<Sidebar />}/>
          <Route path="/add" element={<Add />}/>
+         <Route path="/addtool" element={<AddTool />}/>
          <Route path="/list" element={<List />}/>
+         <Route path="/listtool" element={<ListTool />}/>
          <Route path="/orders" element={<Aorder />}/>
          </Routes>
     </BrowserRouter>
