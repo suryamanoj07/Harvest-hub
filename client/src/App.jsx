@@ -17,6 +17,7 @@ import { Order } from './pages/Order'
 import Cart from './pages/Cart'
 import Verify from './pages/Verify'
 import MyOrders from './pages/Myorders'
+import ManageUser from './pages/ManageUser'
 import Aorder from './pages/Aorders'
 import { Empty } from './components/Empty'
 
@@ -47,6 +48,7 @@ function App() {
          <Route path="/add" element={<Add />}/>
          <Route path="/list" element={<List />}/>
          <Route path="/orders" element={<Aorder />}/>
+         <Route path="/manage-users" element={<ManageUser />}/>
          </Routes>
     </BrowserRouter>
     </React.StrictMode>

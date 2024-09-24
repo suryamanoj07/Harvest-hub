@@ -2,81 +2,118 @@
 /* eslint-disable react-refresh/only-export-components */
 import axios from "axios";
 import { createContext, useEffect, useState } from "react";
-// import { food_list } from "./../../../../frontend_assets/assets";
 
-export const storeContext = createContext()
+export const storeContext = createContext();
 
-const StoreContextProvider=(props)=>{
-    const [cartItems,setCartItems]=useState({})
-    const [token,setToken]=useState("")
-    const [food_list,setFoodList]=useState([])
+const StoreContextProvider = (props) => {
+  const [role, setRole] = useState("Admin"); // Default role is "user"
+  const [cartItems, setCartItems] = useState({});
+  const [token, setToken] = useState("");
+  const [food_list, setFoodList] = useState([]);
 
-    const addtoCart=async(id)=>{
-       if(!cartItems[id]){
-        setCartItems(p=>({...p,[id]:1}))
-       }
-       else{
-        setCartItems(p=>({...p,[id]:p[id]+1}))
-       }
-       if(token){
-        await axios.post("http://localhost:3000/api/cart/add",{itemId:id},{headers:{token}})
-       }
+  const addtoCart = async (id) => {
+    if (!cartItems[id]) {
+      setCartItems((p) => ({ ...p, [id]: 1 }));
+    } else {
+      setCartItems((p) => ({ ...p, [id]: p[id] + 1 }));
     }
-
-    const removeCart=async(id)=>{
-        setCartItems(p=>({...p,[id]:p[id]-1}))
-        if(token){
-            await axios.post("http://localhost:3000/api/cart/remove",{itemId:id},{headers:{token}})
-           }
+    if (token) {
+      await axios.post("http://localhost:3000/api/cart/add", { itemId: id }, { headers: { token } });
     }
+  };
 
-    const cartQuantity=()=>{
-        let quantity=0
-        for(const item in cartItems){
-            if(cartItems[item]>0){
-                quantity+=cartItems[item]
-            }
+  const removeCart = async (id) => {
+    setCartItems((p) => ({ ...p, [id]: p[id] - 1 }));
+    if (token) {
+      await axios.post("http://localhost:3000/api/cart/remove", { itemId: id }, { headers: { token } });
+    }
+  };
+
+  const cartQuantity = () => {
+    let quantity = 0;
+    for (const item in cartItems) {
+      if (cartItems[item] > 0) {
+        quantity += cartItems[item];
+      }
+    }
+    return quantity;
+  };
+
+  const getTotalAmount = () => {
+    let totalAmount = 0;
+    for (const item in cartItems) {
+      if (cartItems[item] > 0) {
+        let itemInfo = food_list.find((product) => product._id === item);
+        totalAmount += itemInfo.price * cartItems[item];
+      }
+    }
+    return totalAmount;
+  };
+
+  const fetchFood = async () => {
+    const response = await axios.get("http://localhost:3000/api/product/list");
+    setFoodList(response.data.message);
+  };
+
+  const loadCart = async (token) => {
+    const response = await axios.post("http://localhost:3000/api/cart/get", {}, { headers: { token } });
+    setCartItems(response.data.cartData);
+  };
+
+  // Function to extract and set role from localStorage
+  const loadRoleFromPersist = () => {
+    const persistRoleData = localStorage.getItem("persist:role");
+    if (persistRoleData) {
+      try {
+        const parsedData = JSON.parse(persistRoleData);
+        const currentUserData = JSON.parse(parsedData.user); // Parse inner user JSON
+        if (currentUserData.currentUser && currentUserData.currentUser.role) {
+          console.log("Setting role to:", currentUserData.currentUser.role); // Log role
+          setRole(currentUserData.currentUser.role); // Set the role based on stored data
+        } else {
+          console.warn("Role not found in currentUserData", currentUserData);
         }
-        return quantity;
+      } catch (error) {
+        console.error("Failed to parse role data from localStorage", error);
+      }
+    } else {
+      console.warn("No persist:role data found in localStorage");
     }
+  };
 
-    const getTotalAmount=()=>{
-        let totalAmount=0
-        for(const item in cartItems){
-            if(cartItems[item]>0){
-                let itemInfo = food_list.find((product)=>product._id===item)
-                totalAmount+= itemInfo.price*cartItems[item]
-            }
-        }return totalAmount;
-    }
+  useEffect(() => {
+    const LoadData = async () => {
+      await fetchFood();
+      const storedToken = localStorage.getItem("token");
+      if (storedToken) {
+        setToken(storedToken);
+        await loadCart(storedToken);
+      }
+      loadRoleFromPersist(); // Load role from persist
+    };
 
-    const fetchFood=async()=>{
-        const response = await axios.get("http://localhost:3000/api/product/list")
-        setFoodList(response.data.message)
-    }
+    LoadData();
+  }, []); // Empty dependency array to run only once on mount
 
-    const loadCart = async(token)=>{
-        const response = await axios.post("http://localhost:3000/api/cart/get",{},{headers:{token}})
-        setCartItems(response.data.cartData)
-    }
+  const contextValue = {
+    food_list,
+    cartItems,
+    setCartItems,
+    addtoCart,
+    removeCart,
+    getTotalAmount,
+    token,
+    setToken,
+    cartQuantity,
+    role,
+    setRole,
+  };
 
-    useEffect(()=>{
-        async function LoadData(){
-            await fetchFood()
-            if(localStorage.getItem("token")){
-                setToken(localStorage.getItem("token"))
-                await loadCart(localStorage.getItem("token"))
-            }
-        }
-        LoadData();
-    },[token])
-
-    const contextValue={food_list,cartItems,setCartItems,addtoCart,removeCart,getTotalAmount,token,setToken,cartQuantity}
-
-return (
+  return (
     <storeContext.Provider value={contextValue}>
-        {props.children}
+      {props.children}
     </storeContext.Provider>
-)}
+  );
+};
 
 export default StoreContextProvider;
