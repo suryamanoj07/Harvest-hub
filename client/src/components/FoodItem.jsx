@@ -8,7 +8,7 @@ import { useContext } from 'react'
 const FoodItem = ({id,name,price,description,image}) => {
     const{cartItems,addtoCart,removeCart} = useContext(storeContext)
   return (
-    <div className='food-item'>
+    <div className='food-item transform transition-transform duration-300 hover:scale-105 hover:shadow-2xl'>
         <div className="food-item-img-container">
             <img src={"http://localhost:3000/images/"+image} alt="food" className="food-item-image" />
                 {!cartItems[id]

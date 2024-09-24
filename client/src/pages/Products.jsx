@@ -5,14 +5,17 @@ import { useContext} from "react";
 import  FoodItem from "../components/FoodItem";
 import { storeContext } from "./redux/context/storeContext";
 import { useSelector } from 'react-redux';
+import ExploreMenu from '../components/ExploreMenu';
 
-export const Products = ({category}) => {
+export const Products = ({category,setCategory}) => {
   const {food_list,tool_list} = useContext(storeContext)
   const { currentUser } = useSelector((state) => state.user);
 
   // const [loading, setLoading] = useState(true); // Add a loading state
 
   return (
+    <div>
+      <ExploreMenu category={category} setCategory={setCategory}/>
     <div className="food-display" id="food-dsiplay">
     <h2>Top dishes near you</h2>
     <div className="food-display-list">
@@ -64,5 +67,6 @@ export const Products = ({category}) => {
               }}:<></>} */}
     </div>
 </div>
+    </div>
   );
 };

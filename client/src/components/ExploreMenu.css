@@ -14,9 +14,9 @@
 }
 .explore-menu-list {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    /* gap: 30px; */
+    gap: 80px;
     text-align: center;
     margin: 20px 10px;
     overflow-x: scroll;

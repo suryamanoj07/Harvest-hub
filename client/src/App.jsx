@@ -32,7 +32,7 @@ function App() {
     <Header/>
         <Routes>
         <Route path="/" element={<Home category={category} setCategory={setCategory} />}/>
-        <Route path="/Market" element={<Products category={category} />}/>
+        <Route path="/Market" element={<Products category={category} setCategory={setCategory}/>}/>
         <Route path="/About" element={<About />}/>
         <Route path="/Schemes" element={<Schemes />}/>
         <Route path="/Login" element={<Login />}/> 
