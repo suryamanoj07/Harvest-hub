@@ -11,7 +11,7 @@ export const AddTool = () => {
     name: "",
     description: "",
     price: "",
-    category: "Salad",
+    category: "Seeds",
   });
   const onHandleChange = (e) => {
     const name = e.target.name;
@@ -33,7 +33,7 @@ export const AddTool = () => {
         name: "",
         description: "",
         price: "",
-        category: "Salad",
+        category: "Seeds",
       });
       setImage(false);
       toast.success(response.data.message);
@@ -85,14 +85,13 @@ export const AddTool = () => {
                   onChange={onHandleChange}
                   className="p-1 border-2 border-blue-400"
                 >
-                  <option value="Salad">Salad</option>
-                  <option value="Rolls">Rolls</option>
-                  <option value="Desert">Desert</option>
-                  <option value="Sandwich">Sandwich</option>
-                  <option value="Cake">Cake</option>
-                  <option value="Pure veg">Pure Veg</option>
-                  <option value="Pasta">Pasta</option>
-                  <option value="Noodles">Noodles</option>
+                  <option value="Bio-fertilizers">Bio-fertilizers</option>
+                  <option value="Fungicides">Fungicides</option>
+                  <option value="Irrigation">Irrigation</option>
+                  <option value="Organic fertilizers">Organic fertilizers</option>
+                  <option value="Pesticides">Pesticides</option>
+                  <option value="PH balancer">PH balancer</option>
+                  <option value="Seeds">Seeds</option>
                 </select>
               </div>
               <div className="flex flex-col gap-2 justify-center items-start ">
