@@ -1,12 +1,18 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 // import { useState } from "react";
+import { useContext } from "react";
 import ExploreMenu from "../components/ExploreMenu";
 import { LoginPopup } from "../components/LoginPopup";
 import background from "./../../assets/website-home.jpg";
 import { Products } from "./Products";
+import { useSelector } from "react-redux";
+// import { storeContext } from "./redux/context/storeContext";
 
 export const Home = ({category,setCategory}) => {
+
+  const { currentUser } = useSelector((state) => state.user);
+  
 
   return (
     <div
@@ -20,7 +26,7 @@ export const Home = ({category,setCategory}) => {
         </h1>
       </div>
       <div className="mt-28 mx-20 p-8">
-        <LoginPopup />
+        {currentUser==null && <LoginPopup />}
       </div>
       {/* <ExploreMenu category={category} setCategory={setCategory}/> */}
       <div className="mb-28 mx-20 p-8">
