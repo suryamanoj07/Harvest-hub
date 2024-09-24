@@ -31,6 +31,20 @@ const listtool = async(req,res)=>{
     }
 }
 
+const searchTool = async(req,res)=>{
+    const {search} = req.params
+    try{
+        if(search==""){
+            const tools = await toolModel.find({})
+            return res.json({success:true,message:tools})
+        }
+        const tools = await toolModel.find({name:{$regex:search,$options:"i"}})
+        res.json({success:true,message:tools})
+    }catch(err){
+        res.json({success:false,message:`${err.message}`})
+    }
+}
+
 const deletetool=async(req,res)=>{
     try{
         const tool = await toolModel.findById(req.params.id)
@@ -42,4 +56,4 @@ const deletetool=async(req,res)=>{
     }
 }
 
-export {addtool,listtool,deletetool}
+export {addtool,listtool,deletetool,searchTool}

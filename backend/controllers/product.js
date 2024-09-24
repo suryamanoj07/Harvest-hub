@@ -31,6 +31,20 @@ const listProduct = async(req,res)=>{
     }
 }
 
+const searchProduct = async(req,res)=>{
+    const {search} = req.params
+    try{
+        if(search==""){
+            const products = await productModel.find({})
+            return res.json({success:true,message:products})
+        }
+        const products = await productModel.find({name:{$regex:search,$options:"i"}})
+        res.json({success:true,message:products})
+    }catch(err){
+        res.json({success:false,message:`${err.message}`})
+    }
+}
+
 const deleteProduct=async(req,res)=>{
     try{
         const product = await productModel.findById(req.params.id)
@@ -42,4 +56,4 @@ const deleteProduct=async(req,res)=>{
     }
 }
 
-export {addProduct,listProduct,deleteProduct}
+export {addProduct,listProduct,deleteProduct,searchProduct}

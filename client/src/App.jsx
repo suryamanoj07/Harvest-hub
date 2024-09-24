@@ -19,6 +19,8 @@ import Verify from './pages/Verify'
 import MyOrders from './pages/Myorders'
 import Aorder from './pages/Aorders'
 import { Empty } from './components/Empty'
+import { AddTool } from './components/AddTool'
+import ListTool from './components/ListTool'
 
 function App() {
 
@@ -30,7 +32,7 @@ function App() {
     <Header/>
         <Routes>
         <Route path="/" element={<Home category={category} setCategory={setCategory} />}/>
-        <Route path="/Market" element={<Products category={category} />}/>
+        <Route path="/Market" element={<Products category={category} setCategory={setCategory}/>}/>
         <Route path="/About" element={<About />}/>
         <Route path="/Schemes" element={<Schemes />}/>
         <Route path="/Login" element={<Login />}/> 
@@ -45,7 +47,9 @@ function App() {
          </Route>
          <Route path="/Sidebar" element={<Sidebar />}/>
          <Route path="/add" element={<Add />}/>
+         <Route path="/addtool" element={<AddTool />}/>
          <Route path="/list" element={<List />}/>
+         <Route path="/listtool" element={<ListTool />}/>
          <Route path="/orders" element={<Aorder />}/>
          </Routes>
     </BrowserRouter>

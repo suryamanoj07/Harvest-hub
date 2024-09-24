@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 // import { useState } from "react";
 import ExploreMenu from "../components/ExploreMenu";
@@ -21,7 +22,7 @@ export const Home = ({category,setCategory}) => {
       <div className="mt-28 mx-20 p-8">
         <LoginPopup />
       </div>
-      <ExploreMenu category={category} setCategory={setCategory}/>
+      {/* <ExploreMenu category={category} setCategory={setCategory}/> */}
       <div className="mb-28 mx-20 p-8">
         <Products category={category}/>
       </div>

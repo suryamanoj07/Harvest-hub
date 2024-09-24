@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
 /* eslint-disable react-refresh/only-export-components */
 import axios from "axios";
@@ -10,6 +11,8 @@ const StoreContextProvider=(props)=>{
     const [cartItems,setCartItems]=useState({})
     const [token,setToken]=useState("")
     const [food_list,setFoodList]=useState([])
+    const [tool_list,setToolList]=useState([])
+    const [input,setInput] = useState("")
 
     const addtoCart=async(id)=>{
        if(!cartItems[id]){
@@ -40,19 +43,27 @@ const StoreContextProvider=(props)=>{
         return quantity;
     }
 
-    const getTotalAmount=()=>{
-        let totalAmount=0
-        for(const item in cartItems){
-            if(cartItems[item]>0){
-                let itemInfo = food_list.find((product)=>product._id===item)
-                totalAmount+= itemInfo.price*cartItems[item]
-            }
-        }return totalAmount;
-    }
 
     const fetchFood=async()=>{
-        const response = await axios.get("http://localhost:3000/api/product/list")
+        let response
+        if(input == "" || input == null){
+            response = await axios.get("http://localhost:3000/api/product/list")
+        }
+        else{
+            response = await axios.get(`http://localhost:3000/api/product/search/${input}`)
+        }
         setFoodList(response.data.message)
+    }
+
+    const fetchTool=async()=>{
+        let response
+        if(input == "" || input == null){
+            response = await axios.get("http://localhost:3000/api/tool/list")
+        }
+        else{
+            response = await axios.get(`http://localhost:3000/api/tool/search/${input}`)
+        }
+        setToolList(response.data.message)
     }
 
     const loadCart = async(token)=>{
@@ -63,15 +74,16 @@ const StoreContextProvider=(props)=>{
     useEffect(()=>{
         async function LoadData(){
             await fetchFood()
+            await fetchTool()
             if(localStorage.getItem("token")){
                 setToken(localStorage.getItem("token"))
                 await loadCart(localStorage.getItem("token"))
             }
         }
         LoadData();
-    },[token])
+    },[token,input])
 
-    const contextValue={food_list,cartItems,setCartItems,addtoCart,removeCart,getTotalAmount,token,setToken,cartQuantity}
+    const contextValue={food_list,cartItems,setCartItems,addtoCart,removeCart,token,setToken,cartQuantity,tool_list,input,setInput,setFoodList}
 
 return (
     <storeContext.Provider value={contextValue}>

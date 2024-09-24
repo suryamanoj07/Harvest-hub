@@ -1,6 +1,6 @@
+ 
 // import React from 'react'
 import {
-  FaSearch,
   FaRegHeart,
   FaShoppingBag,
 } from "react-icons/fa";
@@ -10,16 +10,20 @@ import { Link } from "react-router-dom";
 import { useSelector } from 'react-redux';
 import { useContext } from "react";
 import { storeContext } from "../pages/redux/context/storeContext";
+import { useNavigate } from "react-router-dom";
+import { SearchBar } from "./SearchBar";
 
 export const Header = () => {
   const { currentUser } = useSelector((state) => state.user);
   const {cartQuantity} = useContext(storeContext)
-  // const {setToken} = useContext(storeContext)
+  const {setToken} = useContext(storeContext)
+  const navigate = useNavigate()
 
-  // const logout = () => {
-  //   localStorage.removeItem("token")
-  //   setToken("")
-  // }
+  const logout = () => {
+    localStorage.removeItem("token")
+    setToken("")
+    navigate("/login")
+  }
 
   return (
     <header className="bg-slate-300 shadow-md fixed top-0 left-0 min-w-full z-50">
@@ -67,15 +71,7 @@ export const Header = () => {
 
         </ul>
 
-        <form className="bg-slate-100 p-3 rounded-lg flex items-center justify-between">
-          <input
-            type="text"
-            placeholder="Search.."
-            id="search"
-            className="bg-transparent focus:outline-none w-24 sm:w-72"
-          />
-          <FaSearch className="text-slate-600 w-8 text-xl" />
-        </form>
+        <SearchBar/>
 
         <ul className="flex gap-6 ">
           <li className="font-bold  flex flex-col items-center justify-center cursor-pointer">
@@ -113,7 +109,7 @@ export const Header = () => {
               //   alt='profile'
               // />
                 <div className="flex flex-col justify-center items-center -ml-4">
-                  <img src={user_image} alt="" width="30px" />
+                  <img src={user_image} alt="" width="25px" />
                   <p>{currentUser.username}</p>
                 </div>
             ) : (
@@ -125,7 +121,7 @@ export const Header = () => {
           </Link>
         </ul>
 
-        {currentUser ? <div className="bg-blue-500 p-1 px-3 border-blue-600 border-2 rounded-3xl cursor-pointer hover:bg-blue-400">
+        {currentUser ? <div className="bg-blue-500 p-1 px-3 border-blue-600 border-2 rounded-3xl cursor-pointer hover:bg-blue-400" onClick={logout}>
           Logout
         </div> : <></>}
       </div>
