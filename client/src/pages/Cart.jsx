@@ -49,21 +49,22 @@ const Cart = () => {
         <br />
         <hr />
 
-        {list.map((item) => {
+        {list.map((item,idx) => {
           if (cartItems[item._id] > 0) {
             return (
               <div>
-                <div className="cart-items-title cart-items-item">
+                <div className="cart-items-title cart-items-item" key={idx} >
                   <img
                     src={"http://localhost:3000/images/" + item.image}
                     alt=""
+                    className="bg-slate-100 h-24"
                   />
                   <p>{item.name}</p>
-                  <p>${item.price}</p>
+                  <p>Rs {item.price}/-</p>
                   <p>{cartItems[item._id]}</p>
-                  <p>${item.price * cartItems[item._id]}</p>
-                  <p onClick={() => removeCart(item._id)} className="cross">
-                    x
+                  <p>Rs {item.price * cartItems[item._id]}/-</p>
+                  <p onClick={() => removeCart(item._id)} className="cross bg-red-500 max-w-6 pl-2 rounded-full font-bold">
+                    X
                   </p>
                 </div>
                 <hr />
@@ -74,24 +75,24 @@ const Cart = () => {
       </div>
       <div className="cart-bottom">
         <div className="cart-total">
-          <h2>Cart Totals</h2>
+          <h2 className="font-bold">Cart Totals</h2>
           <div>
             <div className="cart-total-details">
               <p>Subtotal</p>
-              <p style={{ marginLeft: "50px" }}>{getTotalAmount()}</p>
+              <p style={{ marginLeft: "50px" }}>Rs {getTotalAmount()}/-</p>
             </div>
             <hr />
             <div className="cart-total-details">
               <p>Delivery Fee</p>
               <p style={{ marginLeft: "50px" }}>
-                {getTotalAmount() === 0 ? 0 : 50}
+                Rs {getTotalAmount() === 0 ? 0 : 50}/-
               </p>
             </div>
             <hr />
             <div className="cart-total-details">
               <b>Total</b>
               <b style={{ marginLeft: "50px" }}>
-                {getTotalAmount() === 0 ? 0 : getTotalAmount() + 50}
+                Rs {getTotalAmount() === 0 ? 0 : getTotalAmount() + 50}/-
               </b>
             </div>
           </div>

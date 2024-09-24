@@ -7,11 +7,7 @@ import { storeContext } from "../pages/redux/context/storeContext";
 import axios from "axios";
 
 export const SearchBar = () => {
-    const { input,setInput,setFoodList } = useContext(storeContext);
-
-    console.log(input);
-    
-    
+    const { input,setInput,setFoodList } = useContext(storeContext);    
   return (
     <form className="bg-slate-100 p-3 rounded-lg flex items-center justify-between">
           <input

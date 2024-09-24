@@ -100,18 +100,18 @@ export const Order = () => {
           <div>
           <div className="cart-total-details">
               <p>Subtotal</p>
-              <p>${getTotalAmount()}</p>
+              <p>Rs {getTotalAmount()}/-</p>
             </div>
             <hr />
             <div className="cart-total-details">
               <p>Delivery Fee</p>
-              <p>${getTotalAmount()===0?0:50}</p>
+              <p>Rs {getTotalAmount()===0?0:50}/-</p>
 
             </div>
             <hr />
             <div className="cart-total-details">
               <b>Total</b>
-              <b>${getTotalAmount()===0?0:getTotalAmount() + 50}</b>
+              <b>Rs {getTotalAmount()===0?0:getTotalAmount() + 50}/-</b>
 
             </div>
           </div>
