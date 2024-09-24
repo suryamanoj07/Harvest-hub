@@ -44,12 +44,24 @@ const StoreContextProvider=(props)=>{
 
 
     const fetchFood=async()=>{
-        const response = await axios.get("http://localhost:3000/api/product/list")
+        let response
+        if(input == "" || input == null){
+            response = await axios.get("http://localhost:3000/api/product/list")
+        }
+        else{
+            response = await axios.get(`http://localhost:3000/api/product/search/${input}`)
+        }
         setFoodList(response.data.message)
     }
 
     const fetchTool=async()=>{
-        const response = await axios.get("http://localhost:3000/api/tool/list")
+        let response
+        if(input == "" || input == null){
+            response = await axios.get("http://localhost:3000/api/tool/list")
+        }
+        else{
+            response = await axios.get(`http://localhost:3000/api/tool/search/${input}`)
+        }
         setToolList(response.data.message)
     }
 
@@ -68,9 +80,9 @@ const StoreContextProvider=(props)=>{
             }
         }
         LoadData();
-    },[token])
+    },[token,input])
 
-    const contextValue={food_list,cartItems,setCartItems,addtoCart,removeCart,token,setToken,cartQuantity,tool_list,input,setInput}
+    const contextValue={food_list,cartItems,setCartItems,addtoCart,removeCart,token,setToken,cartQuantity,tool_list,input,setInput,setFoodList}
 
 return (
     <storeContext.Provider value={contextValue}>

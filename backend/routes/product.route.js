@@ -18,6 +18,4 @@ productRouter.get("/list",listProduct)
 productRouter.get("/search/:search",searchProduct)
 productRouter.post("/delete/:id",deleteProduct)
 
-
-
 export default productRouter

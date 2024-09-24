@@ -34,6 +34,10 @@ const listProduct = async(req,res)=>{
 const searchProduct = async(req,res)=>{
     const {search} = req.params
     try{
+        if(search==""){
+            const products = await productModel.find({})
+            return res.json({success:true,message:products})
+        }
         const products = await productModel.find({name:{$regex:search,$options:"i"}})
         res.json({success:true,message:products})
     }catch(err){
