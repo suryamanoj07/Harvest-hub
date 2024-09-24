@@ -44,6 +44,7 @@ function App() {
             <Route path='/order' element={<Order/>}/>
             <Route path='/verify' element={<Verify/>}/>
             <Route path='/myorders' element={<MyOrders/>}/>
+            <Route path='/admin' element={<Add />}/>
          </Route>
          <Route path="/Sidebar" element={<Sidebar />}/>
          <Route path="/add" element={<Add />}/>

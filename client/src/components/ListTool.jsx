@@ -46,7 +46,7 @@ const ListTool = () => {
         {list.map((item,idx)=>{
           return(
             <div key={idx} className='list-table-format'>
-              <img src={`http://localhost:3000/images/${item.image}`} alt="" style={{height:"120px",width:"180px",marginLeft:"20px"}} />
+              <img src={`http://localhost:3000/images/${item.image}`} alt="" style={{height:"120px",width:"180px",marginLeft:"20px"}} className='bg-slate-100' />
               <p className='mx-20'>{item.name}</p>
               <p className='mx-12'>{item.category}</p>
               <p>{item.price}</p>

@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+// /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
 // import React, { useContext } from 'react'
 import './FoodItem.css'
