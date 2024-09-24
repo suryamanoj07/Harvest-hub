@@ -1,7 +1,6 @@
  
 // import React from 'react'
 import {
-  FaSearch,
   FaRegHeart,
   FaShoppingBag,
 } from "react-icons/fa";
@@ -12,6 +11,7 @@ import { useSelector } from 'react-redux';
 import { useContext } from "react";
 import { storeContext } from "../pages/redux/context/storeContext";
 import { useNavigate } from "react-router-dom";
+import { SearchBar } from "./SearchBar";
 
 export const Header = () => {
   const { currentUser } = useSelector((state) => state.user);
@@ -71,15 +71,7 @@ export const Header = () => {
 
         </ul>
 
-        <form className="bg-slate-100 p-3 rounded-lg flex items-center justify-between">
-          <input
-            type="text"
-            placeholder="Search.."
-            id="search"
-            className="bg-transparent focus:outline-none w-24 sm:w-72"
-          />
-          <FaSearch className="text-slate-600 w-8 text-xl" />
-        </form>
+        <SearchBar/>
 
         <ul className="flex gap-6 ">
           <li className="font-bold  flex flex-col items-center justify-center cursor-pointer">

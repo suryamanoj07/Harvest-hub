@@ -11,7 +11,7 @@ const StoreContextProvider=(props)=>{
     const [token,setToken]=useState("")
     const [food_list,setFoodList]=useState([])
     const [tool_list,setToolList]=useState([])
-
+    const [input,setInput] = useState("")
 
     const addtoCart=async(id)=>{
        if(!cartItems[id]){
@@ -70,7 +70,7 @@ const StoreContextProvider=(props)=>{
         LoadData();
     },[token])
 
-    const contextValue={food_list,cartItems,setCartItems,addtoCart,removeCart,token,setToken,cartQuantity,tool_list}
+    const contextValue={food_list,cartItems,setCartItems,addtoCart,removeCart,token,setToken,cartQuantity,tool_list,input,setInput}
 
 return (
     <storeContext.Provider value={contextValue}>
