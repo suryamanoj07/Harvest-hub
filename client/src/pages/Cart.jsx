@@ -5,7 +5,7 @@ import { useContext, useEffect } from "react";
 import "./Cart.css";
 import { useNavigate } from "react-router-dom";
 import { storeContext } from "./../pages/redux/context/storeContext";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 
 const Cart = () => {
@@ -27,13 +27,13 @@ const Cart = () => {
 
   useEffect(() => {
     if (!token) {
-      toast.error("to place an order sign in first");
+      // toast.error("to place an order sign in first");
       navigate("/cart");
     } else if (getTotalAmount() === 0) {
-      toast.error("cart cannot be empty!");
+      // toast.error("cart cannot be empty!");
       navigate("/empty");
     }
-  }, []);
+  }, [token]);
 
   return (
     <div className="cart">

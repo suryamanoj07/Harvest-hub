@@ -12,6 +12,7 @@ const List = () => {
     const response = await axios.get(url);
     if (response.data.success) {
       setList(response.data.message);
+      toast.success(response.data.message)
     } else {
       toast.error("Error");
     }
@@ -25,7 +26,7 @@ const List = () => {
     console.log(respone);
     await fetchList();
     if (respone.data.success) {
-      toast.success(respone.data.message);
+      toast.error(respone.data.message);
     } else {
       toast.error(respone.data.message);
     }

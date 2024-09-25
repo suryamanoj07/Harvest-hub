@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import { useContext, useState , useEffect} from 'react'
 import './Order.css'
@@ -61,19 +62,20 @@ export const Order = () => {
     let url = "http://localhost:3000"
     let response = await axios.post(url+"/api/order/place",orderData,{headers:{token}})
     if(response.data.success){
+      toast.success("Ordered successfully")
       navigate("/myorders")
     }
   }
-//     useEffect(() => {
-//       if (!token) {
-//           toast.error("to place an order sign in first")
-//           navigate('/cart')
-//       }
-//       else if (getTotalAmount() === 0) {
-//         toast.error("cart cannot be empty!")
-//         //   navigate('/cart')
-//       }
-//   }, [token])
+  //   useEffect(() => {
+  //     if (!token) {
+  //         toast.error("to place an order sign in first")
+  //         navigate('/cart')
+  //     }
+  //     else if (getTotalAmount() === 0) {
+  //       toast.error("cart cannot be empty!")
+  //       //   navigate('/cart')
+  //     }
+  // }, [token])
   return (
     <form onSubmit={placeOrder} className='place-order'>
       <div className="place-order-left">
