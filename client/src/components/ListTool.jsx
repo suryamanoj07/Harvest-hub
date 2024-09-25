@@ -36,7 +36,7 @@ const ListTool = () => {
       <Sidebar />
     <div className='ml-52 mr-20'>
     <div className='list add flex-col'>
-      <p className='flex justify-center font-bold text-red-600 text-xl m-4'>All Foods List</p>
+      <p className='flex justify-center font-bold text-red-600 text-xl m-4'>All Products List</p>
       <div className='list-table mx-16'>
         <div className="list-table-format title">
           <b className='mx-16 text-2xl'>Product</b>

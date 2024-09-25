@@ -22,6 +22,7 @@ import { AddTool } from "./components/AddTool";
 import ListTool from "./components/ListTool";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+// import { Addfarmer } from "./pages/AddFarmer";
 
 function App() {
   const [category, setCategory] = useState("All");
@@ -48,6 +49,7 @@ function App() {
             <Route path="/profile" element={<Profile />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/empty" element={<Empty />} />
+            {/* <Route path="/addfarmer" element={<Addfarmer />} /> */}
             <Route path="/order" element={<Order />} />
             <Route path="/verify" element={<Verify />} />
             <Route path="/myorders" element={<MyOrders />} />
