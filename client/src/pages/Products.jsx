@@ -15,7 +15,9 @@ export const Products = ({category,setCategory}) => {
 
   return (
     <div>
+      <div>
       <ExploreMenu category={category} setCategory={setCategory}/>
+      </div>
     <div className="food-display" id="food-dsiplay">
     <h2>Top dishes near you</h2>
     <div className="food-display-list">
