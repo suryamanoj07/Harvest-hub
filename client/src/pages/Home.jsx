@@ -38,9 +38,9 @@ export const Home = ({category,setCategory}) => {
         {currentUser==null && <LoginPopup />}
       </div>
       {/* <ExploreMenu category={category} setCategory={setCategory}/> */}
-      <div className="mb-28 mx-20 p-8">
+      {/* <div className="mb-28 mx-20 p-8">
         <Products category={category}/>
-      </div>
+      </div> */}
     </div>
   );
 };
