@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
 /* eslint-disable react-refresh/only-export-components */
 import axios from "axios";
@@ -5,11 +6,12 @@ import { createContext, useEffect, useState } from "react";
 
 export const storeContext = createContext();
 
-const StoreContextProvider = (props) => {
-  const [role, setRole] = useState("Admin"); // Default role is "user"
-  const [cartItems, setCartItems] = useState({});
-  const [token, setToken] = useState("");
-  const [food_list, setFoodList] = useState([]);
+const StoreContextProvider=(props)=>{
+    const [cartItems,setCartItems]=useState({})
+    const [token,setToken]=useState("")
+    const [food_list,setFoodList]=useState([])
+    const [tool_list,setToolList]=useState([])
+    const [input,setInput] = useState("")
 
   const addtoCart = async (id) => {
     if (!cartItems[id]) {
@@ -50,15 +52,7 @@ const StoreContextProvider = (props) => {
     return totalAmount;
   };
 
-  const fetchFood = async () => {
-    const response = await axios.get("http://localhost:3000/api/product/list");
-    setFoodList(response.data.message);
-  };
-
-  const loadCart = async (token) => {
-    const response = await axios.post("http://localhost:3000/api/cart/get", {}, { headers: { token } });
-    setCartItems(response.data.cartData);
-  };
+  
 
   // Function to extract and set role from localStorage
   const loadRoleFromPersist = () => {
@@ -81,35 +75,49 @@ const StoreContextProvider = (props) => {
     }
   };
 
-  useEffect(() => {
-    const LoadData = async () => {
-      await fetchFood();
-      const storedToken = localStorage.getItem("token");
-      if (storedToken) {
-        setToken(storedToken);
-        await loadCart(storedToken);
-      }
-      loadRoleFromPersist(); // Load role from persist
-    };
 
-    LoadData();
-  }, []); // Empty dependency array to run only once on mount
+    const fetchFood=async()=>{
+        let response
+        if(input == "" || input == null){
+            response = await axios.get("http://localhost:3000/api/product/list")
+        }
+        else{
+            response = await axios.get(`http://localhost:3000/api/product/search/${input}`)
+        }
+        setFoodList(response.data.message)
+    }
 
-  const contextValue = {
-    food_list,
-    cartItems,
-    setCartItems,
-    addtoCart,
-    removeCart,
-    getTotalAmount,
-    token,
-    setToken,
-    cartQuantity,
-    role,
-    setRole,
-  };
+    const fetchTool=async()=>{
+        let response
+        if(input == "" || input == null){
+            response = await axios.get("http://localhost:3000/api/tool/list")
+        }
+        else{
+            response = await axios.get(`http://localhost:3000/api/tool/search/${input}`)
+        }
+        setToolList(response.data.message)
+    }
 
-  return (
+    const loadCart = async(token)=>{
+        const response = await axios.post("http://localhost:3000/api/cart/get",{},{headers:{token}})
+        setCartItems(response.data.cartData)
+    }
+
+    useEffect(()=>{
+        async function LoadData(){
+            await fetchFood()
+            await fetchTool()
+            if(localStorage.getItem("token")){
+                setToken(localStorage.getItem("token"))
+                await loadCart(localStorage.getItem("token"))
+            }
+        }
+        LoadData();
+    },[token,input])
+
+    const contextValue={food_list,cartItems,setCartItems,addtoCart,removeCart,token,setToken,cartQuantity,tool_list,input,setInput,setFoodList}
+
+return (
     <storeContext.Provider value={contextValue}>
       {props.children}
     </storeContext.Provider>

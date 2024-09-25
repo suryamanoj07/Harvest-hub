@@ -1,5 +1,5 @@
 import express from 'express'
-import { addProduct, deleteProduct, listProduct } from '../controllers/product.js'
+import { addProduct, deleteProduct, listProduct,searchProduct } from '../controllers/product.js'
 import multer from 'multer'
 
 const productRouter = express.Router()
@@ -15,8 +15,7 @@ const upload = multer({storage:storage})
 
 productRouter.post("/add",upload.single("image"),addProduct)
 productRouter.get("/list",listProduct)
+productRouter.get("/search/:search",searchProduct)
 productRouter.post("/delete/:id",deleteProduct)
-
-
 
 export default productRouter

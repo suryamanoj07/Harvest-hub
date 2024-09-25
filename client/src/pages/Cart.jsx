@@ -1,32 +1,42 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/jsx-key */
- 
-import  { useContext,useEffect } from 'react'
-import './Cart.css'
-import { useNavigate } from 'react-router-dom';
-import { storeContext } from './../pages/redux/context/storeContext';
-import { toast } from 'react-toastify';
+
+import { useContext, useEffect } from "react";
+import "./Cart.css";
+import { useNavigate } from "react-router-dom";
+import { storeContext } from "./../pages/redux/context/storeContext";
+import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
 
 const Cart = () => {
-
-   
-  const { cartItems, food_list, removeCart,getTotalAmount,token } = useContext(storeContext);
+  const { currentUser } = useSelector((state) => state.user);
+  const { cartItems, food_list, removeCart, token, tool_list } = useContext(storeContext);
   const navigate = useNavigate();
-   
+
+  const list = currentUser.role == "Customer" ? food_list : tool_list;
+
+  const getTotalAmount=()=>{
+    let totalAmount=0
+    for(const item in cartItems){
+        if(cartItems[item]>0){
+            let itemInfo = list.find((product)=>product._id===item)
+            totalAmount+= itemInfo.price*cartItems[item]
+        }
+    }return totalAmount;
+}
+
   useEffect(() => {
     if (!token) {
-        toast.error("to place an order sign in first")
-        navigate('/cart')
+      toast.error("to place an order sign in first");
+      navigate("/cart");
+    } else if (getTotalAmount() === 0) {
+      toast.error("cart cannot be empty!");
+      navigate("/empty");
     }
-    else if (getTotalAmount() === 0) {
-      toast.error("cart cannot be empty!")
-        navigate('/empty')
-    }
-}, [])
-
+  }, []);
 
   return (
-    <div className='cart'>
+    <div className="cart">
       <div className="cart-items">
         <div className="cart-items-title">
           <p>Items</p>
@@ -38,24 +48,29 @@ const Cart = () => {
         </div>
         <br />
         <hr />
-        {food_list.map((item) => {
+
+        {list.map((item) => {
           if (cartItems[item._id] > 0) {
             return (
               <div>
-                <div className='cart-items-title cart-items-item'>
-                  <img src={"http://localhost:3000/images/"+item.image} alt="" />
+                <div className="cart-items-title cart-items-item">
+                  <img
+                    src={"http://localhost:3000/images/" + item.image}
+                    alt=""
+                  />
                   <p>{item.name}</p>
                   <p>${item.price}</p>
                   <p>{cartItems[item._id]}</p>
                   <p>${item.price * cartItems[item._id]}</p>
-                  <p onClick={() => removeCart(item._id)} className='cross'>x</p>
+                  <p onClick={() => removeCart(item._id)} className="cross">
+                    x
+                  </p>
                 </div>
                 <hr />
               </div>
-            )
+            );
           }
         })}
-
       </div>
       <div className="cart-bottom">
         <div className="cart-total">
@@ -63,27 +78,28 @@ const Cart = () => {
           <div>
             <div className="cart-total-details">
               <p>Subtotal</p>
-              <p style={{marginLeft:"50px"}}>{getTotalAmount()}</p>
+              <p style={{ marginLeft: "50px" }}>{getTotalAmount()}</p>
             </div>
             <hr />
             <div className="cart-total-details">
               <p>Delivery Fee</p>
-              <p style={{marginLeft:"50px"}}>{getTotalAmount()===0?0:50}</p>
-
+              <p style={{ marginLeft: "50px" }}>
+                {getTotalAmount() === 0 ? 0 : 50}
+              </p>
             </div>
             <hr />
             <div className="cart-total-details">
               <b>Total</b>
-              <b style={{marginLeft:"50px"}}>{getTotalAmount()===0?0:getTotalAmount() + 50}</b>
-
+              <b style={{ marginLeft: "50px" }}>
+                {getTotalAmount() === 0 ? 0 : getTotalAmount() + 50}
+              </b>
             </div>
           </div>
-          <button onClick={()=>navigate('/order')}>ORDER NOW</button>
+          <button onClick={() => navigate("/order")}>ORDER NOW</button>
         </div>
       </div>
-
     </div>
-  )
-}
+  );
+};
 
-export default Cart
+export default Cart;

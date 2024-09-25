@@ -1,77 +1,52 @@
-const User = require('../models/user.model');
-const router = require('express').Router();
-const mongoose = require('mongoose');
-const { roles } = require('../utils/constants');
+import User from '../models/UserModel.js'; // Adjust path based on your project structure
+import bcryptjs from 'bcryptjs';
 
-router.get('/users', async (req, res, next) => {
-  try {
-    const users = await User.find();
-    // res.send(users);
-    res.render('manage-users', { users });
-  } catch (error) {
-    next(error);
-  }
-});
-
-router.get('/user/:id', async (req, res, next) => {
-  try {
-    const { id } = req.params;
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      req.flash('error', 'Invalid id');
-      res.redirect('/admin/users');
-      return;
+// Controller to fetch all users
+export const getAllUsers = async (req, res) => {
+    try {
+        const users = await User.find({});
+        res.json({ success: true, message: users });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, message: error.message });
     }
-    const person = await User.findById(id);
-    res.render('profile', { person });
-  } catch (error) {
-    next(error);
-  }
-});
+};
 
-router.post('/update-role', async (req, res, next) => {
-  try {
-    const { id, role } = req.body;
-
-    // Checking for id and roles in req.body
-    if (!id || !role) {
-      req.flash('error', 'Invalid request');
-      return res.redirect('back');
+// Controller to create a new user
+export const createUser = async (req, res) => {
+    const { email, password, username, role } = req.body;
+    try {
+        const hashPassword = bcryptjs.hashSync(password, 10);
+        const newUser = new User({ email, password: hashPassword, username, role });
+        await newUser.save();
+        res.json({ success: true, message: newUser });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, message: error.message });
     }
+};
 
-    // Check for valid mongoose objectID
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      req.flash('error', 'Invalid id');
-      return res.redirect('back');
+// Controller to update an existing user
+export const updateUser = async (req, res) => {
+    const { userId } = req.params;
+    const { email, role } = req.body;
+    try {
+        const updatedUser = await User.findByIdAndUpdate(userId, { email, role }, { new: true });
+        res.json({ success: true, message: updatedUser });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, message: error.message });
     }
+};
 
-    // Check for Valid role
-    const rolesArray = Object.values(roles);
-    if (!rolesArray.includes(role)) {
-      req.flash('error', 'Invalid role');
-      return res.redirect('back');
+// Controller to delete a user
+export const deleteUser = async (req, res) => {
+    const { userId } = req.params;
+    try {
+        await User.findByIdAndDelete(userId);
+        res.json({ success: true, message: 'User deleted successfully' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, message: error.message });
     }
-
-    // Admin cannot remove himself/herself as an admin
-    if (req.user.id === id) {
-      req.flash(
-        'error',
-        'Admins cannot remove themselves from Admin, ask another admin.'
-      );
-      return res.redirect('back');
-    }
-
-    // Finally update the user
-    const user = await User.findByIdAndUpdate(
-      id,
-      { role },
-      { new: true, runValidators: true }
-    );
-
-    req.flash('info', `updated role for ${user.email} to ${user.role}`);
-    res.redirect('back');
-  } catch (error) {
-    next(error);
-  }
-});
-
-module.exports = router;
+};

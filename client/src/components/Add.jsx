@@ -11,7 +11,7 @@ export const Add = () => {
     name: "",
     description: "",
     price: "",
-    category: "Salad",
+    category: "Dal",
   });
   const onHandleChange = (e) => {
     const name = e.target.name;
@@ -33,10 +33,10 @@ export const Add = () => {
         name: "",
         description: "",
         price: "",
-        category: "Salad",
+        category: "Dal",
       });
       setImage(false);
-      toast.success(response.data.message);
+      toast.success(response.data.message); 
     } else {
       toast.error(response.data.message);
     }
@@ -85,14 +85,11 @@ export const Add = () => {
                   onChange={onHandleChange}
                   className="p-1 border-2 border-blue-400"
                 >
-                  <option value="Salad">Salad</option>
-                  <option value="Rolls">Rolls</option>
-                  <option value="Desert">Desert</option>
-                  <option value="Sandwich">Sandwich</option>
-                  <option value="Cake">Cake</option>
-                  <option value="Pure veg">Pure Veg</option>
-                  <option value="Pasta">Pasta</option>
-                  <option value="Noodles">Noodles</option>
+                  <option value="Fruit">Fruit</option>
+                  <option value="Vegetable">Vegetable</option>
+                  <option value="Grains">Grains</option>
+                  <option value="Nuts">Nuts</option>
+                  <option value="Dal">Dal</option>
                 </select>
               </div>
               <div className="flex flex-col gap-2 justify-center items-start ">

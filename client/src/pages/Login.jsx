@@ -32,7 +32,6 @@ export const Login = () => {
         dispatch(loginInSuccess(res.data.user))
         setToken(res.data.token)
         localStorage.setItem("token",res.data.token)
-        console.log(res.data.user);
         
         navigate('/')
         }catch(err){

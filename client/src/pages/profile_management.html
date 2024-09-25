@@ -1,0 +1,164 @@
+<div class="top-blur"></div>
+
+<div class="w-80 h-36 mt-48 flex ml-8 ">
+    <img id="profile-image" class="rounded-full w-36 h-36 mr-9 " src="/images/avatar.jpg" alt="profile image">
+    <div class="relative mt-16">
+        <p class=" mt-4  to-black text-base  tracking-tight leading-relaxed whitespace-nowrap"
+            style="font-weight: normal; color:#000000;">
+            Hello,
+        </p>
+        <p class="text-xl" style="font-weight: semi-bold; color:#000000;"><span id="intro-first-name"></span> <span
+                id="intro-last-name"></span></p>
+
+    </div>
+</div>
+
+<div class="class-1140 block" style="margin-top: 4rem;">
+    <p class="pb-4 text-xl font-normal font-sans">Personal info</p>
+    <div class="border-dotted border-2 border-gray-700 mr-7  rounded-2xl glass-mor">
+        <div class="m-8 ">
+            <form>
+                <div class="grid gap-9 mb-6 md:grid-cols-2">
+                    <div>
+                        <label for="first_name" class="block mb-2 text-sm  to-black font-bold">First
+                            name</label>
+                        <input type="text" id="first_name"
+                            class="bg-gray-50 border border-gray-300 text-black text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                            placeholder="John" required />
+                    </div>
+                    <div>
+                        <label for="last_name" class="block mb-2 text-sm  to-black font-bold ">Last
+                            name</label>
+                        <input type="text" id="last_name"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                            placeholder="Doe" required />
+                    </div>
+                    <div>
+                        <label for="email" class="block mb-2 text-sm  to-black font-bold ">Email</label>
+                        <input type="email" id="personal-email"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+                            placeholder="ps@gmail.com" required />
+                    </div>
+                    <div>
+                        <label for="phone" class="block mb-2 text-sm  to-black font-bold ">Phone
+                            number</label>
+                        <input type="tel" id="personal-contact-number"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                            placeholder="123-45-678" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" required />
+                    </div>
+                </div>
+                <div class="mb-6">
+                    <label for="Address" class="block mb-2 text-sm  to-black font-bold ">Address</label>
+                    <input type="text" id="personal-address"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                        placeholder="address" required />
+                </div>
+            </form>
+
+
+        </div>
+    </div>
+</div>
+
+
+<div class="class-1140 block" style="margin-top: 4rem;">
+    <p class="pb-4 text-xl font-normal ">Business info</p>
+    <div class="border-dotted border-2  mr-7  rounded-2xl mb-11 glass-mor">
+        <div class="m-8  h-auto">
+            <form>
+                <div class="grid gap-9 mb-6 md:grid-cols-2">
+                    <div>
+                        <label for="business_name" class="block mb-2 text-sm  to-black font-bold ">Business/shop
+                            name</label>
+                        <input type="text" id="business-name"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                            placeholder="abc" required />
+                    </div>
+                    <div></div>
+                    <div>
+                        <label for="email_2" class="block mb-2 text-sm  to-black font-bold ">Email</label>
+                        <input type="email_2" id="business-email"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+                            placeholder="abc@gmail.com" required />
+                    </div>
+                    <div>
+                        <label for="contact" class="block mb-2 text-sm  to-black font-bold ">Contact
+                            no.</label>
+                        <input type="tel" id="business-contact-number"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                            placeholder="1********0" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" required />
+                    </div>
+                </div>
+                <div class="mb-6">
+                    <label for="Shop_Address" class="block mb-2 text-sm  to-black font-bold ">Address</label>
+                    <input type="text" id="business-address"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                        placeholder="City and State" required />
+                </div>
+                <div class="grid gap-9 mb-6 md:grid-cols-2">
+                    <div>
+                        <label for="Account_no" class="block mb-2 text-sm  to-black font-bold ">Account
+                            no.</label>
+                        <input type="text" id="business-account-number"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                            placeholder="7************" required />
+                    </div>
+                    <div>
+                        <label for="GSTIN" class="block mb-2 text-sm  to-black font-bold ">GSTIN</label>
+                        <input type="text" id="business-gstin"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                            placeholder="1***********" required />
+                    </div>
+                </div>
+                <div class="grid gap-9 mb-6 md:grid-cols-2">
+                    <div>
+                        <label for="logo" class="block mb-2 text-sm to-black font-bold">Logo</label>
+                        <label for="dropzone-file"
+                            class="flex flex-col items-center justify-center w-full h-52 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100">
+                            <div class="flex flex-col items-center justify-center pt-5 pb-6" id="file-info">
+                                <svg class="w-8 h-8 mb-4 text-gray-500" aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2"
+                                        d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
+                                </svg>
+                                <p class="mb-2 text-sm text-gray-500" id="upload-para"><span class="font-semibold">Click
+                                        to upload</span> or drag and drop</p>
+                                <p class="text-xs text-gray-500 hidden " id="file-name">File Name</p>
+                                <button class="remove-button hidden mt-4" id="remove-button">❌</button>
+                            </div>
+                            <input id="dropzone-file" type="file" class="hidden" />
+                    </div>
+                    <div>
+
+                        <label for="message" class="block mb-2 text-sm  to-black font-bold ">About</label>
+                        <textarea id="business-about" rows="9"
+                            class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 "
+                            placeholder="Write about your shop here"></textarea>
+
+                    </div>
+                </div>
+            </form>
+
+
+        </div>
+    </div>
+</div>
+
+
+<div class="flex items-start mb-6 ml-6">
+    <div class="flex items-center h-5">
+        <input id="remember" type="checkbox" value=""
+            class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:focus:ring-blue-600 "
+            required />
+    </div>
+    <label for="remember" class="ms-2 text-sm  text-gray-900 ">I agree with the <a href="#"
+            class="text-blue-600 hover:underline dark:text-blue-500">terms and
+            conditions</a>.</label>
+</div>
+<button id="submit-button" type="submit"
+    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300  rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center ml-6 mb-11">Submit</button>
+
+
+<script src="js/profile_management.js"></script>
+<script src="profiles.json"></script>
