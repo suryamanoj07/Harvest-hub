@@ -22,7 +22,7 @@ export const Header = () => {
     localStorage.removeItem("token");
     setToken("");
     dispatch(logoutSuccess())
-    navigate("/login");
+    navigate("/");
   };
 
   return (
