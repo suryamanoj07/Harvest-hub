@@ -7,7 +7,10 @@ import { useSelector } from 'react-redux';
 const ExploreMenu = ({category,setCategory}) => {
   const { currentUser } = useSelector((state) => state.user);
 
-  const list = currentUser.role=="Customer"?menu_list:menu_list2
+  let list = menu_list
+   if(currentUser){
+    list = currentUser.role=="Customer"?menu_list:menu_list2
+   }
 
   return (
     <div className='explore-menu' id='explore-menu'>

@@ -3,21 +3,25 @@ import { FaRegHeart, FaShoppingBag } from "react-icons/fa";
 import user_image from "./../../assets/user_img.png";
 import { IoPersonSharp } from "react-icons/io5";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useContext } from "react";
 import { storeContext } from "../pages/redux/context/storeContext";
+import { logoutSuccess } from "../../src/pages/redux/user/userSlice"
 import { useNavigate } from "react-router-dom";
 import { SearchBar } from "./SearchBar";
 
 export const Header = () => {
-  const { currentUser } = useSelector((state) => state.user);
+  let { currentUser } = useSelector((state) => state.user);
   const { cartQuantity } = useContext(storeContext);
   const { setToken } = useContext(storeContext);
   const navigate = useNavigate();
+  const dispatch = useDispatch()
+
 
   const logout = () => {
     localStorage.removeItem("token");
     setToken("");
+    dispatch(logoutSuccess())
     navigate("/login");
   };
 
@@ -31,7 +35,7 @@ export const Header = () => {
           </h1>
         </Link>
 
-        {currentUser.role == "Admin" ? (
+        {currentUser && currentUser.role == "Admin" ? (
           <div className="flex items-center">
             <div className="text-3xl mr-80">
               Welcome {currentUser.username}

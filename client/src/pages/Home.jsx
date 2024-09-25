@@ -17,10 +17,11 @@ export const Home = ({category,setCategory}) => {
   const navigate = useNavigate()
 
   useEffect(()=>{
-    if(currentUser.role == "Admin"){
+    if(currentUser && currentUser.role == "Admin"){
       navigate("/orders")
     }
-  },[currentUser.role])
+    else navigate("/")
+  },[])
 
   return (
     <div
