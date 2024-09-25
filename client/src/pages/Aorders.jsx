@@ -3,6 +3,7 @@ import './Aorders.css'
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import { assets } from './../../frontend_assets/assets';
+import { Sidebar } from '../components/Sidebar';
 
 const Aorder = () => {
 
@@ -38,7 +39,9 @@ const Aorder = () => {
   }, [])
 
   return (
-    <div className='order add p-10'>
+    <div className='flex'>
+      <Sidebar/>
+      <div className='order add p-10'>
       <h3>Order Page</h3>
       <div className="order-list">
         {orders.map((order, index) => (
@@ -72,6 +75,7 @@ const Aorder = () => {
           </div>
         ))}
       </div>
+    </div>
     </div>
   )
 }

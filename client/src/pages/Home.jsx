@@ -1,18 +1,26 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 // import { useState } from "react";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import ExploreMenu from "../components/ExploreMenu";
 import { LoginPopup } from "../components/LoginPopup";
 import background from "./../../assets/website-home.jpg";
 import { Products } from "./Products";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 // import { storeContext } from "./redux/context/storeContext";
 
 export const Home = ({category,setCategory}) => {
 
   const { currentUser } = useSelector((state) => state.user);
-  
+  const navigate = useNavigate()
+
+  useEffect(()=>{
+    if(currentUser.role == "Admin"){
+      navigate("/orders")
+    }
+  },[currentUser.role])
 
   return (
     <div
