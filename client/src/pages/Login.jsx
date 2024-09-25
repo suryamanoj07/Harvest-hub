@@ -9,7 +9,7 @@ import { storeContext } from "./redux/context/storeContext"
 export const Login = () => {
     const [formData,setFormData] = useState({})
     const {setToken} = useContext(storeContext)
-    const {loading,error,currentUser}=useSelector((state)=>state.user)
+    const {loading,error}=useSelector((state)=>state.user)
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
@@ -33,12 +33,7 @@ export const Login = () => {
         setToken(res.data.token)
         localStorage.setItem("token",res.data.token)
         
-        if(currentUser.role=="Customer" || currentUser.role=="Farmer"){
-            navigate("/")
-        }
-        else{
-            navigate("/admin")
-        }
+        navigate('/')
         }catch(err){
             dispatch(loginInFailure(err.message))
         }

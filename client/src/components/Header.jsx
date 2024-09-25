@@ -42,8 +42,8 @@ export const Header = () => {
             </div>
           </div>
         ) : (
-          <div>
-            <ul className="flex gap-6">
+          <div className="flex items-center gap-16">
+            <ul className="flex gap-4">
               <Link to="/Market">
                 <li className="text-slate-700 hover:underline font-semibold text-lg">
                   Market
