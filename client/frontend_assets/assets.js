@@ -2,11 +2,11 @@ import basket_icon from './basket_icon.png'
 import logo from './logo.png'
 import header_img from './header_img.png'
 import search_icon from './search_icon.png'
-import menu_1 from './menu_1.png'
-import menu_2 from './menu_2.png'
-import menu_3 from './menu_3.png'
-import menu_4 from './menu_4.png'
-import menu_5 from './menu_5.png'
+import menu_1 from './../assets/fruits_menu.jpg'
+import menu_2 from './../assets/vegetables_menu.jpg'
+import menu_3 from './../assets/grains_menu.jpg'
+import menu_4 from './../assets/nuts_menu.jpg'
+import menu_5 from './../assets/dal_menu.webp'
 
 
 

@@ -37,14 +37,14 @@ const Cart = () => {
 
   return (
     <div className="cart">
-      <div className="cart-items">
-        <div className="cart-items-title">
+      <div className="cart-items mx-20">
+        <div className="cart-items-title ml-4 font-bold text-black">
           <p>Items</p>
           <p>Title</p>
           <p>Price</p>
-          <p>Quantity</p>
+          <p className="-ml-8">Quantity</p>
           <p>Total</p>
-          <p>Remove</p>
+          <p className="-ml-8">Remove</p>
         </div>
         <br />
         <hr />
@@ -52,8 +52,8 @@ const Cart = () => {
         {list.map((item,idx) => {
           if (cartItems[item._id] > 0) {
             return (
-              <div>
-                <div className="cart-items-title cart-items-item" key={idx} >
+              <div className="">
+                <div className="cart-items-title cart-items-item transform transition-transform duration-300 hover:scale-105 hover:shadow-2xl hover:border-4 hover:border-blue-400 hover:bg-blue-200 bg-blue-300 p-3" key={idx} >
                   <img
                     src={"http://localhost:3000/images/" + item.image}
                     alt=""
@@ -96,7 +96,7 @@ const Cart = () => {
               </b>
             </div>
           </div>
-          <button onClick={() => navigate("/order")}>ORDER NOW</button>
+          <button className="hover:opacity-85" onClick={() => navigate("/order")}>ORDER NOW</button>
         </div>
       </div>
     </div>

@@ -14,8 +14,8 @@ export const Products = ({category,setCategory}) => {
   // const [loading, setLoading] = useState(true); // Add a loading state
 
   return (
-    <div className='m-24'>
-      <h1 className='text-3xl mb-8 bg-blue-500 w-52 p-3'>Top Products</h1>
+    <div className=''>
+      {/* <h1 className='text-3xl m-8 mt-28 bg-blue-500 w-52 p-3'>Top Products</h1> */}
       <div>
       <ExploreMenu category={category} setCategory={setCategory}/>
       </div>
