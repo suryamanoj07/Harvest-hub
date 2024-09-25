@@ -4,9 +4,9 @@ import { Link } from "react-router-dom";
 
 export const Sidebar = () => {
   return (
-    <div className=" max-w-76 border-r-slate-400 border-2 flex flex-col gap-0" style={{height:"89.9vh"}}>
+    <div className=" border-r-slate-400 border-2 flex flex-col gap-0 min-w-52 mt-4  fixed">
         <Link to="/add">
-        <div className="flex flex-col gap-2 p-6 justify-center items-center  hover:bg-slate-300 cursor-pointer border-b-2 border-slate-400">
+        <div className="flex flex-col gap-2 p-6 justify-center items-center  hover:bg-slate-300 cursor-pointer border-b-2 border-slate-400 border-t-2">
             <img src={add_icon} alt="add product" className="h-6 w-6" />
             <p>Add new product</p>
         </div>

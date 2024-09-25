@@ -39,13 +39,14 @@ const Aorder = () => {
   }, [])
 
   return (
-    <div className='flex'>
+    <div className='flex gap-40'>
       <Sidebar/>
+      <div className='ml-52 mr-12'>
       <div className='order add p-10'>
-      <h3>Order Page</h3>
-      <div className="order-list">
+      <h3 className='text-center text-3xl'>Orders Information</h3>
+      <div className="order-list ">
         {orders.map((order, index) => (
-          <div key={index} className='order-item'>
+          <div key={index} className='order-item  bg-orange-200 transform transition-transform duration-300 hover:scale-105 hover:shadow-2xl hover:border-4 hover:border-blue-400 hover:bg-orange-300'>
             <img src={assets.parcel_icon} alt="" />
             <div>
               <p className='order-item-food'>
@@ -66,7 +67,7 @@ const Aorder = () => {
               <p className='order-item-phone'>{order.address.phone}</p>
             </div>
             <p>Items : {order.items.length}</p>
-            <p>Rs {order.amount}/-</p>
+            <p className='font-bold'>Rs {order.amount}/-</p>
             <select onChange={(e)=>statusHandler(e,order._id)} value={order.status} name="" id="">
               <option value="Food Processing">Food Processing</option>
               <option value="Out for delivery">Out for delivery</option>
@@ -76,6 +77,7 @@ const Aorder = () => {
         ))}
       </div>
     </div>
+      </div>
     </div>
   )
 }

@@ -47,6 +47,7 @@ export const Add = () => {
   return (
     <div className="flex items-start gap-12">
       <Sidebar />
+      <div className="mx-auto mt-4">
       <form
         className="flex flex-col mx-10 gap-4 p-12 bg-cover"
         style={{ backgroundImage: `url(${add_form})` }}
@@ -132,6 +133,7 @@ export const Add = () => {
           ADD PRODUCT
         </button>
       </form>
+      </div>
     </div>
   );
 };

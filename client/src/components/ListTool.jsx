@@ -33,6 +33,7 @@ const ListTool = () => {
   return (
     <div className="flex items-start gap-12">
       <Sidebar />
+    <div className='ml-52 mr-20'>
     <div className='list add flex-col'>
       <p className='flex justify-center font-bold text-red-600 text-xl m-4'>All Foods List</p>
       <div className='list-table mx-16'>
@@ -45,8 +46,8 @@ const ListTool = () => {
         </div>
         {list.map((item,idx)=>{
           return(
-            <div key={idx} className='list-table-format'>
-              <img src={`http://localhost:3000/images/${item.image}`} alt="" style={{height:"120px",width:"180px",marginLeft:"20px"}} className='bg-slate-100' />
+            <div key={idx} className='list-table-format list-table-format transform transition-transform duration-300 hover:scale-105 hover:shadow-2xl hover:border-4 hover:border-blue-400 hover:bg-blue-200'>
+              <img src={`http://localhost:3000/images/${item.image}`} alt="" style={{height:"90px",width:"150px",marginLeft:"20px"}} className='bg-slate-100' />
               <p className='mx-20'>{item.name}</p>
               <p className='mx-12'>{item.category}</p>
               <p>{item.price}</p>
@@ -55,6 +56,7 @@ const ListTool = () => {
           )
         })}
       </div>
+    </div>
     </div>
     </div>
     

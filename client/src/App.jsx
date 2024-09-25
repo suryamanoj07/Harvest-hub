@@ -10,7 +10,6 @@ import { Signup } from './pages/Signup'
 import React, { useState } from 'react'
 import PrivateRoute from './components/PrivateRoute'
 import Profile from './pages/Profile'
-import { Sidebar } from './components/Sidebar'
 import { Add } from './components/Add'
 import List from './components/List'
 import { Order } from './pages/Order'
@@ -46,7 +45,6 @@ function App() {
             <Route path='/myorders' element={<MyOrders/>}/>
             <Route path='/admin' element={<Add />}/>
          </Route>
-         <Route path="/Sidebar" element={<Sidebar />}/>
          <Route path="/add" element={<Add />}/>
          <Route path="/addtool" element={<AddTool />}/>
          <Route path="/list" element={<List />}/>
