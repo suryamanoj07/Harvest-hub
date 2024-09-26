@@ -13,6 +13,7 @@ const userSlice = createSlice({
     reducers: {
         loginInStart: (state) => {
             state.loading = true;
+            state.error = false;
         },
         loginInSuccess: (state, action) => {
             state.currentUser = action.payload;
@@ -29,11 +30,14 @@ const userSlice = createSlice({
         clearUserInfo: (state) => {
             state.userInfo = null;
         },
-        // New action to update user profile
         updateUser: (state, action) => {
-            state.currentUser = { ...state.currentUser, ...action.payload }; // Merge existing user data with new data
+            state.currentUser = { ...state.currentUser, ...action.payload };
         },
-    },
+        logoutSuccess: (state) => {
+            state.currentUser = null;
+            state.error = false;
+        }
+    }
 });
 
 // Export actions
@@ -43,7 +47,8 @@ export const {
     loginInSuccess, 
     setUserInfo, 
     clearUserInfo, 
-    updateUser 
+    updateUser, 
+    logoutSuccess 
 } = userSlice.actions;
 
 // Export the reducer

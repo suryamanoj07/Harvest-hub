@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import { useContext, useState , useEffect} from 'react'
 import './Order.css'
@@ -10,8 +11,7 @@ import { useSelector } from 'react-redux'
 export const Order = () => {
   const {food_list,token,cartItems,tool_list} = useContext(storeContext)
   const { currentUser } = useSelector((state) => state.user);
-
-
+  
   const navigate = useNavigate()
   const [data,setData] = useState({
     firstName: "",
@@ -61,19 +61,20 @@ export const Order = () => {
     let url = "http://localhost:3000"
     let response = await axios.post(url+"/api/order/place",orderData,{headers:{token}})
     if(response.data.success){
+      toast.success("Ordered successfully")
       navigate("/myorders")
     }
   }
-//     useEffect(() => {
-//       if (!token) {
-//           toast.error("to place an order sign in first")
-//           navigate('/cart')
-//       }
-//       else if (getTotalAmount() === 0) {
-//         toast.error("cart cannot be empty!")
-//         //   navigate('/cart')
-//       }
-//   }, [token])
+  //   useEffect(() => {
+  //     if (!token) {
+  //         toast.error("to place an order sign in first")
+  //         navigate('/cart')
+  //     }
+  //     else if (getTotalAmount() === 0) {
+  //       toast.error("cart cannot be empty!")
+  //       //   navigate('/cart')
+  //     }
+  // }, [token])
   return (
     <form onSubmit={placeOrder} className='place-order'>
       <div className="place-order-left">
@@ -100,18 +101,18 @@ export const Order = () => {
           <div>
           <div className="cart-total-details">
               <p>Subtotal</p>
-              <p>${getTotalAmount()}</p>
+              <p>Rs {getTotalAmount()}/-</p>
             </div>
             <hr />
             <div className="cart-total-details">
               <p>Delivery Fee</p>
-              <p>${getTotalAmount()===0?0:50}</p>
+              <p>Rs {getTotalAmount()===0?0:50}/-</p>
 
             </div>
             <hr />
             <div className="cart-total-details">
               <b>Total</b>
-              <b>${getTotalAmount()===0?0:getTotalAmount() + 50}</b>
+              <b>Rs {getTotalAmount()===0?0:getTotalAmount() + 50}/-</b>
 
             </div>
           </div>

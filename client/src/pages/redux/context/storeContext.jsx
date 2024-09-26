@@ -12,6 +12,8 @@ const StoreContextProvider=(props)=>{
     const [food_list,setFoodList]=useState([])
     const [tool_list,setToolList]=useState([])
     const [input,setInput] = useState("")
+    // const [wishlist,setWishlist] = useState({})
+
 
   const addtoCart = async (id) => {
     if (!cartItems[id]) {

@@ -1,14 +1,13 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import add_icon from "./../../assets/add_icon.png";
 import order_icon from "./../../assets/order_icon.png";
 import manage_user from "./../../assets/manage_user.png";
 import { Link } from "react-router-dom";
-import { storeContext } from "../pages/redux/context/storeContext";
 import { useSelector } from 'react-redux';
 
 export const Sidebar = () => {
-//   const { role } = useContext(storeContext);
-    const { currentUser } = useSelector((state) => state.user);
+  const { currentUser } = useSelector((state) => state.user);
+
   return (
     <>
       {currentUser?.role.toLowerCase() === 'admin' && (
@@ -31,23 +30,21 @@ export const Sidebar = () => {
               <p>Orders</p>
             </div>
           </Link>
-
           <Link to="/manage-users">
             <div className="flex flex-col gap-2 p-6 justify-center items-center hover:bg-slate-300 cursor-pointer border-b-2 border-slate-400">
               <img src={manage_user} alt="manage user" className="h-6 w-6" />
-              <p>Manage User</p>
+              <p>Manage Users</p>
             </div>
           </Link>
-
           <Link to="/addtool">
-            <div className="flex flex-col gap-2 p-6 justify-center items-center  hover:bg-slate-300 cursor-pointer border-b-2 border-slate-400">
-              <img src={add_icon} alt="add product" className="h-6 w-6" />
+            <div className="flex flex-col gap-2 p-6 justify-center items-center hover:bg-slate-300 cursor-pointer border-b-2 border-slate-400">
+              <img src={add_icon} alt="add tool" className="h-6 w-6" />
               <p>Add new Tool</p>
             </div>
           </Link>
           <Link to="/listtool">
-            <div className="flex flex-col gap-2 p-6 justify-center items-center  hover:bg-slate-300 cursor-pointer border-b-2 border-slate-400">
-              <img src={order_icon} alt="add product" className="h-6 w-6" />
+            <div className="flex flex-col gap-2 p-6 justify-center items-center hover:bg-slate-300 cursor-pointer border-b-2 border-slate-400">
+              <img src={order_icon} alt="all tools" className="h-6 w-6" />
               <p>All Tools</p>
             </div>
           </Link>

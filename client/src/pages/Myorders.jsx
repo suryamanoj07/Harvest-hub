@@ -10,10 +10,14 @@ const MyOrders = () => {
   const [data,setData] =  useState([]);
   const {token} = useContext(storeContext);
   const url = "http://localhost:3000"
+  // const [count,setCount] = useState(0)
+  // const [count2,setCount2] = useState(0)
 
   const fetchOrders = async () => {
     const response = await axios.post(url+"/api/order/userorders",{},{headers:{token}});
     setData(response.data.message)
+    // setCount(response.data.count)
+    // setCount2(response.data.count2)
   }
 
   useEffect(()=>{
@@ -25,10 +29,14 @@ const MyOrders = () => {
   return (
     <div className='my-orders'>
       <h2>My Orders</h2>
-      <div className="container">
+      {/* <div className='flex gap-12'>
+      <h4>Total number of orders : {count}</h4>
+      <h4>total income : {count2}</h4>
+      </div> */}
+      <div className="container ">
         {data.map((order,index)=>{
           return (
-            <div key={index} className='my-orders-order'>
+            <div key={index} className='my-orders-order  bg-orange-200 transform transition-transform duration-300 hover:scale-105 hover:shadow-2xl hover:border-4 hover:border-blue-400 hover:bg-orange-300'>
                 <img src={assets.parcel_icon} alt="" />
                 <p>{order.items.map((item,index)=>{
                   if (index === order.items.length-1) {

@@ -8,7 +8,7 @@ const orderSchema = new mongoose.Schema({
     status:{type:String,default:"Food Processing"},
     Date:{type:Date,default:Date.now()},
     payment:{type:Boolean,default:false}
-})
+}, { timestamps: true })
 
 const Order = mongoose.model("order",orderSchema)
 export default Order

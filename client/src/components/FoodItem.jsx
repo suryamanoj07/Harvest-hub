@@ -1,3 +1,4 @@
+// /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
 // import React, { useContext } from 'react'
 import './FoodItem.css'
@@ -7,10 +8,11 @@ import { useContext } from 'react'
 
 const FoodItem = ({id,name,price,description,image}) => {
     const{cartItems,addtoCart,removeCart} = useContext(storeContext)
+
   return (
     <div className='food-item transform transition-transform duration-300 hover:scale-105 hover:shadow-2xl'>
         <div className="food-item-img-container">
-            <img src={"http://localhost:3000/images/"+image} alt="food" className="food-item-image" />
+            <img src={"http://localhost:3000/images/"+image} alt="food" className="food-item-image bg-slate-100" />
                 {!cartItems[id]
                     ?<img className='add' onClick={()=>addtoCart(id)} src={assets.add_icon_white} alt="" />
                     :<div className='food-item-counter'>
@@ -18,6 +20,7 @@ const FoodItem = ({id,name,price,description,image}) => {
                         <p>{cartItems[id]}</p> 
                         <img onClick={()=>addtoCart(id)} src={assets.add_icon_green} alt="" />    
                     </div> 
+                    
                 }
         </div>    
         <div className="food-item-info">
