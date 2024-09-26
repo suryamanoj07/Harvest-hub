@@ -76,70 +76,68 @@ export default function Profile() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
+  
     const formData = {
-        user_auth_token: token,
-        user_name: userName,
-        email: personalEmail,
-        contact_number: personalPhone,
-        personal_address: personalAddress,
-        ...(currentUser?.role.toLowerCase() === "farmer" && {
-            business_name: businessName,
-            business_email: businessEmail,
-            business_contact_number: businessPhone,
-            business_address: businessAddress,
-            business_account_number: accountNumber,
-            business_gstin: gstin,
-            business_about: aboutBusiness,
-        }),
+      user_auth_token: token,
+      user_name: userName,
+      personal_email: personalEmail,
+      personal_contact_number: personalPhone,
+      personal_address: personalAddress,
+      ...(currentUser?.role.toLowerCase() === "farmer" && {
+        business_name: businessName,
+        business_email: businessEmail,
+        business_contact_number: businessPhone,
+        business_address: businessAddress,
+        business_account_number: accountNumber,
+        business_gstin: gstin,
+        business_about: aboutBusiness,
+      }),
     };
-
+  
     fetch("http://localhost:3000/api/user/update-profile", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
     })
-    .then((response) => {
+      .then((response) => {
         if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+          throw new Error(`HTTP error! status: ${response.status}`);
         }
         return response.json();
-    })
-.then((data) => {
-     if (data.status === "ok") {
-         dispatch(updateUser(data.user_details)); // Update Redux store
-
-         // Update local component state immediately to reflect the changes
-         setUserName(data.user_details.username);
-         setPersonalEmail(data.user_details.email);
-         setPersonalPhone(data.user_details.contact_number);
-         setPersonalAddress(data.user_details.personal_address);
-         setBusinessName(data.user_details.business_name);
-         setBusinessEmail(data.user_details.business_email);
-         setBusinessPhone(data.user_details.business_contact_number);
-         setBusinessAddress(data.user_details.business_address);
-         setAccountNumber(data.user_details.business_account_number);
-         setGstin(data.user_details.business_gstin);
-         setAboutBusiness(data.user_details.business_about);
-
-         setNotificationMessage("Profile updated successfully!");
-     } else {
-         setNotificationMessage("Failed to update profile.");
-     }
-     setShowNotification(true);
-     setTimeout(() => setShowNotification(false), 3000);
- })
-
-    .catch((error) => {
+      })
+      .then((data) => {
+        if (data.status === "ok") {
+          dispatch(updateUser(data.user_details)); // Update Redux store
+  
+          // Update local component state immediately to reflect the changes
+          setUserName(data.user_details.user_name);
+          setPersonalEmail(data.user_details.email);
+          setPersonalPhone(data.user_details.contact_number);
+          setPersonalAddress(data.user_details.personal_address);
+          setBusinessName(data.user_details.business_name);
+          setBusinessEmail(data.user_details.business_email);
+          setBusinessPhone(data.user_details.business_contact_number);
+          setBusinessAddress(data.user_details.business_address);
+          setAccountNumber(data.user_details.business_account_number);
+          setGstin(data.user_details.business_gstin);
+          setAboutBusiness(data.user_details.business_about);
+  
+          setNotificationMessage("Profile updated successfully!");
+        } else {
+          setNotificationMessage("Failed to update profile.");
+        }
+        setShowNotification(true);
+        setTimeout(() => setShowNotification(false), 3000);
+      })
+      .catch((error) => {
         console.error("Error:", error);
         setNotificationMessage("Failed to update profile.");
         setShowNotification(true);
         setTimeout(() => setShowNotification(false), 3000);
-    });
+      });
   };
-
   return (
     <div>
       <div className="top-blur"></div>
