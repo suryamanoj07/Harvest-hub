@@ -72,15 +72,16 @@ export const Header = () => {
                 </li>
               </Link>}
 
-              {currentUser && currentUser=="Customer"?<Link to="/Articles">
+              {currentUser && currentUser.role=="Customer"?<Link to="/Articles">
                 <li className="text-slate-700 hover:underline font-semibold text-lg">
                   Articles
                 </li>
-              </Link> : <Link to="/sell">
-                <li className="text-slate-700 hover:underline font-semibold text-lg">
-                  Sell
+              </Link> :
+              <li className="text-slate-700 hover:underline font-semibold text-lg">
+                  <a href="/sell.html">Sell</a>
                 </li>
-              </Link>}
+              }
+                
 
               <Link to="/">
                 <li className="text-slate-700 hover:underline font-semibold text-lg">
