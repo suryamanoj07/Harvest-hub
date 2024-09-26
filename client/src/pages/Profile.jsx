@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from 'react-redux';
+import { updateUser } from './redux/user/userSlice';
 import "./Profile.css";
 
 export default function Profile() {
@@ -7,19 +8,19 @@ export default function Profile() {
   const currentUser = useSelector((state) => state.user.currentUser);
   const dispatch = useDispatch();
 
-  const [userName, setUserName] = useState(currentUser?.username || "");
-  const [personalEmail, setPersonalEmail] = useState(currentUser?.email || "");
-  const [personalPhone, setPersonalPhone] = useState(currentUser?.contact_number || "");
-  const [personalAddress, setPersonalAddress] = useState(currentUser?.personal_address || "");
+  const [userName, setUserName] = useState("");
+  const [personalEmail, setPersonalEmail] = useState("");
+  const [personalPhone, setPersonalPhone] = useState("");
+  const [personalAddress, setPersonalAddress] = useState("");
 
-  const [businessName, setBusinessName] = useState(currentUser?.business_name || "");
-  const [businessEmail, setBusinessEmail] = useState(currentUser?.business_email || "");
-  const [businessPhone, setBusinessPhone] = useState(currentUser?.business_contact_number || "");
-  const [businessAddress, setBusinessAddress] = useState(currentUser?.business_address || "");
-  const [accountNumber, setAccountNumber] = useState(currentUser?.business_account_number || "");
-  const [gstin, setGstin] = useState(currentUser?.business_gstin || "");
-  const [aboutBusiness, setAboutBusiness] = useState(currentUser?.business_about || "");
-  const [userRole, setUserRole] = useState(currentUser?.role || "");
+  const [businessName, setBusinessName] = useState("");
+  const [businessEmail, setBusinessEmail] = useState("");
+  const [businessPhone, setBusinessPhone] = useState("");
+  const [businessAddress, setBusinessAddress] = useState("");
+  const [accountNumber, setAccountNumber] = useState("");
+  const [gstin, setGstin] = useState("");
+  const [aboutBusiness, setAboutBusiness] = useState("");
+  const [userRole, setUserRole] = useState("");
 
   const [showNotification, setShowNotification] = useState(false);
   const [notificationMessage, setNotificationMessage] = useState("");
@@ -34,7 +35,7 @@ export default function Profile() {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-      },
+      },  
       body: JSON.stringify({ user_auth_token: token }),
     })
       .then((response) => {
@@ -45,8 +46,7 @@ export default function Profile() {
       })
       .then((data) => {
         if (data.status === "ok") {
-          // Update Redux store with user details
-          dispatch({ type: 'UPDATE_USER', payload: data.user_details });
+          dispatch(updateUser(data.user_details));
         } else {
           console.error("Failed to fetch user profile.");
         }
@@ -58,70 +58,86 @@ export default function Profile() {
 
   useEffect(() => {
     // Sync local state with Redux store on user update
-    setUserName(currentUser?.username || "");
-    setPersonalEmail(currentUser?.email || "");
-    setPersonalPhone(currentUser?.contact_number || "");
-    setPersonalAddress(currentUser?.personal_address || "");
-    setBusinessName(currentUser?.business_name || "");
-    setBusinessEmail(currentUser?.business_email || "");
-    setBusinessPhone(currentUser?.business_contact_number || "");
-    setBusinessAddress(currentUser?.business_address || "");
-    setAccountNumber(currentUser?.business_account_number || "");
-    setGstin(currentUser?.business_gstin || "");
-    setAboutBusiness(currentUser?.business_about || "");
-    setUserRole(currentUser?.role || "");
+    if (currentUser) {
+      setUserName(currentUser.user_name || "");
+      setPersonalEmail(currentUser.email || "");
+      setPersonalPhone(currentUser.contact_number || "");
+      setPersonalAddress(currentUser.personal_address || "");
+      setBusinessName(currentUser.business_name || "");
+      setBusinessEmail(currentUser.business_email || "");
+      setBusinessPhone(currentUser.business_contact_number || "");
+      setBusinessAddress(currentUser.business_address || "");
+      setAccountNumber(currentUser.business_account_number || "");
+      setGstin(currentUser.business_gstin || "");
+      setAboutBusiness(currentUser.business_about || "");
+      setUserRole(currentUser.role || "");
+    }
   }, [currentUser]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
     const formData = {
-      user_auth_token: localStorage.getItem("token"),
-      user_name: userName,
-      personal_email: personalEmail,
-      personal_contact_number: personalPhone,
-      personal_address: personalAddress,
-      ...(userRole === "farmer" && {
-        business_name: businessName,
-        business_email: businessEmail,
-        business_contact_number: businessPhone,
-        business_address: businessAddress,
-        business_account_number: accountNumber,
-        business_gstin: gstin,
-        business_about: aboutBusiness,
-      }),
+        user_auth_token: token,
+        user_name: userName,
+        email: personalEmail,
+        contact_number: personalPhone,
+        personal_address: personalAddress,
+        ...(currentUser?.role.toLowerCase() === "farmer" && {
+            business_name: businessName,
+            business_email: businessEmail,
+            business_contact_number: businessPhone,
+            business_address: businessAddress,
+            business_account_number: accountNumber,
+            business_gstin: gstin,
+            business_about: aboutBusiness,
+        }),
     };
 
     fetch("http://localhost:3000/api/user/update-profile", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
     })
-      .then((response) => {
+    .then((response) => {
         if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
+            throw new Error(`HTTP error! status: ${response.status}`);
         }
         return response.json();
-      })
-      .then((data) => {
-        if (data.status === "ok") {
-          // Update Redux store with new user details directly
-          dispatch({ type: 'UPDATE_USER', payload: data.user_details });
-          setNotificationMessage("Profile updated successfully!");
-        } else {
-          setNotificationMessage("Failed to update profile.");
-        }
-        setShowNotification(true);
-        setTimeout(() => setShowNotification(false), 3000); // Hide notification after 3 seconds
-      })
-      .catch((error) => {
+    })
+.then((data) => {
+     if (data.status === "ok") {
+         dispatch(updateUser(data.user_details)); // Update Redux store
+
+         // Update local component state immediately to reflect the changes
+         setUserName(data.user_details.username);
+         setPersonalEmail(data.user_details.email);
+         setPersonalPhone(data.user_details.contact_number);
+         setPersonalAddress(data.user_details.personal_address);
+         setBusinessName(data.user_details.business_name);
+         setBusinessEmail(data.user_details.business_email);
+         setBusinessPhone(data.user_details.business_contact_number);
+         setBusinessAddress(data.user_details.business_address);
+         setAccountNumber(data.user_details.business_account_number);
+         setGstin(data.user_details.business_gstin);
+         setAboutBusiness(data.user_details.business_about);
+
+         setNotificationMessage("Profile updated successfully!");
+     } else {
+         setNotificationMessage("Failed to update profile.");
+     }
+     setShowNotification(true);
+     setTimeout(() => setShowNotification(false), 3000);
+ })
+
+    .catch((error) => {
         console.error("Error:", error);
         setNotificationMessage("Failed to update profile.");
         setShowNotification(true);
-        setTimeout(() => setShowNotification(false), 3000); // Hide notification after 3 seconds
-      });
+        setTimeout(() => setShowNotification(false), 3000);
+    });
   };
 
   return (
@@ -339,7 +355,7 @@ export default function Profile() {
                   type="submit"
                   className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
                 >
-                  Save
+                  Save Changes
                 </button>
               </div>
             </form>
