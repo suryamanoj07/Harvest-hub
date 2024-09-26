@@ -20,6 +20,7 @@ import Aorder from "./pages/Aorders";
 import { Empty } from "./components/Empty";
 import { AddTool } from "./components/AddTool";
 import ListTool from "./components/ListTool";
+import { Articles } from "./pages/Articles";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 // import { Addfarmer } from "./pages/AddFarmer";
@@ -44,6 +45,7 @@ function App() {
           />
           <Route path="/About" element={<About />} />
           <Route path="/Schemes" element={<Schemes />} />
+          <Route path="/Articles" element={<Articles />} />
           <Route path="/Login" element={<Login />} />
           <Route path="/Signup" element={<Signup />} />
           <Route element={<PrivateRoute />}>

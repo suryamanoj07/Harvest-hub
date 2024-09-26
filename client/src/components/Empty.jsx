@@ -11,7 +11,7 @@ export const Empty = () => {
       <div className="flex flex-col items-center gap-3">
         <h1 className="text-3xl font-semibold">Your cart is empty</h1>
         <p>
-          Looks like you not added anything in your cart.Go ahead and explore
+          Looks like you not added anything in your cart. Go ahead and explore
           categories
         </p>
         <Link to="/Market">
