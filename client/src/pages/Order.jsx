@@ -11,8 +11,7 @@ import { useSelector } from 'react-redux'
 export const Order = () => {
   const {food_list,token,cartItems,tool_list} = useContext(storeContext)
   const { currentUser } = useSelector((state) => state.user);
-
-
+  
   const navigate = useNavigate()
   const [data,setData] = useState({
     firstName: "",
