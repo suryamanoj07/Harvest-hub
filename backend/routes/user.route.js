@@ -1,14 +1,9 @@
 import express from 'express';
-import { getUserProfile, profileImage, updateUserProfile, ping } from '../controllers/user.js';
-import multer from 'multer';
+import { getUserProfile, updateUserProfile } from '../controllers/user.js';
 
 const router = express.Router();
-const upload = multer();
 
-// Define routes
-router.get("/ping", ping);
-router.post("/get-user-profile", upload.none(), getUserProfile);
-router.post("/profile-image", upload.none(), profileImage);
-router.post("/update-profile", upload.none(), updateUserProfile);
+router.post('/get-user-profile', getUserProfile);
+router.post('/update-profile', updateUserProfile);
 
 export default router;
