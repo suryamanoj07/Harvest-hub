@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useContext, useEffect, useState } from 'react'
-import './MyOrders.css'
+import './Myorders.css'
 import axios from 'axios'
 import { storeContext } from './../pages/redux/context/storeContext';
 import { assets } from './../../frontend_assets/assets';

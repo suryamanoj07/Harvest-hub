@@ -17,7 +17,17 @@
     "express": "^4.21.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.6.2",
-    "multer": "^1.4.5-lts.1",
-    "nodemon": "^3.1.4"
-  }
+    "multer": "^1.4.5-lts.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.7"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/suryamanoj07/Harvest-hub.git"
+  },
+  "bugs": {
+    "url": "https://github.com/suryamanoj07/Harvest-hub/issues"
+  },
+  "homepage": "https://github.com/suryamanoj07/Harvest-hub#readme"
 }

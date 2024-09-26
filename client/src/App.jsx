@@ -1,33 +1,33 @@
-import { Header } from "./components/Header";
-import "./App.css";
-import { Home } from "./pages/Home";
-import { Login } from "./pages/Login";
-import { Products } from "./pages/Products";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { About } from "./pages/About";
-import { Schemes } from "./pages/Schemes";
-import { Signup } from "./pages/Signup";
-import React, { useState } from "react";
-import PrivateRoute from "./components/PrivateRoute";
-import Profile from "./pages/Profile";
-import { Add } from "./components/Add";
-import List from "./components/List";
-import { Order } from "./pages/Order";
-import Cart from "./pages/Cart";
-import Verify from "./pages/Verify";
-import MyOrders from "./pages/Myorders";
-import Aorder from "./pages/Aorders";
-import { Empty } from "./components/Empty";
-import { AddTool } from "./components/AddTool";
-import ListTool from "./components/ListTool";
-import { Articles } from "./pages/Articles";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-// import { Addfarmer } from "./pages/AddFarmer";
-// import Sell from"./pages/Sell/Sell.html"
+import { Header } from './components/Header';
+import './App.css';
+import { Home } from './pages/Home';
+import { Login } from './pages/Login';
+import { Products } from './pages/Products';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { About } from './pages/About';
+import { Schemes } from './pages/Schemes';
+import { Signup } from './pages/Signup';
+import React, { useState } from 'react';
+import PrivateRoute from './components/PrivateRoute';
+import Profile from './pages/Profile';
+import { Sidebar } from './components/Sidebar';
+import { Add } from './components/Add';
+import List from './components/List';
+import { Order } from './pages/Order';
+import Cart from './pages/Cart';
+import Verify from './pages/Verify';
+import MyOrders from './pages/Myorders';
+import ManageUser from './pages/ManageUser';
+import Aorder from './pages/Aorders';
+import { Empty } from './components/Empty';
+import { AddTool } from './components/AddTool';
+import ListTool from './components/ListTool';
+import { Articles } from './pages/Articles';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
-  const [category, setCategory] = useState("All");
+  const [category, setCategory] = useState('All');
 
   return (
     <React.StrictMode>
@@ -52,17 +52,18 @@ function App() {
             <Route path="/profile" element={<Profile />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/empty" element={<Empty />} />
-            {/* <Route path="/addfarmer" element={Sell} /> */}
             <Route path="/order" element={<Order />} />
             <Route path="/verify" element={<Verify />} />
             <Route path="/myorders" element={<MyOrders />} />
             <Route path="/admin" element={<Add />} />
           </Route>
+          <Route path="/Sidebar" element={<Sidebar />} />
           <Route path="/add" element={<Add />} />
           <Route path="/addtool" element={<AddTool />} />
           <Route path="/list" element={<List />} />
           <Route path="/listtool" element={<ListTool />} />
           <Route path="/orders" element={<Aorder />} />
+          <Route path="/manage-users" element={<ManageUser />} />
         </Routes>
       </BrowserRouter>
     </React.StrictMode>
