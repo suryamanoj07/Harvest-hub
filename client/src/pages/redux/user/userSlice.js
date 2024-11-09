@@ -4,6 +4,7 @@ const initialState = {
     currentUser : null,
     error : false,
     loading : false,
+    userInfo: null,
 }
 
 const userSlice = createSlice({
@@ -26,10 +27,19 @@ const userSlice = createSlice({
         logoutSuccess : (state) => {
             state.currentUser = null
             state.error = false
+        },
+        setUserInfo: (state, action) => {
+            state.userInfo = action.payload;
+        },
+        clearUserInfo: (state) => {
+            state.userInfo = null;
+        },
+        updateUser: (state, action) => {
+            state.currentUser = { ...state.currentUser, ...action.payload };
         }
     }
 })
 
-export const {loginInFailure,loginInStart,loginInSuccess,logoutSuccess} = userSlice.actions
+export const {loginInFailure,loginInStart,loginInSuccess,logoutSuccess,updateUser,clearUserInfo,setUserInfo} = userSlice.actions
 
 export default userSlice.reducer 

@@ -9,7 +9,7 @@ import { Schemes } from "./pages/Schemes";
 import { Signup } from "./pages/Signup";
 import React, { useState } from "react";
 import PrivateRoute from "./components/PrivateRoute";
-import Profile from "./pages/Profile";
+import Profile from "./pages/Profile/Profile";
 import { Add } from "./components/Add";
 import List from "./components/List";
 import { Order } from "./pages/Order";
@@ -23,6 +23,7 @@ import ListTool from "./components/ListTool";
 import { Articles } from "./pages/Articles";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ManageUser from "./pages/ManageUser";
 // import { Addfarmer } from "./pages/AddFarmer";
 // import Sell from"./pages/Sell/Sell.html"
 
@@ -63,6 +64,8 @@ function App() {
           <Route path="/list" element={<List />} />
           <Route path="/listtool" element={<ListTool />} />
           <Route path="/orders" element={<Aorder />} />
+          <Route path="/manage-users" element={<ManageUser />} />
+
         </Routes>
       </BrowserRouter>
     </React.StrictMode>

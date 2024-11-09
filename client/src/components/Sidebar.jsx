@@ -1,5 +1,6 @@
 import add_icon from "./../../assets/add_icon.png"
 import order_icon from "./../../assets/order_icon.png"
+import manage_user from "./../../assets/manage_user.png";
 import { Link } from "react-router-dom";
 
 export const Sidebar = () => {
@@ -35,12 +36,12 @@ export const Sidebar = () => {
             <p>All Products</p>
         </div>
         </Link>
-        <Link to="/add">
-        <div className="flex flex-col gap-2 p-6 justify-center items-center bg-teal-400  hover:bg-teal-500 cursor-pointer border-b-2 border-slate-400">
-            <img src={add_icon} alt="add product" className="h-6 w-6" />
-            <p>Add new product</p>
-        </div>
-        </Link>
+        <Link to="/manage-users">
+            <div className="flex flex-col gap-2 p-6 justify-center items-center  bg-teal-400  hover:bg-teal-500 cursor-pointer border-b-2 border-slate-400">
+              <img src={manage_user} alt="manage user" className="h-6 w-6" />
+              <p>Manage Users</p>
+            </div>
+          </Link>
     </div>
   )
 }

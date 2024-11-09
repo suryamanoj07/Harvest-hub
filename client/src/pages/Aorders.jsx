@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import  { useEffect, useState } from 'react'
 import './Aorders.css'
 import { toast } from 'react-toastify';
@@ -8,13 +9,19 @@ import { Sidebar } from '../components/Sidebar';
 const Aorder = () => {
 
   const [orders, setOrders] = useState([]);
+  const [count,setCount] = useState(0)
+  const [count2,setCount2] = useState(0)
+
 
   const fetchAllOrders = async () => {
     const url = "http://localhost:3000"
     const response = await axios.get(`${url}/api/order/list`)
     if (response.data.success) {
       setOrders(response.data.message.reverse());
-      console.log(response.data.message);
+      setCount(response.data.count)
+      setCount2(response.data.count2)
+
+      // console.log(response.data.message);
     }
     else {
       toast.error("Error")
@@ -44,6 +51,10 @@ const Aorder = () => {
       <div className='ml-52 mr-12'>
       <div className='order add p-10'>
       <h3 className='text-center text-3xl'>Orders Information</h3>
+      <div className='flex gap-12'>
+      <h4>Total number of orders : {count}</h4>
+      {/* <h4>total income : {count2}</h4> */}
+      </div>
       <div className="order-list ">
         {orders.map((order, index) => (
           <div key={index} className='order-item  bg-orange-200 transform transition-transform duration-300 hover:scale-105 hover:shadow-2xl hover:border-4 hover:border-blue-400 hover:bg-orange-300'>
