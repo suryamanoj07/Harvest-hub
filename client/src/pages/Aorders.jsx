@@ -9,13 +9,8 @@ import { Sidebar } from '../components/Sidebar';
 const Aorder = () => {
 
   const [orders, setOrders] = useState([]);
-<<<<<<< HEAD
-  const [count,setCount] = useState(0)
-  const [count2,setCount2] = useState(0)
-=======
   // const [count,setCount] = useState(0)
   // const [count2,setCount2] = useState(0)
->>>>>>> c7c8b6c9619d9db1563655c8921139b64eb035b5
 
 
   const fetchAllOrders = async () => {
@@ -23,13 +18,8 @@ const Aorder = () => {
     const response = await axios.get(`${url}/api/order/list`)
     if (response.data.success) {
       setOrders(response.data.message.reverse());
-<<<<<<< HEAD
-      setCount(response.data.count)
-      setCount2(response.data.count2)
-=======
       // setCount(response.data.count)
       // setCount2(response.data.count2)
->>>>>>> c7c8b6c9619d9db1563655c8921139b64eb035b5
 
       // console.log(response.data.message);
     }
@@ -61,17 +51,10 @@ const Aorder = () => {
       <div className='ml-52 mr-12'>
       <div className='order add p-10'>
       <h3 className='text-center text-3xl'>Orders Information</h3>
-<<<<<<< HEAD
-      <div className='flex gap-12'>
-      <h4>Total number of orders : {count}</h4>
-      {/* <h4>total income : {count2}</h4> */}
-      </div>
-=======
       {/* <div className='flex gap-12'>
       <h4>Total number of orders : {count}</h4>
       <h4>total income : {count2}</h4>
       </div> */}
->>>>>>> c7c8b6c9619d9db1563655c8921139b64eb035b5
       <div className="order-list ">
         {orders.map((order, index) => (
           <div key={index} className='order-item  bg-orange-200 transform transition-transform duration-300 hover:scale-105 hover:shadow-2xl hover:border-4 hover:border-blue-400 hover:bg-orange-300'>

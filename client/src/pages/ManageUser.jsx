@@ -1,10 +1,6 @@
-<<<<<<< HEAD
 /* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react';
-=======
-import React, { useEffect, useState } from 'react';
->>>>>>> c7c8b6c9619d9db1563655c8921139b64eb035b5
 import './ManageUser.css';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
@@ -18,11 +14,7 @@ const ManageUser = () => {
   const currentUser = useSelector((state) => state.user.currentUser);
   const [editingUser, setEditingUser] = useState(null);
   const [formData, setFormData] = useState({ email: '', role: '' });
-<<<<<<< HEAD
-  const [newUser, setNewUser] = useState({ email: '', password: '', user_name: '', role: '' });
-=======
   const [newUser, setNewUser] = useState({ email: '', password: '', username: '', role: '' });
->>>>>>> c7c8b6c9619d9db1563655c8921139b64eb035b5
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
@@ -77,27 +69,6 @@ const ManageUser = () => {
         await axios.put(`http://localhost:3000/api/admin/users/${editingUser._id}`, formData, {
           headers: { Authorization: `Bearer ${currentUser.token}` },
         });
-<<<<<<< HEAD
-        
-      } else {
-        // console.log(newUser)
-        // console.log("maonj");
-         await fetch("http://localhost:3000/api/admin/users", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${currentUser.token}`,
-          },
-          body: JSON.stringify(newUser),
-        });
-        console.log("sushant")
-      }
-      setEditingUser(null);
-      setFormData({ email: '', role: '' });
-      console.log("hi");
-      
-      setNewUser({ email: '', password: '', user_name: '', role: '' });
-=======
       } else {
         await axios.post('http://localhost:3000/api/admin/users', newUser, {
           headers: { Authorization: `Bearer ${currentUser.token}` },
@@ -106,7 +77,6 @@ const ManageUser = () => {
       setEditingUser(null);
       setFormData({ email: '', role: '' });
       setNewUser({ email: '', password: '', username: '', role: '' });
->>>>>>> c7c8b6c9619d9db1563655c8921139b64eb035b5
       fetchUsers();
       setIsModalOpen(false); // Close the modal after submission
     } catch (error) {
@@ -151,15 +121,9 @@ const ManageUser = () => {
             required
           >
             <option value="">Select Role</option>
-<<<<<<< HEAD
             <option value="Farmer">Farmer</option>
             <option value="Customer">Customer</option>
             <option value="Admin">Admin</option>
-=======
-            <option value="farmer">Farmer</option>
-            <option value="customer">Customer</option>
-            <option value="admin">Admin</option>
->>>>>>> c7c8b6c9619d9db1563655c8921139b64eb035b5
           </select>
           <button className='manage-user__button' type="submit">{editingUser ? 'Update' : 'Update'} User</button>
         </form>
@@ -213,13 +177,8 @@ const ManageUser = () => {
               <input
                 className='manage-user__input'
                 type="text"
-<<<<<<< HEAD
-                name="user_name"
-                value={newUser.user_name}
-=======
                 name="username"
                 value={newUser.username}
->>>>>>> c7c8b6c9619d9db1563655c8921139b64eb035b5
                 onChange={handleNewUserChange}
                 placeholder="Username"
                 required
