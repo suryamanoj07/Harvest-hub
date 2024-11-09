@@ -10,14 +10,24 @@ const MyOrders = () => {
   const [data,setData] =  useState([]);
   const {token} = useContext(storeContext);
   const url = "http://localhost:3000"
+<<<<<<< HEAD
+  const [count,setCount] = useState(0)
+  const [count2,setCount2] = useState(0)
+=======
   // const [count,setCount] = useState(0)
   // const [count2,setCount2] = useState(0)
+>>>>>>> c7c8b6c9619d9db1563655c8921139b64eb035b5
 
   const fetchOrders = async () => {
     const response = await axios.post(url+"/api/order/userorders",{},{headers:{token}});
     setData(response.data.message)
+<<<<<<< HEAD
+    setCount(response.data.count)
+    setCount2(response.data.count2)
+=======
     // setCount(response.data.count)
     // setCount2(response.data.count2)
+>>>>>>> c7c8b6c9619d9db1563655c8921139b64eb035b5
   }
 
   useEffect(()=>{
@@ -28,11 +38,19 @@ const MyOrders = () => {
 
   return (
     <div className='my-orders'>
+<<<<<<< HEAD
+      <h2 className='text-3xl'>My Orders</h2>
+      <div className='flex gap-12'>
+      <h4>Total number of orders : {count}</h4>
+      {/* <h4>total income : {count2}</h4> */}
+      </div>
+=======
       <h2>My Orders</h2>
       {/* <div className='flex gap-12'>
       <h4>Total number of orders : {count}</h4>
       <h4>total income : {count2}</h4>
       </div> */}
+>>>>>>> c7c8b6c9619d9db1563655c8921139b64eb035b5
       <div className="container ">
         {data.map((order,index)=>{
           return (

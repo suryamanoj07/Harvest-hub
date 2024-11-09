@@ -40,10 +40,12 @@ export const Header = () => {
             <div className="text-3xl mr-80">
               Welcome {currentUser.username}
             </div>
+            <Link to="profile">
             <div className="flex flex-col justify-center items-center ml-60">
                     <img src={user_image} alt="" width="25px" />
                     <p>{currentUser.username}</p>
             </div>
+            </Link>
           </div>
         ) : (
           <div className="flex items-center gap-16">
@@ -127,9 +129,9 @@ export const Header = () => {
                   //   src={currentUser.avatar}
                   //   alt='profile'
                   // />
-                  <div className="flex flex-col justify-center items-center -ml-4">
+                  <div className="flex flex-col justify-center items-center -ml-4 max-w-10">
                     <img src={user_image} alt="" width="25px" />
-                    <p>{currentUser.username}</p>
+                    <p className="-ml-4 max-w-10">{currentUser.email}</p>
                   </div>
                 ) : (
                   <li className="font-bold  flex flex-col items-center justify-center cursor-pointer hover:text-lg">
@@ -144,7 +146,7 @@ export const Header = () => {
 
         {currentUser ? (
           <div
-            className="bg-blue-500 p-1 px-3 border-blue-600 border-2 rounded-3xl cursor-pointer hover:bg-blue-400"
+            className="bg-blue-500 p-1 px-3 border-blue-600 border-2 rounded-3xl cursor-pointer hover:bg-blue-400 ml-6"
             onClick={logout}
           >
             Logout

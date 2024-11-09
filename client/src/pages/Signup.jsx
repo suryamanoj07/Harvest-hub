@@ -38,7 +38,7 @@ export const Signup = () => {
     <div className="max-w-lg p-3 mx-auto">
         <h1 className="text-3xl text-center font-semibold my-7">Sign Up</h1>
         <form onSubmit={submitForm} className="flex flex-col gap-4">
-            <input type="text" id="username" placeholder="username" onChange={handleChange} className="border-blue-500 p-3 rounded-lg border-2" />
+            <input type="text" id="user_name" placeholder="user_name" onChange={handleChange} className="border-blue-500 p-3 rounded-lg border-2" />
             <input type="email" id="email" placeholder="email" onChange={handleChange} className="border-blue-500 p-3 rounded-lg border-2" />
             <input type="password" id="password" placeholder="password" onChange={handleChange} className="border-blue-500 p-3 rounded-lg border-2" />
             <div className="flex gap-4">

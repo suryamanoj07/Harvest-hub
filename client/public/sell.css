@@ -57,3 +57,12 @@ button:hover {
     color: red;
     margin-bottom: 15px;
 }
+
+.inputsell{
+    width: 470px; /* Makes them all the same width */
+    box-sizing: border-box; /* Ensures padding doesn't affect width */
+    font-size: 16px; /* Ensures consistent font size */
+    padding: 4px;
+    margin-bottom: 5px;
+    /* padding: 0px 40px; */
+  }
