@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { updateUser } from './redux/user/userSlice';
@@ -143,8 +144,7 @@ export default function Profile() {
       <div className="top-blur"></div>
 
       <div className="hello-container">
-        <p className="hello-text">Hello,</p>
-        <p className="username-text">{userName}</p>
+        <p className="hello-text">Hello, <span className="username-text">{userName.charAt(0).toUpperCase()}{userName.slice(1)}</span></p>
       </div>
 
       <div className="class-1140 block" style={{ marginTop: "4rem" }}>
