@@ -14,16 +14,10 @@ export const getAllUsers = async (req, res) => {
 
 // Controller to create a new user
 export const createUser = async (req, res) => {
-    const { email, password, user_name, role } = req.body;
-    
-
-    if (!user_name) {
-        return res.status(400).json({ success: false, message: 'Username is required' });
-    }
-
+    const { email, password, username, role } = req.body;
     try {
         const hashPassword = bcryptjs.hashSync(password, 10);
-        const newUser = new User({ email, password: hashPassword, user_name, role });
+        const newUser = new User({ email, password: hashPassword, username, role });
         await newUser.save();
         res.json({ success: true, message: newUser });
     } catch (error) {
@@ -31,7 +25,6 @@ export const createUser = async (req, res) => {
         res.status(500).json({ success: false, message: error.message });
     }
 };
-
 
 // Controller to update an existing user
 export const updateUser = async (req, res) => {
