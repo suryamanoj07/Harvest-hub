@@ -17,7 +17,7 @@ const placeOrder = async (req, res) => {
       const product = await productModel.findById(item._id);
       if (!product) return res.json({ success: false, message: `Product with ID ${item._id} not found` });
       if (product.stockQuantity < item.quantity){
-        alert(`Insufficient stock for ${product.name}`)
+        // alert(`Insufficient stock for ${product.name}`)
         return res.json({ success: false, message: `Insufficient stock for ${product.name}` });
       } 
       product.stockQuantity -= item.quantity;
