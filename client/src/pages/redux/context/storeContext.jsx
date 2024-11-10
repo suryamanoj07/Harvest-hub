@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
 /* eslint-disable react-refresh/only-export-components */
@@ -57,25 +58,25 @@ const StoreContextProvider=(props)=>{
   
 
   // Function to extract and set role from localStorage
-  const loadRoleFromPersist = () => {
-    const persistRoleData = localStorage.getItem("persist:role");
-    if (persistRoleData) {
-      try {
-        const parsedData = JSON.parse(persistRoleData);
-        const currentUserData = JSON.parse(parsedData.user); // Parse inner user JSON
-        if (currentUserData.currentUser && currentUserData.currentUser.role) {
-          console.log("Setting role to:", currentUserData.currentUser.role); // Log role
-          setRole(currentUserData.currentUser.role); // Set the role based on stored data
-        } else {
-          console.warn("Role not found in currentUserData", currentUserData);
-        }
-      } catch (error) {
-        console.error("Failed to parse role data from localStorage", error);
-      }
-    } else {
-      console.warn("No persist:role data found in localStorage");
-    }
-  };
+  // const loadRoleFromPersist = () => {
+  //   const persistRoleData = localStorage.getItem("persist:role");
+  //   if (persistRoleData) {
+  //     try {
+  //       const parsedData = JSON.parse(persistRoleData);
+  //       const currentUserData = JSON.parse(parsedData.user); // Parse inner user JSON
+  //       if (currentUserData.currentUser && currentUserData.currentUser.role) {
+  //         console.log("Setting role to:", currentUserData.currentUser.role); // Log role
+  //         setRole(currentUserData.currentUser.role); // Set the role based on stored data
+  //       } else {
+  //         console.warn("Role not found in currentUserData", currentUserData);
+  //       }
+  //     } catch (error) {
+  //       console.error("Failed to parse role data from localStorage", error);
+  //     }
+  //   } else {
+  //     console.warn("No persist:role data found in localStorage");
+  //   }
+  // };
 
 
     const fetchFood=async()=>{

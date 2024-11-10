@@ -1,9 +1,10 @@
 import Order from "../models/orderModel.js";
 import User from "../models/UserModel.js";
+import productModel from "../models/ProductModel.js";
+
 
 const placeOrder = async (req, res) => {
   try {
-    console.log("controller hi");
     const newOrder = new Order({
       userid: req.body.userid,
       items: req.body.items,
@@ -11,6 +12,20 @@ const placeOrder = async (req, res) => {
       address: req.body.address,
     });
     await newOrder.save();
+
+    for (const item of req.body.items) {
+      const product = await productModel.findById(item._id);
+      if (!product) return res.json({ success: false, message: `Product with ID ${item._id} not found` });
+      if (product.stockQuantity < item.quantity){
+        alert(`Insufficient stock for ${product.name}`)
+        return res.json({ success: false, message: `Insufficient stock for ${product.name}` });
+      } 
+      product.stockQuantity -= item.quantity;
+      if (product.stockQuantity === 0) product.status = "Sold Out";
+
+      await product.save();
+    }
+
     await User.findByIdAndUpdate(req.body.userid, { cartData: {} });
     let success_url = `http://localhost:3000/verify?success=true&orderId=${newOrder._id}`;
     res.json({ success: true, message: "order successful", success_url });
