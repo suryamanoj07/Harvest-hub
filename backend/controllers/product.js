@@ -74,7 +74,7 @@ const newlyAddedProducts = async (req, res) => {
     try {
       // Fetch the top 5 most recently added products (sorted by creation date descending)
       const products = await productModel.find()
-        .sort({ updatedAt: -1 }) // Sort by createdAt in descending order (newest first)
+        .sort({ createdAt: -1 }) // Sort by createdAt in descending order (newest first)
         .limit(10); // Limit to top 5 most recent products
   
       res.json({ success: true, message: products });

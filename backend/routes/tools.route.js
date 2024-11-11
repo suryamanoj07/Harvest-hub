@@ -15,8 +15,8 @@ const upload = multer({storage:storage})
 
 toolRouter.post("/add",upload.single("image"),addtool)
 toolRouter.post("/delete/:id",deletetool)
-productRouter.get("/topselling",fastSellingItems)
-productRouter.get("/recentadded",newlyAddedProducts)
+toolRouter.get("/topselling",fastSellingItems)
+toolRouter.get("/recentadded",newlyAddedProducts)
 toolRouter.get("/list",listtool)
 toolRouter.get("/search/:search",searchTool)
 

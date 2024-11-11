@@ -24,6 +24,8 @@ export const Home = ({ category, setCategory }) => {
 
   const [fastSellingItems, setFastSellingItems] = useState([]);
   const [newlyAddedProducts, setNewlyAddedProducts] = useState([]);
+  const [fastSellingTools, setFastSellingTools] = useState([]);
+  const [newlyAddedTools, setNewlyAddedTools] = useState([]);
 
   useEffect(() => {
     if (currentUser && currentUser.role === "Admin") {
@@ -37,6 +39,10 @@ export const Home = ({ category, setCategory }) => {
     if (currentUser && currentUser.role === "Customer") {
       fetchFastSellingItems();
       fetchNewlyAddedProducts();
+    }
+    if (currentUser && currentUser.role === "Farmer") {
+      fetchFastSellingTools();
+      fetchNewlyAddedTools();
     }
   }, [currentUser]);
 
@@ -57,6 +63,28 @@ export const Home = ({ category, setCategory }) => {
         "http://localhost:3000/api/product/recentadded"
       );
       setNewlyAddedProducts(response.data.message);
+    } catch (error) {
+      console.error("Error fetching newly added products:", error);
+    }
+  };
+
+  const fetchFastSellingTools = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:3000/api/tool/topselling"
+      );
+      setFastSellingTools(response.data.message);
+    } catch (error) {
+      console.error("Error fetching fast-selling items:", error);
+    }
+  };
+
+  const fetchNewlyAddedTools = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:3000/api/tool/recentadded"
+      );
+      setNewlyAddedTools(response.data.message);
     } catch (error) {
       console.error("Error fetching newly added products:", error);
     }
@@ -84,9 +112,9 @@ export const Home = ({ category, setCategory }) => {
             <div className="flex justify-between">
               <h2 className="text-2xl font-bold">Fast Selling Products</h2>
               <Link to="/Market">
-              <p className=" mr-4 mt-2 mb-2 font-bold hover:underline cursor-pointer text-white p-1 rounded-lg text-sm bg-cyan-500">
-                View all
-              </p>
+                <p className=" mr-4 mt-2 mb-2 font-bold hover:underline cursor-pointer text-white p-1 rounded-lg text-sm bg-cyan-500">
+                  View all
+                </p>
               </Link>
             </div>
 
@@ -126,9 +154,9 @@ export const Home = ({ category, setCategory }) => {
             <div className="flex justify-between">
               <h2 className="text-2xl font-bold">Recently Added Products</h2>
               <Link to="/Market">
-              <p className=" mr-4 mt-2 mb-2 font-bold hover:underline cursor-pointer text-white p-1 rounded-lg text-sm bg-cyan-500">
-                View all
-              </p>
+                <p className=" mr-4 mt-2 mb-2 font-bold hover:underline cursor-pointer text-white p-1 rounded-lg text-sm bg-cyan-500">
+                  View all
+                </p>
               </Link>
             </div>
 
@@ -143,6 +171,95 @@ export const Home = ({ category, setCategory }) => {
             {/* Horizontal scroll container */}
             <div id="scroll-container" className="horizontal-scroll-container">
               {newlyAddedProducts.map((item) => (
+                <FoodItem
+                  key={item._id}
+                  id={item._id}
+                  name={item.name}
+                  description={item.description}
+                  price={item.price}
+                  image={item.image}
+                  stock={item.stockQuantity}
+                  role="Customer"
+                />
+              ))}
+            </div>
+
+            {/* Right Arrow */}
+            <button
+              className="scroll-arrow right-arrow"
+              onClick={() => scrollContainer(200)} // Scroll right by 200px
+            >
+              &#10095;
+            </button>
+          </div>
+        </>
+      )}
+
+      {currentUser && currentUser.role === "Farmer" && (
+        <>
+          <div className=" mx-20 p-8 relative">
+            <div className="flex justify-between">
+              <h2 className="text-2xl font-bold">Fast Selling Tools</h2>
+              <Link to="/Market">
+                <p className=" mr-4 mt-2 mb-2 font-bold hover:underline cursor-pointer text-white p-1 rounded-lg text-sm bg-cyan-500">
+                  View all
+                </p>
+              </Link>
+            </div>
+
+            {/* Left Arrow */}
+            <button
+              className="scroll-arrow left-arrow"
+              onClick={() => scrollContainer(-200)} // Scroll left by 200px
+            >
+              &#10094;
+            </button>
+
+            {/* Horizontal scroll container */}
+            <div id="scroll-container" className="horizontal-scroll-container">
+              {fastSellingTools.map((item) => (
+                <FoodItem
+                  key={item._id}
+                  id={item._id}
+                  name={item.name}
+                  description={item.description}
+                  price={item.price}
+                  image={item.image}
+                  stock={item.stockQuantity}
+                  role="Farmer"
+                />
+              ))}
+            </div>
+
+            {/* Right Arrow */}
+            <button
+              className="scroll-arrow right-arrow"
+              onClick={() => scrollContainer(200)} // Scroll right by 200px
+            >
+              &#10095;
+            </button>
+          </div>
+          <div className="mx-20 p-8 relative">
+            <div className="flex justify-between">
+              <h2 className="text-2xl font-bold">Recently Added Tools</h2>
+              <Link to="/Market">
+                <p className=" mr-4 mt-2 mb-2 font-bold hover:underline cursor-pointer text-white p-1 rounded-lg text-sm bg-cyan-500">
+                  View all
+                </p>
+              </Link>
+            </div>
+
+            {/* Left Arrow */}
+            <button
+              className="scroll-arrow left-arrow"
+              onClick={() => scrollContainer(-200)} // Scroll left by 200px
+            >
+              &#10094;
+            </button>
+
+            {/* Horizontal scroll container */}
+            <div id="scroll-container" className="horizontal-scroll-container">
+              {newlyAddedTools.map((item) => (
                 <FoodItem
                   key={item._id}
                   id={item._id}

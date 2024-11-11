@@ -45,7 +45,7 @@ export const Products = ({ category, setCategory }) => {
             tool_list.map((item, index) => {
               if (category === "All" || category === item.category) {
                 return (
-                  <FoodItem // Assuming you mean ToolItem here for tools
+                  <FoodItem
                     key={index}
                     id={item._id}
                     name={item.name}
@@ -56,7 +56,7 @@ export const Products = ({ category, setCategory }) => {
                   />
                 );
               }
-              return null; // Ensure null is returned if condition is not met
+              return null; 
             })}
 
           {/* {currentUser?currentUser.role=='Customer'?food_list.map((item,index)=>{

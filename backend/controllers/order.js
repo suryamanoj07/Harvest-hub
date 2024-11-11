@@ -1,9 +1,19 @@
 import Order from "../models/orderModel.js";
 import User from "../models/UserModel.js";
 import productModel from "../models/ProductModel.js";
+import toolModel from "../models/toolModel.js";
 
 const placeOrder = async (req, res) => {
   try {
+
+    const user = await User.findById(req.body.userid);
+    if (!user) {
+      return res.json({ success: false, message: "User not found" });
+    }
+
+    // Use ProductModel or ToolModel based on user's role
+    const model = user.role === "Farmer" ? toolModel : productModel;
+
     const newOrder = new Order({
       userid: req.body.userid,
       items: req.body.items,
@@ -12,7 +22,7 @@ const placeOrder = async (req, res) => {
     });
   
     for (const item of req.body.items) {
-      const product = await productModel.findById(item._id);
+      const product = await model.findById(item._id);
       if (!product)
         return res.json({
           success: false,
