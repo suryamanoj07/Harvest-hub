@@ -5,7 +5,6 @@ import toolModel from "../models/toolModel.js";
 
 const placeOrder = async (req, res) => {
   try {
-
     const user = await User.findById(req.body.userid);
     if (!user) {
       return res.json({ success: false, message: "User not found" });
@@ -20,7 +19,7 @@ const placeOrder = async (req, res) => {
       amount: req.body.amount,
       address: req.body.address,
     });
-  
+
     for (const item of req.body.items) {
       const product = await model.findById(item._id);
       if (!product)
@@ -52,13 +51,44 @@ const placeOrder = async (req, res) => {
 
 const listOrders = async (req, res) => {
   try {
-    const orders = await Order.find({});
-    const count = await Order.countDocuments({});
-    const tenMinutesAgo = new Date(Date.now() - 1 * 60 * 1000);
-    const count2 = await Order.countDocuments({
-      createdAt: { $gte: tenMinutesAgo },
+    const timeFrames = {
+      last30Min: new Date(Date.now() - 30 * 60 * 1000),
+      last2Hours: new Date(Date.now() - 2 * 60 * 60 * 1000),
+      last1Day: new Date(Date.now() - 24 * 60 * 60 * 1000),
+      last1Week: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000),
+    };
+
+    const allOrders = await Order.find({});
+    const metrics = {};
+
+    // Calculate metrics for each filter
+    for (const [key, time] of Object.entries(timeFrames)) {
+      const orders = await Order.find({ createdAt: { $gte: time } });
+      const totalOrders = orders.length;
+      const revenueCollected = orders.reduce((total, order) => total + order.amount, 0);
+      const itemsSold = orders.reduce((total, order) => {
+        return total + order.items.reduce((sum, item) => sum + item.quantity, 0);
+      }, 0);
+
+      metrics[key] = { totalOrders, revenueCollected, itemsSold, orders };
+    }
+
+    // Aggregated data for all orders
+    const allRevenue = allOrders.reduce((total, order) => total + order.amount, 0);
+    const allItemsSold = allOrders.reduce((total, order) => {
+      return total + order.items.reduce((sum, item) => sum + item.quantity, 0);
+    }, 0);
+
+    res.json({
+      success: true,
+      allOrders,
+      allMetrics: {
+        totalOrders: allOrders.length,
+        revenueCollected: allRevenue,
+        itemsSold: allItemsSold,
+      },
+      metrics,
     });
-    res.json({ success: true, message: orders, count, count2 });
   } catch (error) {
     console.log(error);
     res.json({ success: false, message: error.message });
@@ -73,10 +103,19 @@ const userOrders = async (req, res) => {
     const twoDaysAgo = new Date(Date.now() - 2 * 24 * 60 * 60 * 1000);
     const oneWeekAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
 
-    const recentOrders = await Order.find({ userid: userId }); 
-    const last60MinOrders = await Order.find({ userid: userId, createdAt: { $gte: sixtyMinutesAgo } });
-    const last2DaysOrders = await Order.find({ userid: userId, createdAt: { $gte: twoDaysAgo } });
-    const last1WeekOrders = await Order.find({ userid: userId, createdAt: { $gte: oneWeekAgo } });
+    const recentOrders = await Order.find({ userid: userId });
+    const last60MinOrders = await Order.find({
+      userid: userId,
+      createdAt: { $gte: sixtyMinutesAgo },
+    });
+    const last2DaysOrders = await Order.find({
+      userid: userId,
+      createdAt: { $gte: twoDaysAgo },
+    });
+    const last1WeekOrders = await Order.find({
+      userid: userId,
+      createdAt: { $gte: oneWeekAgo },
+    });
 
     const totalOrders = recentOrders.length;
     const countLast60Min = last60MinOrders.length;
@@ -98,7 +137,6 @@ const userOrders = async (req, res) => {
     res.json({ success: false, message: error.message });
   }
 };
-
 
 const verifyOrder = async (req, res) => {
   const { orderId, success } = req.body;
