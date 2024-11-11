@@ -8,7 +8,7 @@ import { LoginPopup } from "../components/LoginPopup";
 import background from "./../../assets/website-home.jpg";
 import { Products } from "./Products";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./Home.css";
 import FoodItem from "../components/FoodItem";
@@ -81,7 +81,14 @@ export const Home = ({ category, setCategory }) => {
       {currentUser && currentUser.role === "Customer" && (
         <>
           <div className=" mx-20 p-8 relative">
-            <h2 className="text-2xl font-bold">Recently Added Products</h2>
+            <div className="flex justify-between">
+              <h2 className="text-2xl font-bold">Fast Selling Products</h2>
+              <Link to="/Market">
+              <p className=" mr-4 mt-2 mb-2 font-bold hover:underline cursor-pointer text-white p-1 rounded-lg text-sm bg-cyan-500">
+                View all
+              </p>
+              </Link>
+            </div>
 
             {/* Left Arrow */}
             <button
@@ -117,10 +124,13 @@ export const Home = ({ category, setCategory }) => {
           </div>
           <div className="mx-20 p-8 relative">
             <div className="flex justify-between">
-            <h2 className="text-2xl font-bold">Recently Added Products</h2>
-            <p className=" mr-4 mt-2 mb-2 font-bold hover:underline cursor-pointer text-white p-1 rounded-lg text-sm bg-cyan-500">View all</p>
+              <h2 className="text-2xl font-bold">Recently Added Products</h2>
+              <Link to="/Market">
+              <p className=" mr-4 mt-2 mb-2 font-bold hover:underline cursor-pointer text-white p-1 rounded-lg text-sm bg-cyan-500">
+                View all
+              </p>
+              </Link>
             </div>
-
 
             {/* Left Arrow */}
             <button
