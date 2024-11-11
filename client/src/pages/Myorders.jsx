@@ -38,6 +38,8 @@ const MyOrders = () => {
       filteredData = orders.filter(order => new Date(order.createdAt) >= new Date(Date.now() - 7 * 24 * 60 * 60 * 1000));
     }
     setData(filteredData.reverse());
+    console.log(filteredData);
+    
   };
 
   useEffect(() => {
@@ -56,22 +58,26 @@ const MyOrders = () => {
           onChange={(e) => setSelectedFilter(e.target.value)}
         >
           <option value="totalOrders">Total Orders ({counts.totalOrders})</option>
-          <option value="countLast10Min">Last 60 Minutes ({counts.countLast60Min})</option>
+          <option value="countLast60Min">Last 60 Minutes ({counts.countLast60Min})</option>
           <option value="countLast2Days">Last 2 Days ({counts.countLast2Days})</option>
           <option value="countLast1Week">Last 1 Week ({counts.countLast1Week})</option>
         </select>
       </div>
       <div className="container">
-        {data.map((order, index) => (
-          <div key={index} className='my-orders-order bg-orange-200 transform transition-transform duration-300 hover:scale-105 hover:shadow-2xl hover:border-4 hover:border-blue-400 hover:bg-orange-300'>
-            <img src={assets.parcel_icon} alt="" />
-            <p>{order.items.map((item, idx) => `${item.name} x ${item.quantity}${idx < order.items.length - 1 ? ', ' : ''}`)}</p>
-            <p>Rs {order.amount}.00/-</p>
-            <p>Items: {order.items.length}</p>
-            <p><span>&#x25cf;</span> <b>{order.status}</b></p>
-            <button>Track Order</button>
-          </div>
-        ))}
+      {data.length > 0 ? (
+          data.map((order, index) => (
+            <div key={index} className='my-orders-order bg-orange-200 transform transition-transform duration-300 hover:scale-105 hover:shadow-2xl hover:border-4 hover:border-blue-400 hover:bg-orange-300'>
+              <img src={assets.parcel_icon} alt="" />
+              <p>{order.items.map((item, idx) => `${item.name} x ${item.quantity}${idx < order.items.length - 1 ? ', ' : ''}`)}</p>
+              <p>Rs {order.amount}.00/-</p>
+              <p>Items: {order.items.length}</p>
+              <p><span>&#x25cf;</span> <b>{order.status}</b></p>
+              <button>Track Order</button>
+            </div>
+          ))
+        ) : (
+          <p className='text-2xl text-red-600 text-center'>No orders found for the selected filter.</p> // Display a message if no orders are found
+        )}
       </div>
     </div>
   );

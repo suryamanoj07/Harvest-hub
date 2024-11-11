@@ -84,4 +84,40 @@ const newlyAddedProducts = async (req, res) => {
     }
 };
 
+// const addRating = async (req, res) => {
+//     const { productId, userId, rating } = req.body;
+  
+//     if (rating < 1 || rating > 5) {
+//       return res.status(400).json({ success: false, message: "Invalid rating" });
+//     }
+  
+//     try {
+//       const product = await productModel.findById(productId);
+//       if (!product) return res.status(404).json({ success: false, message: "Product not found" });
+  
+//       // Check if the user has already rated this product
+//       const existingRating = product.ratings.ratingDetails.find(
+//         (item) => item.userId.toString() === userId
+//       );
+  
+//       if (existingRating) {
+//         // Update existing rating
+//         existingRating.rating = rating;
+//       } else {
+//         // Add new rating
+//         product.ratings.ratingDetails.push({ userId, rating });
+//         product.ratings.totalRatings += 1;
+//       }
+  
+//       // Recalculate average rating
+//       const totalRatingSum = product.ratings.ratingDetails.reduce((acc, item) => acc + item.rating, 0);
+//       product.ratings.averageRating = totalRatingSum / product.ratings.ratingDetails.length;
+  
+//       await product.save();
+//       res.json({ success: true, message: "Rating submitted successfully", averageRating: product.ratings.averageRating });
+//     } catch (error) {
+//       res.status(500).json({ success: false, message: error.message });
+//     }
+//   };
+
 export {addProduct,listProduct,deleteProduct,searchProduct,fastSellingItems,newlyAddedProducts}
