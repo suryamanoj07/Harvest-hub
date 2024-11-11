@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import productModel from "./ProductModel.js";
+import toolModel from "./toolModel.js";
 
 mongoose.connect(
   "mongodb+srv://manojsurya463:BjxbMbniGwKlMbmT@cluster0.tjaza.mongodb.net/MERN-farmers",
@@ -9,7 +10,7 @@ mongoose.connect(
 async function migrateProducts() {
   try {
     // Set default values for new fields
-    await productModel.updateMany(
+    await toolModel.updateMany(
       {},
       {
         $set: {
@@ -33,14 +34,14 @@ async function migrateProducts() {
 
 async function addCreatedAtToExistingDocuments() {
   try {
-    const products = await productModel.find().sort({ _id: 1 }); // Sort by _id to ensure ordering
+    const products = await toolModel.find().sort({ _id: 1 }); // Sort by _id to ensure ordering
     let timestamp = new Date();
     const intervalSeconds = 30; // 2 minutes
 
     for (const product of products) {
       timestamp = new Date(timestamp.getTime() + intervalSeconds * 1000); 
 
-      await productModel.findByIdAndUpdate(product._id, { createdAt: timestamp });
+      await toolModel.findByIdAndUpdate(product._id, { createdAt: timestamp });
       console.log(
         `Updated product ${product.name} with createdAt: ${timestamp}`
       );

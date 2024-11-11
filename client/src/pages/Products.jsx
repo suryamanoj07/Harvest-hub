@@ -52,6 +52,7 @@ export const Products = ({ category, setCategory }) => {
                     description={item.description}
                     price={item.price}
                     image={item.image}
+                    stock = {item.stockQuantity}
                   />
                 );
               }
