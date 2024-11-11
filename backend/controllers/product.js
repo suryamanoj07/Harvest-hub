@@ -56,4 +56,32 @@ const deleteProduct=async(req,res)=>{
     }
 }
 
-export {addProduct,listProduct,deleteProduct,searchProduct}
+const fastSellingItems = async (req, res) => {
+    try {
+      // Fetch products with stock > 0, sorted by stock quantity in ascending order (least stock first)
+      const products = await productModel.find({ stockQuantity: { $gt: 0 } })
+        .sort({ stockQuantity: 1 })
+        .limit(10); // Limit to top 5 products
+  
+      res.json({ success: true, message: products });
+    } catch (error) {
+      console.error(error);
+      res.json({ success: false, message: error.message });
+    }
+};
+
+const newlyAddedProducts = async (req, res) => {
+    try {
+      // Fetch the top 5 most recently added products (sorted by creation date descending)
+      const products = await productModel.find()
+        .sort({ createdAt: 1 }) // Sort by createdAt in descending order (newest first)
+        .limit(10); // Limit to top 5 most recent products
+  
+      res.json({ success: true, message: products });
+    } catch (error) {
+      console.error(error);
+      res.json({ success: false, message: error.message });
+    }
+};
+
+export {addProduct,listProduct,deleteProduct,searchProduct,fastSellingItems,newlyAddedProducts}

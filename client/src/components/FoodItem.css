@@ -1,6 +1,7 @@
 .food-item{
     width: 250px;
     margin: auto;
+    background-color: white;
     border-radius: 1px;
     box-shadow: 3px 3px 10px #00000015;
     transition: 0.3s;

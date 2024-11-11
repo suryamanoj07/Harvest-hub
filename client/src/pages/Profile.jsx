@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { updateUser } from './redux/user/userSlice';
 import "./Profile.css";
+import { Link } from "react-router-dom";
+
 
 export default function Profile() {
   const token = localStorage.getItem("token");
@@ -146,6 +148,12 @@ export default function Profile() {
       <div className="hello-container">
         <p className="hello-text">Hello, <span className="username-text">{userName.charAt(0).toUpperCase()}{userName.slice(1)}</span></p>
       </div>
+
+      <Link to="/myorders">
+      <div className="absolute right-40 cursor-pointer">
+        <span className=" bg-orange-500 p-2 text-xl hover:bg-orange-600 rounded-md">My Orders</span>
+      </div>
+      </Link>
 
       <div className="class-1140 block" style={{ marginTop: "4rem" }}>
         <p className="pb-4 text-xl font-normal font-sans">Personal info</p>

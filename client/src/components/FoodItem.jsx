@@ -25,6 +25,8 @@ const FoodItem = ({ id, name, price, description, image, stock }) => {
           <span className="low-stock-badge">Low Stock : {stock}</span>
         ) : null}
 
+        
+
 {!cartItems[id] ? (
   <img
     className="add"

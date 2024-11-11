@@ -9,7 +9,7 @@ const MyOrders = () => {
   const [data, setData] = useState([]);
   const [counts, setCounts] = useState({
     totalOrders: 0,
-    countLast10Min: 0,
+    countLast60Min: 0,
     countLast2Days: 0,
     countLast1Week: 0,
   });
@@ -26,12 +26,12 @@ const MyOrders = () => {
     );
     
     // Set counts and filter data based on selected filter
-    const { totalOrders, countLast10Min, countLast2Days, countLast1Week, orders } = response.data.message;
-    setCounts({ totalOrders, countLast10Min, countLast2Days, countLast1Week });
+    const { totalOrders, countLast60Min, countLast2Days, countLast1Week, orders } = response.data.message;
+    setCounts({ totalOrders, countLast60Min, countLast2Days, countLast1Week });
 
     let filteredData = orders;
-    if (filter === 'countLast10Min') {
-      filteredData = orders.filter(order => new Date(order.createdAt) >= new Date(Date.now() - 10 * 60 * 1000));
+    if (filter === 'countLast60Min') {
+      filteredData = orders.filter(order => new Date(order.createdAt) >= new Date(Date.now() - 60 * 60 * 1000));
     } else if (filter === 'countLast2Days') {
       filteredData = orders.filter(order => new Date(order.createdAt) >= new Date(Date.now() - 2 * 24 * 60 * 60 * 1000));
     } else if (filter === 'countLast1Week') {
@@ -56,7 +56,7 @@ const MyOrders = () => {
           onChange={(e) => setSelectedFilter(e.target.value)}
         >
           <option value="totalOrders">Total Orders ({counts.totalOrders})</option>
-          <option value="countLast10Min">Last 10 Minutes ({counts.countLast10Min})</option>
+          <option value="countLast10Min">Last 60 Minutes ({counts.countLast60Min})</option>
           <option value="countLast2Days">Last 2 Days ({counts.countLast2Days})</option>
           <option value="countLast1Week">Last 1 Week ({counts.countLast1Week})</option>
         </select>

@@ -59,17 +59,17 @@ const userOrders = async (req, res) => {
   try {
     const userId = req.body.userid;
 
-    const tenMinutesAgo = new Date(Date.now() - 10 * 60 * 1000);
+    const sixtyMinutesAgo = new Date(Date.now() - 60 * 60 * 1000);
     const twoDaysAgo = new Date(Date.now() - 2 * 24 * 60 * 60 * 1000);
     const oneWeekAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
 
     const recentOrders = await Order.find({ userid: userId }); 
-    const last10MinOrders = await Order.find({ userid: userId, createdAt: { $gte: tenMinutesAgo } });
+    const last60MinOrders = await Order.find({ userid: userId, createdAt: { $gte: sixtyMinutesAgo } });
     const last2DaysOrders = await Order.find({ userid: userId, createdAt: { $gte: twoDaysAgo } });
     const last1WeekOrders = await Order.find({ userid: userId, createdAt: { $gte: oneWeekAgo } });
 
     const totalOrders = recentOrders.length;
-    const countLast10Min = last10MinOrders.length;
+    const countLast60Min = last60MinOrders.length;
     const countLast2Days = last2DaysOrders.length;
     const countLast1Week = last1WeekOrders.length;
 
@@ -77,7 +77,7 @@ const userOrders = async (req, res) => {
       success: true,
       message: {
         totalOrders,
-        countLast10Min,
+        countLast60Min,
         countLast2Days,
         countLast1Week,
         orders: recentOrders,
