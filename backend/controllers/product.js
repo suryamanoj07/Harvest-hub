@@ -1,5 +1,7 @@
 import fs from "fs";
 import productModel from "../models/ProductModel.js";
+import Order from "../models/orderModel.js";
+
 
 const addProduct = async(req,res)=>{
 
@@ -31,6 +33,127 @@ const listProduct = async(req,res)=>{
         res.json({success:false,message:`${err.message}`})
     }
 }
+
+const farmerList = async (req, res) => {
+    const { email } = req.body;
+
+    // Validate email parameter
+    if (!email) {
+        return res.status(400).json({ success: false, message: "Email is required." });
+    }
+
+    try {
+        // Find products by farmer's email
+        const products = await productModel.find({ email });
+
+        if (products.length === 0) {
+            return res.json({ success: true, message: "No products found for this farmer.", products: [] });
+        }
+
+        // Return found products
+        res.json({ success: true, message: "Products retrieved successfully.", products });
+    } catch (error) {
+        res.status(500).json({ success: false, message: `Error fetching products: ${error.message}` });
+    }
+}
+
+const farmerDelete = async (req, res) => {
+    const { id } = req.params;
+  
+    try {
+      const product = await productModel.findByIdAndDelete(id);
+  
+      if (!product) {
+        return res.status(404).json({ success: false, message: "Product not found" });
+      }
+  
+      res.status(200).json({ success: true, message: "Product deleted successfully" });
+    } catch (err) {
+      res.status(500).json({ success: false, message: "Error deleting product", error: err.message });
+    }
+  };
+
+  const updateProduct = async (req, res) => {
+    const { id } = req.params;
+    const { name, description, price, category, stockQuantity, status } = req.body;
+  
+    try {
+      const updatedProduct = await productModel.findByIdAndUpdate(id, {
+        name,
+        description,
+        price,
+        category,
+        stockQuantity,
+        status
+      }, { new: true });
+  
+      if (!updatedProduct) {
+        return res.status(404).json({ success: false, message: "Product not found" });
+      }
+  
+      res.status(200).json({ success: true, message: "Product updated successfully", product: updatedProduct });
+    } catch (err) {
+      res.status(500).json({ success: false, message: "Error updating product", error: err.message });
+    }
+  };
+  
+  const getDateRange = (timePeriod) => {
+    const now = new Date();
+    switch (timePeriod) {
+      case "last30min":
+        return new Date(now.getTime() - 30 * 60 * 1000); // 30 minutes ago
+      case "last2hrs":
+        return new Date(now.getTime() - 2 * 60 * 60 * 1000); // 2 hours ago
+      case "last1day":
+        return new Date(now.getTime() - 24 * 60 * 60 * 1000); // 1 day ago
+      case "last1week":
+        return new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000); // 1 week ago
+      default:
+        return new Date(0); // All-time records
+    }
+  };
+
+  const farmerRevenue = async (req, res) => {
+    try {
+      const { email, timePeriod } = req.body;
+  
+      // Calculate the start date for the filter
+      const startDate = getDateRange(timePeriod);
+  
+      // Fetch products belonging to the farmer with stock quantity < 50
+      const farmerProducts = await productModel.find({
+        email,
+        stockQuantity: { $lt: 50 },
+      });
+  
+      // Initialize total revenue and items sold
+      let totalRevenue = 0;
+      let totalItemsSold = 0;
+  
+      // Iterate through each product to calculate sold quantity and revenue
+      for (const product of farmerProducts) {
+        // Calculate total sold quantity and revenue for each product
+        const itemsSold = 50 - product.stockQuantity; // Assuming the original stock was 50
+        const revenue = itemsSold * product.price;
+  
+        // Aggregate these to the total revenue and items sold for all products
+        totalRevenue += revenue;
+        totalItemsSold += itemsSold;
+      }
+  
+      res.json({
+        success: true,
+        soldProducts: farmerProducts,
+        revenue: totalRevenue,
+        totalItemsSold: totalItemsSold,
+      });
+    } catch (error) {
+      console.error("Error fetching sold products and revenue:", error);
+      res.status(500).json({ success: false, message: error.message });
+    }
+  };
+  
+
 
 const searchProduct = async(req,res)=>{
     const {search} = req.params
@@ -121,4 +244,4 @@ const newlyAddedProducts = async (req, res) => {
 //     }
 //   };
 
-export {addProduct,listProduct,deleteProduct,searchProduct,fastSellingItems,newlyAddedProducts}
+export {addProduct,listProduct,deleteProduct,searchProduct,fastSellingItems,newlyAddedProducts,farmerList,updateProduct,farmerDelete, farmerRevenue}

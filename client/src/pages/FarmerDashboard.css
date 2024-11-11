@@ -1,0 +1,197 @@
+.dashboard-container {
+  padding: 20px;
+  background-color: #f8f8f8;
+  min-height: 100vh;
+}
+.dashboard-title {
+  font-size: 2em;
+  text-align: center;
+  margin-bottom: 20px;
+}
+.product-grid {
+  display: flex; /* Use Flexbox */
+  flex-wrap: wrap; /* Allow wrapping to the next line if needed */
+  justify-content: space-evenly; /* Space products evenly */
+  gap: 20px; /* Add some space between product cards */
+}
+  
+  .email-input-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .email-input {
+    padding: 8px;
+    width: 300px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .fetch-button {
+    padding: 8px 16px;
+    font-size: 1rem;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .fetch-button:hover {
+    background-color: #45a049;
+  }
+  
+  .no-products-message {
+    text-align: center;
+    font-size: 1.5rem;
+    color: #555;
+  }
+  .product-card {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    width: 250px; /* Adjust width for horizontal layout */
+    padding: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s ease;
+  }
+  
+  .product-image {
+    width: 250px;
+    height: 200px;
+    object-fit: cover;
+    /* border-radius: 8px; */
+    margin-bottom: 10px;
+  }
+  
+  .product-name {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin: 10px 0;
+  }
+  
+  .product-description {
+    color: #666;
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+  }
+  
+  .product-category,
+  .product-price,
+  .product-stock,
+  .product-status {
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+  }
+  
+  .sold-out {
+    color: red;
+  }
+  
+  .on-sale {
+    color: green;
+  }
+  
+  .edit-button,
+.delete-button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.edit-button {
+  background-color: #4CAF50;
+  color: #fff;
+}
+
+.edit-button:hover {
+  background-color: #45a049;
+}
+
+.delete-button {
+  background-color: #f44336;
+  color: #fff;
+}
+
+.delete-button:hover {
+  background-color: #e53935;
+}
+.product-card:hover {
+  transform: scale(1.05);
+}
+
+.sold-out {
+  color: red;
+}
+
+.on-sale {
+  color: green;
+}
+
+.edit-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.edit-modal form {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  width: 400px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.edit-modal label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.edit-modal input,
+.edit-modal textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+.edit-modal button {
+  width: 48%;
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.edit-modal button[type="submit"] {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.edit-modal button[type="button"] {
+  background-color: #ccc;
+  color: black;
+}
+
+.edit-modal button:hover {
+  opacity: 0.9;
+}

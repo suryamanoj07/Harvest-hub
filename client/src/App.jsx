@@ -24,6 +24,8 @@ import { AddTool } from './components/AddTool';
 import ListTool from './components/ListTool';
 import { Articles } from './pages/Articles';
 import { ToastContainer } from 'react-toastify';
+import FarmerDashboard from './pages/FarmerDashboard';
+import FarmerRevenue from './pages/FarmerRevenue';
 import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
@@ -50,6 +52,8 @@ function App() {
           <Route path="/Signup" element={<Signup />} />
           <Route element={<PrivateRoute />}>
             <Route path="/profile" element={<Profile />} />
+            <Route path="/farmerdashboard" element={<FarmerDashboard />} />
+            <Route path="/farmerrevenue" element={<FarmerRevenue />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/empty" element={<Empty />} />
             <Route path="/order" element={<Order />} />
