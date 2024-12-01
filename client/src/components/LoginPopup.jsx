@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 export const LoginPopup = () => {
   return (
-    <div>
+    <div className="mb-4">
       <span className="bg-blue-600 text-black font-bold  mx-20 text-3xl p-4">
         Choose Your Login
       </span>
