@@ -25,34 +25,31 @@ const FoodItem = ({ id, name, price, description, image, stock }) => {
           <span className="low-stock-badge">Low Stock : {stock}</span>
         ) : null}
 
-        
-
-{!cartItems[id] ? (
-  <img
-    className="add"
-    onClick={() => stock > 0 && addtoCart(id)} // Only allow adding if stock is greater than 0
-    src={assets.add_icon_white}
-    alt="Add to Cart"
-  />
-) : (
-  <div className="food-item-counter">
-    <img
-      onClick={() => removeCart(id)}
-      src={assets.remove_icon_red}
-      alt="Remove from Cart"
-    />
-    <p>{cartItems[id]}</p>
-    <img
-      onClick={() => {
-        // Only allow adding if current quantity is less than stock
-        if (cartItems[id] < stock) addtoCart(id);
-      }}
-      src={assets.add_icon_green}
-      alt="Add to Cart"
-    />
-  </div>
-)}
-
+        {!cartItems[id] ? (
+          <img
+            className="add"
+            onClick={() => stock > 0 && addtoCart(id)} // Only allow adding if stock is greater than 0
+            src={assets.add_icon_white}
+            alt="Add to Cart"
+          />
+        ) : (
+          <div className="food-item-counter">
+            <img
+              onClick={() => removeCart(id)}
+              src={assets.remove_icon_red}
+              alt="Remove from Cart"
+            />
+            <p>{cartItems[id]}</p>
+            <img
+              onClick={() => {
+                // Only allow adding if current quantity is less than stock
+                if (cartItems[id] < stock) addtoCart(id);
+              }}
+              src={assets.add_icon_green}
+              alt="Add to Cart"
+            />
+          </div>
+        )}
       </div>
       <div className="food-item-info">
         <div className="food-item-name-rating">

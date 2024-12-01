@@ -100,19 +100,19 @@ const farmerDelete = async (req, res) => {
   const getDateRange = (timePeriod) => {
     const now = new Date();
     switch (timePeriod) {
-      case "last30min":
+      case "30min":
         return new Date(now.getTime() - 30 * 60 * 1000); // 30 minutes ago
-      case "last2hrs":
+      case "2hrs":
         return new Date(now.getTime() - 2 * 60 * 60 * 1000); // 2 hours ago
-      case "last1day":
+      case "1day":
         return new Date(now.getTime() - 24 * 60 * 60 * 1000); // 1 day ago
-      case "last1week":
+      case "1week":
         return new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000); // 1 week ago
       default:
         return new Date(0); // All-time records
     }
   };
-
+  
   const farmerRevenue = async (req, res) => {
     try {
       const { email, timePeriod } = req.body;
@@ -120,30 +120,31 @@ const farmerDelete = async (req, res) => {
       // Calculate the start date for the filter
       const startDate = getDateRange(timePeriod);
   
-      // Fetch products belonging to the farmer with stock quantity < 50
-      const farmerProducts = await productModel.find({
-        email,
-        stockQuantity: { $lt: 50 },
+      // Fetch orders placed within the time period
+      const orders = await Order.find({
+        Date: { $gte: startDate },
       });
   
       // Initialize total revenue and items sold
       let totalRevenue = 0;
       let totalItemsSold = 0;
+      let soldProducts = [];
   
-      // Iterate through each product to calculate sold quantity and revenue
-      for (const product of farmerProducts) {
-        // Calculate total sold quantity and revenue for each product
-        const itemsSold = 50 - product.stockQuantity; // Assuming the original stock was 50
-        const revenue = itemsSold * product.price;
-  
-        // Aggregate these to the total revenue and items sold for all products
-        totalRevenue += revenue;
-        totalItemsSold += itemsSold;
+      // Loop through each order and calculate revenue and sold items for the farmer
+      for (const order of orders) {
+        for (const item of order.items) {
+          if (item.email === email) {
+            const revenue = item.price * item.quantity; // Assuming item has price and quantity fields
+            totalRevenue += revenue;
+            totalItemsSold += item.quantity;
+            soldProducts.push(item);
+          }
+        }
       }
   
       res.json({
         success: true,
-        soldProducts: farmerProducts,
+        soldProducts,
         revenue: totalRevenue,
         totalItemsSold: totalItemsSold,
       });
@@ -152,6 +153,7 @@ const farmerDelete = async (req, res) => {
       res.status(500).json({ success: false, message: error.message });
     }
   };
+  
   
 
 

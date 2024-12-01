@@ -27,7 +27,7 @@ const FarmerRevenue = () => {
     try {
       const response = await axios.post("http://localhost:3000/api/product/farmerrevenue", {
         email,
-        filter: filterValue
+        timePeriod: filterValue
       });
 
       if (response.data.success) {
@@ -84,8 +84,7 @@ const FarmerRevenue = () => {
               <p>{product.description}</p>
               <p><strong>Category:</strong> {product.category}</p>
               <p><strong>Price:</strong> Rs {product.price}/-</p>
-              <p><strong>Stock Remaining:</strong> {product.stockQuantity} items</p>
-              <p><strong>Status:</strong> {product.status}</p>
+              <p><strong>Quantity Sold:</strong> {product.quantity}</p>
             </div>
           ))}
         </div>

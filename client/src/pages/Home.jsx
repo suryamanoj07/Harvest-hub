@@ -18,6 +18,11 @@ const scrollContainer = (scrollOffset) => {
   container.scrollLeft += scrollOffset;
 };
 
+const scrollContainer2 = (scrollOffset) => {
+  const container = document.getElementById("scroll-container2");
+  container.scrollLeft += scrollOffset;
+};
+
 export const Home = ({ category, setCategory }) => {
   const { currentUser } = useSelector((state) => state.user);
   const navigate = useNavigate();
@@ -169,7 +174,7 @@ export const Home = ({ category, setCategory }) => {
             </button>
 
             {/* Horizontal scroll container */}
-            <div id="scroll-container" className="horizontal-scroll-container">
+            <div id="scroll-container2" className="horizontal-scroll-container">
               {newlyAddedProducts.map((item) => (
                 <FoodItem
                   key={item._id}
@@ -258,7 +263,7 @@ export const Home = ({ category, setCategory }) => {
             </button>
 
             {/* Horizontal scroll container */}
-            <div id="scroll-container" className="horizontal-scroll-container">
+            <div id="scroll-container2" className="horizontal-scroll-container">
               {newlyAddedTools.map((item) => (
                 <FoodItem
                   key={item._id}
@@ -276,7 +281,7 @@ export const Home = ({ category, setCategory }) => {
             {/* Right Arrow */}
             <button
               className="scroll-arrow right-arrow"
-              onClick={() => scrollContainer(200)} // Scroll right by 200px
+              onClick={() => scrollContainer2(200)} // Scroll right by 200px
             >
               &#10095;
             </button>

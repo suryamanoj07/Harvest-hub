@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Online Store</title>
+    <link rel="stylesheet" href="sell.css">
+    <script>
+        // Function to handle form submission using AJAX
+        function submitForm(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            // Create a new FormData object
+            const formData = new FormData(document.getElementById('productForm'));
+
+            // Create an XMLHttpRequest object
+            const xhr = new XMLHttpRequest();
+
+            // Define what happens on successful data submission
+            xhr.onload = function () {
+                if (xhr.status == 200) {
+                    alert("Product added successfully!");
+                    // Clear the form fields after successful submission
+                    document.getElementById('productForm').reset();
+                } else {
+                    alert("Error: Unable to add product");
+                }
+            };
+
+            // Define the type of request (POST), the API URL, and make it asynchronous
+            xhr.open("POST", "http://localhost:3000/api/tool/add", true);
+
+            // Send the form data using the XMLHttpRequest
+            xhr.send(formData);
+        }
+
+        // Attach the submitForm function to the form when the window loads
+        window.onload = function () {
+            document.getElementById('productForm').addEventListener('submit', submitForm);
+        };
+    </script>
+</head>
+<body>
+    <h1>Add Product</h1>
+    
+    <form id="productForm" action="http://localhost:3000/api/tool/add" method="post" enctype="multipart/form-data">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required><br>
+
+        <label for="description">Description:</label>
+        <textarea id="description" name="description" required></textarea><br>
+
+        <label for="category">Category:</label>
+        <select id="category" name="category" required class="inputsell">
+            <option value="Fruit">Fruit</option>
+            <option value="Vegetable">Vegetable</option>
+            <option value="Grains">Grains</option>
+            <option value="Nuts">Nuts</option>
+            <option value="Dal">Dal</option>
+        </select><br>
+
+        <label for="price">Price:</label>
+        <input type="number" id="price" name="price" required><br>
+
+        <label for="image">Image:</label>
+        <input type="file" id="image" name="image" accept="image/*" required><br>
+
+        <!-- New Email Field -->
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required><br>
+
+        <button type="submit">Add Tool</button>
+    </form>
+</body>
+</html>

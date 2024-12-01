@@ -10,7 +10,8 @@ const addtool = async(req,res)=>{
         description : req.body.description,
         price : req.body.price,
         category : req.body.category,
-        image : image_filename
+        image : image_filename,
+        email: req.body.email
     })
 
     try{
@@ -30,6 +31,69 @@ const listtool = async(req,res)=>{
         res.json({success:false,message:`${err.message}`})
     }
 }
+
+const farmerListTool = async (req, res) => {
+    const { email } = req.body;
+
+    // Validate email parameter
+    if (!email) {
+        return res.status(400).json({ success: false, message: "Email is required." });
+    }
+
+    try {
+        // Find products by farmer's email
+        const tools = await toolModel.find({ email });
+
+        if (tools.length === 0) {
+            return res.json({ success: true, message: "No tools found for this farmer.", tools: [] });
+        }
+
+        // Return found products
+        res.json({ success: true, message: "Tools retrieved successfully.",tools });
+    } catch (error) {
+        res.status(500).json({ success: false, message: `Error fetching products: ${error.message}` });
+    }
+}
+
+const farmerDeleteTool = async (req, res) => {
+    const { id } = req.params;
+  
+    try {
+      const tool = await toolModel.findByIdAndDelete(id);
+  
+      if (!tool) {
+        return res.status(404).json({ success: false, message: "Tool not found" });
+      }
+  
+      res.status(200).json({ success: true, message: "Tool deleted successfully" });
+    } catch (err) {
+      res.status(500).json({ success: false, message: "Error deleting product", error: err.message });
+    }
+  };
+
+  const updateTool = async (req, res) => {
+    const { id } = req.params;
+    const { name, description, price, category, stockQuantity, status } = req.body;
+  
+    try {
+      const updatedProduct = await toolModel.findByIdAndUpdate(id, {
+        name,
+        description,
+        price,
+        category,
+        stockQuantity,
+        status
+      }, { new: true });
+  
+      if (!updatedProduct) {
+        return res.status(404).json({ success: false, message: "Tool not found" });
+      }
+  
+      res.status(200).json({ success: true, message: "Tool updated successfully", tool: updatedProduct });
+    } catch (err) {
+      res.status(500).json({ success: false, message: "Error updating product", error: err.message });
+    }
+  };
 
 const searchTool = async(req,res)=>{
     const {search} = req.params

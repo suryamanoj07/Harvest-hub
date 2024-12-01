@@ -15,7 +15,8 @@ const toolSchema = new mongoose.Schema({
       rating: { type: Number, min: 0, max: 5 } 
     }],
     discount: { type: Number, default: 0 },
-    seller: { type: String, default: null },  
+    seller: { type: String, default: null }, 
+    email: { type: String, required: true } 
 }, { timestamps: true })
 
 const toolModel = mongoose.model('Tool',toolSchema)

@@ -1,4 +1,5 @@
-// import React from 'react'
+/* eslint-disable no-unused-vars */
+import React from "react";
 import { FaRegHeart, FaShoppingBag } from "react-icons/fa";
 import user_image from "./../../assets/user_img.png";
 import { IoPersonSharp } from "react-icons/io5";
@@ -6,28 +7,28 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useContext } from "react";
 import { storeContext } from "../pages/redux/context/storeContext";
-import { logoutSuccess } from "../../src/pages/redux/user/userSlice"
+import { logoutSuccess } from "../../src/pages/redux/user/userSlice";
 import { useNavigate } from "react-router-dom";
 import { SearchBar } from "./SearchBar";
+import "./Header.css"; // Create a CSS file for additional styles
 
 export const Header = () => {
   let { currentUser } = useSelector((state) => state.user);
   const { cartQuantity } = useContext(storeContext);
   const { setToken } = useContext(storeContext);
   const navigate = useNavigate();
-  const dispatch = useDispatch()
-
+  const dispatch = useDispatch();
 
   const logout = () => {
     localStorage.removeItem("token");
     setToken("");
-    dispatch(logoutSuccess())
+    dispatch(logoutSuccess());
     navigate("/");
   };
 
   return (
     <header className="bg-slate-300 shadow-md fixed top-0 left-0 min-w-full z-50">
-      <div className="flex items-center p-3 justify-between  max-w-7xl mx-8 gap-16">
+      <div className="flex items-center p-3 justify-between max-w-7xl mx-8 gap-16">
         <Link to="/">
           <h1 className="cursor-pointer">
             <span className="font-bold text-3xl text-blue-600">Harvest</span>
@@ -35,16 +36,16 @@ export const Header = () => {
           </h1>
         </Link>
 
-        {currentUser && currentUser.role == "Admin" ? (
+        {currentUser && currentUser.role === "Admin" ? (
           <div className="flex items-center">
             <div className="text-3xl mr-80">
               Welcome {currentUser.user_name}
             </div>
             <Link to="profile">
-            <div className="flex flex-col justify-center items-center ml-60">
-                    <img src={user_image} alt="" width="25px" />
-                    <p>{currentUser.user_name}</p>
-            </div>
+              <div className="flex flex-col justify-center items-center ml-60">
+                <img src={user_image} alt="" width="25px" />
+                <p>{currentUser.user_name}</p>
+              </div>
             </Link>
           </div>
         ) : (
@@ -68,73 +69,59 @@ export const Header = () => {
                 </li>
               </Link>
 
-              {currentUser==null && <Link to="/Articles">
-                <li className="text-slate-700 hover:underline font-semibold text-lg">
-                  Articles
-                </li>
-              </Link>}
+              {(currentUser === null || currentUser.role === "Customer") && (
+                <Link to="/Articles">
+                  <li className="text-slate-700 hover:underline font-semibold text-lg">
+                    Articles
+                  </li>
+                </Link>
+              )}
 
-              {currentUser && currentUser.role=="Customer"?<Link to="/Articles">
-                <li className="text-slate-700 hover:underline font-semibold text-lg">
-                  Articles
-                </li>
-              </Link> :
-              <li className="text-slate-700 hover:underline font-semibold text-lg">
-                  <a href="/sell.html">Sell</a>
-                </li>
-              }
-                
-
-              <Link to="/">
-                <li className="text-slate-700 hover:underline font-semibold text-lg">
-                  Home
-                </li>
-              </Link>
+              {currentUser && currentUser.role === "Farmer" ? (
+                <div className="sell-dropdown text-slate-700 font-semibold text-lg">
+                  <span className="cursor-pointer">Sell</span>
+                  <ul className="dropdown-content">
+                    <li>
+                      <a href="/sell.html">Products</a>
+                    </li>
+                    <li>
+                      <a href="/sell2.html">Tools</a>
+                    </li>
+                  </ul>
+                </div>
+              ) : (
+                <Link to="/">
+                  <li className="text-slate-700 hover:underline font-semibold text-lg">
+                    Home
+                  </li>
+                </Link>
+              )}
             </ul>
 
             <SearchBar />
 
             <ul className="flex gap-6 ">
-              <li className="font-bold  flex flex-col items-center justify-center cursor-pointer">
+              <li className="font-bold flex flex-col items-center justify-center cursor-pointer">
                 <FaRegHeart />
-                wishlist
+                Wishlist
               </li>
               <Link to="/cart">
                 <li className="flex">
-                  <div className="font-bold  flex flex-col items-center justify-center cursor-pointer p-2">
+                  <div className="font-bold flex flex-col items-center justify-center cursor-pointer p-2">
                     <FaShoppingBag />
                     Cart
                   </div>
-                  <span
-                    style={{
-                      height: "23px",
-                      backgroundColor: "red",
-                      width: "20px",
-                      textAlign: "center",
-                      color: "white",
-                      position: "relative",
-                      right: "25px",
-                      bottom: "5px",
-                      borderRadius: "50%",
-                    }}
-                  >
-                    {cartQuantity()}
-                  </span>
+                  <span className="cart-quantity">{cartQuantity()}</span>
                 </li>
               </Link>
               <Link to="/profile">
                 {currentUser ? (
-                  // <img
-                  //   className='rounded-full h-7 w-7 object-cover'
-                  //   src={currentUser.avatar}
-                  //   alt='profile'
-                  // />
                   <div className="flex flex-col justify-center items-center -ml-4 max-w-10">
                     <img src={user_image} alt="" width="25px" />
                     <p className="-ml-4 max-w-10">{currentUser.email}</p>
                   </div>
                 ) : (
-                  <li className="font-bold  flex flex-col items-center justify-center cursor-pointer hover:text-lg">
+                  <li className="font-bold flex flex-col items-center justify-center cursor-pointer hover:text-lg">
                     <IoPersonSharp className="text-xl" />
                     Login
                   </li>
