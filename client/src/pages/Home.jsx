@@ -12,6 +12,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./Home.css";
 import FoodItem from "../components/FoodItem";
+import Feedback from "../components/Feedback";
 
 const scrollContainer = (scrollOffset) => {
   const container = document.getElementById("scroll-container");
@@ -286,6 +287,10 @@ export const Home = ({ category, setCategory }) => {
               &#10095;
             </button>
           </div>
+
+         { currentUser && currentUser.role === "Customer" && <Feedback/>}
+         { currentUser && currentUser.role === "Farmer" && <Feedback/>}
+
         </>
       )}
     </div>
