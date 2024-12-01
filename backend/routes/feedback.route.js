@@ -1,9 +1,10 @@
 import express from 'express';
-import { feedbackSubmit } from '../controllers/feedback.js';
+import { feedbackSubmit, getfeedbacks } from '../controllers/feedback.js';
 
 const feedbackRouter = express.Router();
 
 feedbackRouter.post("/submit",feedbackSubmit);
+feedbackRouter.get("/get",getfeedbacks)
 
 
 export default feedbackRouter;

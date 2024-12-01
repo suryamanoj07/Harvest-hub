@@ -27,6 +27,7 @@ import { ToastContainer } from 'react-toastify';
 import FarmerDashboard from './pages/FarmerDashboard';
 import FarmerRevenue from './pages/FarmerRevenue';
 import 'react-toastify/dist/ReactToastify.css';
+import FeedbackList from './components/FeedbackList';
 
 function App() {
   const [category, setCategory] = useState('All');
@@ -68,6 +69,7 @@ function App() {
           <Route path="/listtool" element={<ListTool />} />
           <Route path="/orders" element={<Aorder />} />
           <Route path="/manage-users" element={<ManageUser />} />
+          <Route path="/feedbacks" element={<FeedbackList />} />
         </Routes>
       </BrowserRouter>
     </React.StrictMode>

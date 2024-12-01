@@ -1,0 +1,82 @@
+.feedback-list-container {
+    padding: 20px;
+    background: linear-gradient(135deg, #a6d4f5, #8ef785);
+    min-height: 100vh;
+  }
+  
+  .feedback-list-title {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #0d47a1;
+  }
+  
+  .feedback-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  
+  .feedback-card {
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .feedback-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+  }
+  
+  .feedback-card-name {
+    text-align: center;
+    font-size: 1.5rem;
+    color: #1565c0;
+    margin-bottom: 10px;
+  }
+  
+  .feedback-card-message {
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .feedback-card-details {
+    margin-top: 10px;
+    color: #424242;
+  }
+  
+  .feedback-card-details p {
+    margin: 5px 0;
+  }
+  
+  .feedback-card strong {
+    font-weight: bold;
+    color: #0d47a1;
+  }
+  
+  .toggle-button {
+    background: #4caf50;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+    width: 100%;
+    margin-top: 10px;
+  }
+  
+  .toggle-button:hover {
+    background: #45a049;
+  }
+  
+  @media (max-width: 768px) {
+    .feedback-cards {
+      grid-template-columns: 1fr; /* Adjusts to single-column on smaller screens */
+    }
+  }
+  

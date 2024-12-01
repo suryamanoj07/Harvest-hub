@@ -10,6 +10,10 @@
   scrollbar-width: thin; /* For Firefox */
 }
 
+.gradient{
+  background: linear-gradient(140deg, #fa75b8, #5df9f6);
+}
+
 /* Arrows */
 .scroll-arrow {
   position: absolute;

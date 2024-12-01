@@ -203,11 +203,11 @@ export const Home = ({ category, setCategory }) => {
 
       {currentUser && currentUser.role === "Farmer" && (
         <>
-          <div className=" mx-20 p-8 relative">
+          <div className=" mx-20 p-8 relative gradient mb-10">
             <div className="flex justify-between">
               <h2 className="text-2xl font-bold">Fast Selling Tools</h2>
               <Link to="/Market">
-                <p className=" mr-4 mt-2 mb-2 font-bold hover:underline cursor-pointer text-white p-1 rounded-lg text-sm bg-cyan-500">
+                <p className=" mr-4 mt-2 mb-2 font-bold hover:underline cursor-pointer text-white p-1 rounded-lg text-sm bg-blue-600">
                   View all
                 </p>
               </Link>
@@ -245,11 +245,11 @@ export const Home = ({ category, setCategory }) => {
               &#10095;
             </button>
           </div>
-          <div className="mx-20 p-8 relative">
+          <div className="mx-20 p-8 relative gradient mb-10">
             <div className="flex justify-between">
               <h2 className="text-2xl font-bold">Recently Added Tools</h2>
               <Link to="/Market">
-                <p className=" mr-4 mt-2 mb-2 font-bold hover:underline cursor-pointer text-white p-1 rounded-lg text-sm bg-cyan-500">
+                <p className=" mr-4 mt-2 mb-2 font-bold hover:underline cursor-pointer text-white p-1 rounded-lg text-sm bg-blue-600">
                   View all
                 </p>
               </Link>
