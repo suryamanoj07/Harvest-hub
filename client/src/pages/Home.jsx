@@ -114,7 +114,7 @@ export const Home = ({ category, setCategory }) => {
       {/* Only show products for customers */}
       {currentUser && currentUser.role === "Customer" && (
         <>
-          <div className=" mx-20 p-8 relative">
+          <div className=" mx-20 p-8 relative gradient mb-10">
             <div className="flex justify-between">
               <h2 className="text-2xl font-bold">Fast Selling Products</h2>
               <Link to="/Market">
@@ -156,7 +156,7 @@ export const Home = ({ category, setCategory }) => {
               &#10095;
             </button>
           </div>
-          <div className="mx-20 p-8 relative">
+          <div className="mx-20 p-8 relative gradient mb-10">
             <div className="flex justify-between">
               <h2 className="text-2xl font-bold">Recently Added Products</h2>
               <Link to="/Market">
@@ -198,6 +198,7 @@ export const Home = ({ category, setCategory }) => {
               &#10095;
             </button>
           </div>
+          { currentUser && currentUser.role === "Customer" && <Feedback/>}
         </>
       )}
 
@@ -287,8 +288,6 @@ export const Home = ({ category, setCategory }) => {
               &#10095;
             </button>
           </div>
-
-         { currentUser && currentUser.role === "Customer" && <Feedback/>}
          { currentUser && currentUser.role === "Farmer" && <Feedback/>}
 
         </>

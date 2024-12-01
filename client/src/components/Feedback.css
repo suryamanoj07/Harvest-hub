@@ -2,8 +2,8 @@
     /* display: flex; */
     justify-content: center;
     align-items: center;
-    /* min-height: 100vh; */
-    background: linear-gradient(135deg, #29f588,#3ea7e4);
+    min-height: 100vh;
+    background: linear-gradient(135deg, #80e3ee, #f585bd);
     padding: 20px 80px;
   }
   
