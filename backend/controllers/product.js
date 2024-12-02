@@ -246,4 +246,49 @@ const newlyAddedProducts = async (req, res) => {
 //     }
 //   };
 
+  // const addReview = async (req, res) => {
+  //   const { productId, userId, comment } = req.body;
+  
+  //   try {
+  //     const product = await productModel.findById(productId);
+  //     if (!product) return res.status(404).json({ success: false, message: 'Product not found' });
+  
+  //     // Check if the user has already reviewed this product
+  //     const existingReview = product.reviews.find((review) => review.user.toString() === userId);
+  //     if (existingReview) {
+  //       return res.status(400).json({ success: false, message: 'You have already reviewed this product' });
+  //     }
+  
+  //     // Add new review
+  //     product.reviews.push({ user: userId, comment });
+  //     await product.save();
+  
+  //     res.json({ success: true, message: 'Review added successfully', reviews: product.reviews });
+  //   } catch (error) {
+  //     res.status(500).json({ success: false, message: error.message });
+  //   }
+  // };
+
+  // const getProductDetails = async (req, res) => {
+  //   try {
+  //     const product = await productModel.findById(req.params.id).populate('reviews.user', 'name');
+  //     if (!product) return res.status(404).json({ success: false, message: 'Product not found' });
+  
+  //     res.json({
+  //       success: true,
+  //       product: {
+  //         name: product.name,
+  //         price: product.price,
+  //         description: product.description,
+  //         ratings: product.ratings,
+  //         reviews: product.reviews,
+  //       },
+  //     });
+  //   } catch (error) {
+  //     res.status(500).json({ success: false, message: error.message });
+  //   }
+  // };
+  
+  
+
 export {addProduct,listProduct,deleteProduct,searchProduct,fastSellingItems,newlyAddedProducts,farmerList,updateProduct,farmerDelete, farmerRevenue}

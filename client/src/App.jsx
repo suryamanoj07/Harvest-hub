@@ -28,6 +28,7 @@ import FarmerDashboard from './pages/FarmerDashboard';
 import FarmerRevenue from './pages/FarmerRevenue';
 import 'react-toastify/dist/ReactToastify.css';
 import FeedbackList from './components/FeedbackList';
+import ProductDetails from './pages/ProductDetails';
 
 function App() {
   const [category, setCategory] = useState('All');
@@ -58,6 +59,7 @@ function App() {
             <Route path="/cart" element={<Cart />} />
             <Route path="/empty" element={<Empty />} />
             <Route path="/order" element={<Order />} />
+            <Route path="/product/:id" element={<ProductDetails />} />
             <Route path="/verify" element={<Verify />} />
             <Route path="/myorders" element={<MyOrders />} />
             <Route path="/admin" element={<Add />} />
