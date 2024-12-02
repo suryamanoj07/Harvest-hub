@@ -1,8 +1,9 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from 'react-redux';
-import { updateUser } from './redux/user/userSlice';
+import { useSelector, useDispatch } from "react-redux";
+import { updateUser } from "./redux/user/userSlice";
 import "./Profile.css";
+import { Link } from "react-router-dom";
 
 export default function Profile() {
   const token = localStorage.getItem("token");
@@ -36,7 +37,7 @@ export default function Profile() {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-      },  
+      },
       body: JSON.stringify({ user_auth_token: token }),
     })
       .then((response) => {
@@ -77,7 +78,7 @@ export default function Profile() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-  
+
     const formData = {
       user_auth_token: token,
       user_name: userName,
@@ -94,7 +95,7 @@ export default function Profile() {
         business_about: aboutBusiness,
       }),
     };
-  
+
     fetch("http://localhost:3000/api/user/update-profile", {
       method: "POST",
       headers: {
@@ -111,7 +112,7 @@ export default function Profile() {
       .then((data) => {
         if (data.status === "ok") {
           dispatch(updateUser(data.user_details)); // Update Redux store
-  
+
           // Update local component state immediately to reflect the changes
           setUserName(data.user_details.user_name);
           setPersonalEmail(data.user_details.email);
@@ -124,7 +125,7 @@ export default function Profile() {
           setAccountNumber(data.user_details.business_account_number);
           setGstin(data.user_details.business_gstin);
           setAboutBusiness(data.user_details.business_about);
-  
+
           setNotificationMessage("Profile updated successfully!");
         } else {
           setNotificationMessage("Failed to update profile.");
@@ -144,8 +145,42 @@ export default function Profile() {
       <div className="top-blur"></div>
 
       <div className="hello-container">
-        <p className="hello-text">Hello, <span className="username-text">{userName.charAt(0).toUpperCase()}{userName.slice(1)}</span></p>
+        <p className="hello-text">
+          Hello,{" "}
+          <span className="username-text">
+            {userName.charAt(0).toUpperCase()}
+            {userName.slice(1)}
+          </span>
+        </p>
       </div>
+
+      <Link to="/myorders">
+        <div className="absolute right-40 cursor-pointer flex gap-10">
+          <span className=" bg-orange-500 p-2 text-xl hover:bg-orange-600 rounded-md">
+            My Orders
+          </span>
+        </div>
+      </Link>
+
+      {currentUser.role === "Farmer" && (
+        <Link to="/farmerdashboard">
+          <div className="absolute right-80 cursor-pointer flex gap-10">
+            <span className=" bg-orange-500 p-2 text-xl hover:bg-orange-600 rounded-md">
+              My Sellings
+            </span>
+          </div>
+        </Link>
+      )}
+
+      {currentUser.role === "Farmer" && (
+        <Link to="/farmerrevenue">
+          <div className="absolute left-24 cursor-pointer flex gap-10">
+            <span className=" bg-orange-500 p-2 text-xl hover:bg-orange-600 rounded-md">
+              My Revenue
+            </span>
+          </div>
+        </Link>
+      )}
 
       <div className="class-1140 block" style={{ marginTop: "4rem" }}>
         <p className="pb-4 text-xl font-normal font-sans">Personal info</p>
@@ -221,7 +256,7 @@ export default function Profile() {
                 />
               </div>
 
-              {currentUser?.role.toLowerCase() === 'farmer' && (
+              {currentUser?.role.toLowerCase() === "farmer" && (
                 <div className="class-1140 block" style={{ marginTop: "4rem" }}>
                   <p className="pb-4 text-xl font-normal">Business info</p>
                   <div className="border-dotted border-2 mr-7 rounded-2xl mb-11 glass-mor">
@@ -362,9 +397,7 @@ export default function Profile() {
       </div>
 
       {showNotification && (
-        <div className="notification">
-          {notificationMessage}
-        </div>
+        <div className="notification">{notificationMessage}</div>
       )}
     </div>
   );

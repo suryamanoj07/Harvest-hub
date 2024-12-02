@@ -24,7 +24,10 @@ import { AddTool } from './components/AddTool';
 import ListTool from './components/ListTool';
 import { Articles } from './pages/Articles';
 import { ToastContainer } from 'react-toastify';
+import FarmerDashboard from './pages/FarmerDashboard';
+import FarmerRevenue from './pages/FarmerRevenue';
 import 'react-toastify/dist/ReactToastify.css';
+import FeedbackList from './components/FeedbackList';
 
 function App() {
   const [category, setCategory] = useState('All');
@@ -50,6 +53,8 @@ function App() {
           <Route path="/Signup" element={<Signup />} />
           <Route element={<PrivateRoute />}>
             <Route path="/profile" element={<Profile />} />
+            <Route path="/farmerdashboard" element={<FarmerDashboard />} />
+            <Route path="/farmerrevenue" element={<FarmerRevenue />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/empty" element={<Empty />} />
             <Route path="/order" element={<Order />} />
@@ -64,6 +69,7 @@ function App() {
           <Route path="/listtool" element={<ListTool />} />
           <Route path="/orders" element={<Aorder />} />
           <Route path="/manage-users" element={<ManageUser />} />
+          <Route path="/feedbacks" element={<FeedbackList />} />
         </Routes>
       </BrowserRouter>
     </React.StrictMode>

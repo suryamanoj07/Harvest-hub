@@ -15,3 +15,17 @@
     gap: 50px;
     row-gap: 50px;
 }
+.products-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+.filter-dropdown {
+    margin-right: 140px;
+    padding: 0.5rem;
+    font-size: 1rem;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+}

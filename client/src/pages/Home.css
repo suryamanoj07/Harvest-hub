@@ -1,0 +1,57 @@
+/* Horizontal scroll container */
+.horizontal-scroll-container {
+  display: flex;
+  overflow-x: auto;
+  /* background-color: rgb(194, 220, 247); */
+  gap: 16px;
+  padding: 2px;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+  scrollbar-width: thin; /* For Firefox */
+}
+
+.gradient{
+  background: linear-gradient(140deg, #ea8bba, #73f2f0);
+}
+
+/* Arrows */
+.scroll-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 2rem;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  z-index: 10;
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+}
+
+.scroll-arrow:hover {
+  opacity: 1;
+}
+
+/* Left arrow position */
+.left-arrow {
+  left: -20px;
+}
+
+/* Right arrow position */
+.right-arrow {
+  right: -20px;
+}
+
+/* Hide default scrollbar for Webkit browsers */
+.horizontal-scroll-container::-webkit-scrollbar {
+  display: none;
+}
+
+
+/* Optional: adjust each item width for consistent layout */
+.horizontal-scroll-container > * {
+  flex: 0 0 auto; /* Prevent shrinking */
+  width: 250px; /* Set width for each item */
+}

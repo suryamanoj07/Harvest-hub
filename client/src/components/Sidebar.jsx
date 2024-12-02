@@ -1,6 +1,7 @@
 import add_icon from "./../../assets/add_icon.png"
 import order_icon from "./../../assets/order_icon.png"
 import manage_user from "./../../assets/manage_user.png";
+import feedback_icon from "./../../assets/feedback.png"
 import { Link } from "react-router-dom";
 import { useSelector } from 'react-redux';
 
@@ -35,10 +36,10 @@ export const Sidebar = () => {
               <p>Manage Users</p>
             </div>
           </Link>
-          <Link to="/addtool">
+          <Link to="/feedbacks">
             <div className="flex flex-col gap-2 p-6 justify-center items-center hover:bg-slate-300 cursor-pointer border-b-2 border-slate-400 bg-slate-300">
-              <img src={add_icon} alt="add tool" className="h-6 w-6" />
-              <p>Add new Tool</p>
+              <img src={feedback_icon}  alt="add tool" className="h-6 w-6" />
+              <p>User Feedbacks</p>
             </div>
           </Link>
           <Link to="/listtool">

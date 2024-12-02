@@ -1,0 +1,112 @@
+.feedback-form-container {
+    /* display: flex; */
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #80e3ee, #f585bd);
+    padding: 20px 80px;
+  }
+  
+  .feedback-form {
+    background: rgb(255, 255, 255);
+    /* backdrop-filter: blur(100px); */
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    padding: 30px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    /* max-width: 500px; */
+    animation: fadeIn 0.8s ease-in-out;
+  }
+  
+  .feedback-form h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333333;
+  }
+  
+  .feedback-form input,
+  .feedback-form textarea,
+  .feedback-form .checkbox-group label {
+    width: 100%;
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    outline: none;
+    font-size: 16px;
+  }
+  
+  .feedback-form textarea {
+    resize: none;
+    height: 100px;
+  }
+  
+  .feedback-form .checkbox-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+  }
+  
+  .feedback-form .checkbox-group label {
+    margin-bottom: 5px;
+  }
+  
+  .feedback-form .submit-button {
+    background: #4caf50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  
+  .feedback-form .submit-button:hover {
+    background: #45a049;
+  }
+
+  .row-inputs {
+    display: flex;
+    justify-content: space-between;
+    gap: 18px;
+  }
+
+  .row-inputs input{
+    width: 640px;
+  }
+  
+  .row-inputs div {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .feedback-form select,
+  .feedback-form input[type="number"] {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  
+  .feedback-form input:hover,
+  .feedback-form textarea:hover{
+      border: 1.7px solid #5abbf3;
+      
+  }

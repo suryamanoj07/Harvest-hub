@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 // import axios from "axios";
 import "./Products.css";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import FoodItem from "../components/FoodItem";
 import { storeContext } from "./redux/context/storeContext";
 import { useSelector } from "react-redux";
@@ -12,11 +12,48 @@ export const Products = ({ category, setCategory }) => {
   const { currentUser } = useSelector((state) => state.user);
 
   // const [loading, setLoading] = useState(true); // Add a loading state
+  const [sortOption, setSortOption] = useState("");
+
+  const sortProducts = (products) => {
+    if (sortOption === "priceHighToLow") {
+      return [...products].sort((a, b) => b.price - a.price);
+    }
+    if (sortOption === "priceLowToHigh") {
+      return [...products].sort((a, b) => a.price - b.price);
+    }
+    if (sortOption === "fastSelling") {
+      return [...products].sort((a, b) => a.stockQuantity - b.stockQuantity);
+    }
+    if (sortOption === "recentlyAdded") {
+      return [...products].sort(
+        (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+      ); // Assuming `createdAt` is a field
+    }
+    return products;
+  };
+
+  const getFilteredProducts = (products) => {
+    const filteredProducts = products.filter(
+      (item) => category === "All" || category === item.category
+    );
+    return sortProducts(filteredProducts);
+  };
 
   return (
     <div className="">
-      <div>
+      <div className="products-header ml-8">
         <ExploreMenu category={category} setCategory={setCategory} />
+        <select
+          className="filter-dropdown"
+          value={sortOption}
+          onChange={(e) => setSortOption(e.target.value)}
+        >
+          <option value="">Sort By</option>
+          <option value="priceHighToLow">Price: High to Low</option>
+          <option value="priceLowToHigh">Price: Low to High</option>
+          <option value="fastSelling">Fast Selling</option>
+          <option value="recentlyAdded">Recently Added</option>
+        </select>
       </div>
       <div className="food-display" id="food-dsiplay">
         <div className="food-display-list">
@@ -24,7 +61,7 @@ export const Products = ({ category, setCategory }) => {
 
           {currentUser &&
             currentUser.role === "Customer" &&
-            food_list.map((item, index) => {
+            getFilteredProducts(food_list).map((item, index) => {
               if (category === "All" || category === item.category) {
                 return (
                   <FoodItem
@@ -34,36 +71,30 @@ export const Products = ({ category, setCategory }) => {
                     description={item.description}
                     price={item.price}
                     image={item.image}
+                    stock={item.stockQuantity}
                   />
                 );
               }
-              return null; // Ensure null is returned if condition is not met
+              return null;
             })}
           {currentUser &&
             currentUser.role === "Farmer" &&
-            tool_list.map((item, index) => {
+            getFilteredProducts(tool_list).map((item, index) => {
               if (category === "All" || category === item.category) {
                 return (
-                  <FoodItem // Assuming you mean ToolItem here for tools
+                  <FoodItem
                     key={index}
                     id={item._id}
                     name={item.name}
                     description={item.description}
                     price={item.price}
                     image={item.image}
+                    stock={item.stockQuantity}
                   />
                 );
               }
-              return null; // Ensure null is returned if condition is not met
+              return null;
             })}
-
-          {/* {currentUser?currentUser.role=='Customer'?food_list.map((item,index)=>{
-            if(category==='All'|| category===item.category){
-                return <FoodItem key={index} id={item._id} name={item.name} description={item.description} price={item.price} image={item.image} />
-            }}):tool_list.map((item,index)=>{
-              if(category==='All'|| category===item.category){
-                  return <FoodItem key={index} id={item._id} name={item.name} description={item.description} price={item.price} image={item.image} />
-              }}:<></>} */}
         </div>
       </div>
     </div>

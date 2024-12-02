@@ -1,0 +1,46 @@
+/* CSS for dropdown */
+.sell-dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 120px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    margin-top: 0.5rem;
+  }
+  
+  .dropdown-content li {
+    color: black;
+    padding: 10px 16px;
+    text-decoration: none;
+    display: block;
+    font-size: 14px;
+  }
+  
+  .dropdown-content li:hover {
+    background-color: #ddd;
+  }
+  
+  /* Show dropdown on hover and active */
+  .sell-dropdown:hover .dropdown-content,
+  .sell-dropdown:active .dropdown-content {
+    display: block;
+  }
+  
+  .cart-quantity {
+    height: 23px;
+    background-color: red;
+    width: 20px;
+    text-align: center;
+    color: white;
+    position: relative;
+    right: 25px;
+    bottom: 5px;
+    border-radius: 50%;
+  }
+  

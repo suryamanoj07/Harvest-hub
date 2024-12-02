@@ -1,0 +1,25 @@
+.feedback-list-container {
+  padding: 20px;
+  background: linear-gradient(to bottom right, #e3f2fd, #90caf9);
+  min-height: 100vh;
+}
+
+.feedback-list-title {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #0d47a1;
+  margin-bottom: 30px;
+}
+
+.feedback-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+@media (max-width: 768px) {
+  .feedback-cards {
+    grid-template-columns: 1fr;
+  }
+}

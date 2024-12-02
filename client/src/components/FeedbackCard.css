@@ -1,0 +1,38 @@
+.feedback-card {
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 20px;
+  transition: box-shadow 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.feedback-card:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.feedback-card-name {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #0d47a1;
+  margin-bottom: 15px;
+}
+
+.feedback-card-message {
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.1rem;
+  margin-bottom: 20px;
+  color: #424242;
+}
+
+.feedback-card-details {
+  font-size: 0.9rem;
+  color: #616161;
+  line-height: 1.6;
+}
+
+.feedback-card-details p {
+  margin: 5px 0;
+}
