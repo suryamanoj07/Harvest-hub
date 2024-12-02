@@ -31,7 +31,7 @@ const FarmerRevenue = () => {
       });
 
       if (response.data.success) {
-        setSoldProducts(response.data.soldProducts);
+        setSoldProducts(response.data.soldProducts.reverse());
         setRevenue(response.data.revenue);
         setTotalItemsSold(response.data.totalItemsSold);
       } else {

@@ -122,7 +122,7 @@ const farmerDelete = async (req, res) => {
   
       // Fetch orders placed within the time period
       const orders = await Order.find({
-        Date: { $gte: startDate },
+        createdAt: { $gte: startDate },
       });
   
       // Initialize total revenue and items sold

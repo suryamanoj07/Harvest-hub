@@ -2,10 +2,10 @@ import mongoose from "mongoose";
 import productModel from "./ProductModel.js";
 import toolModel from "./toolModel.js";
 
-mongoose.connect(
-  "mongodb+srv://manojsurya463:BjxbMbniGwKlMbmT@cluster0.tjaza.mongodb.net/MERN-farmers",
-  { useNewUrlParser: true, useUnifiedTopology: true }
-);
+// mongoose.connect(
+//   "mongodb+srv://manojsurya463:BjxbMbniGwKlMbmT@cluster0.tjaza.mongodb.net/MERN-farmers",
+//   { useNewUrlParser: true, useUnifiedTopology: true }
+// );
 
 async function migrateProducts() {
   try {
@@ -54,5 +54,29 @@ async function addCreatedAtToExistingDocuments() {
   }
 }
 
+async function updateProducts() {
+  try {
+    await mongoose.connect('mongodb+srv://manojsurya463:BjxbMbniGwKlMbmT@cluster0.tjaza.mongodb.net/MERN-farmers', {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+
+    console.log('Connected to the database.');
+
+    // Find all products where `email` field is missing
+    const updatedResult = await toolModel.updateMany(
+      { email: { $exists: false } }, // Condition: email does not exist
+      { $set: { email: 'sivaji@gmail.com' } } // Action: Set default email
+    );
+
+    console.log(`${updatedResult.modifiedCount} products were updated.`);
+    mongoose.disconnect();
+  } catch (error) {
+    console.error('Error updating products:', error);
+  }
+}
+
+updateProducts();
+
 // migrateProducts();
-addCreatedAtToExistingDocuments();
+// addCreatedAtToExistingDocuments();
