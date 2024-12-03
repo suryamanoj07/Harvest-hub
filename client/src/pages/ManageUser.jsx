@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setUserInfo } from './redux/user/userSlice';
 import { Sidebar } from '../components/Sidebar';
 
-
 const ManageUser = () => {
   const dispatch = useDispatch();
   const users = useSelector((state) => state.user.userInfo);
@@ -16,6 +15,11 @@ const ManageUser = () => {
   const [formData, setFormData] = useState({ email: '', role: '' });
   const [newUser, setNewUser] = useState({ email: '', password: '', username: '', role: '' });
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false); // State to manage the visibility of the edit modal
+  const [filterRole, setFilterRole] = useState('all'); // State to manage the selected role filter
+  const [searchTerm, setSearchTerm] = useState(''); // State to manage the search term
+  const [currentPage, setCurrentPage] = useState(1); // State to manage the current page
+  const usersPerPage = 10; // Number of users to display per page
 
   useEffect(() => {
     if (currentUser?.role.toLowerCase() !== 'admin') {
@@ -39,6 +43,7 @@ const ManageUser = () => {
   const handleEdit = (user) => {
     setEditingUser(user);
     setFormData({ email: user.email, role: user.role });
+    setIsEditModalOpen(true); // Open the edit modal
   };
 
   const handleDelete = async (userId) => {
@@ -79,6 +84,7 @@ const ManageUser = () => {
       setNewUser({ email: '', password: '', username: '', role: '' });
       fetchUsers();
       setIsModalOpen(false); // Close the modal after submission
+      setIsEditModalOpen(false); // Close the edit modal after submission
     } catch (error) {
       console.error('Error saving user:', error.response ? error.response.data : error.message);
     }
@@ -92,6 +98,62 @@ const ManageUser = () => {
     setIsModalOpen(false);
   };
 
+  const closeEditModal = () => {
+    setIsEditModalOpen(false);
+  };
+
+  const handleFilterChange = (e) => {
+    setFilterRole(e.target.value);
+  };
+
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const exportToCSV = () => {
+    const csvRows = [];
+    const headers = ['Email', 'Username', 'Role'];
+    csvRows.push(headers.join(','));
+
+    users.forEach(user => {
+      const row = [
+        user.email,
+        user.username || '',
+        user.role
+      ];
+      csvRows.push(row.join(','));
+    });
+
+    const csvString = csvRows.join('\n');
+    const blob = new Blob([csvString], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.setAttribute('href', url);
+    link.setAttribute('download', 'users.csv');
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  const filteredUsers = users
+    .filter((user) => filterRole === 'all' || user.role.toLowerCase() === filterRole.toLowerCase())
+    .filter((user) => 
+      user.email.toLowerCase().includes(searchTerm.toLowerCase()) || 
+      (user.username && user.username.toLowerCase().includes(searchTerm.toLowerCase()))
+    );
+
+  const indexOfLastUser = currentPage * usersPerPage;
+  const indexOfFirstUser = indexOfLastUser - usersPerPage;
+  const currentUsers = filteredUsers.slice(indexOfFirstUser, indexOfLastUser);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  const pageNumbers = [];
+  for (let i = 1; i <= Math.ceil(filteredUsers.length / usersPerPage); i++) {
+    pageNumbers.push(i);
+  }
+
   if (currentUser?.role.toLowerCase() !== 'admin') {
     return <div className='manage-user__outer-div'>Access denied. Admins only.</div>;
   }
@@ -99,108 +161,140 @@ const ManageUser = () => {
   return (
     <div className="flex items-start gap-12">
       <Sidebar />
-    <div className='manage-user__outer-div'>
-      <h1 className='manage-user__title'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Manage Users</h1>
-      <button className='manage-user__button_Add_button' onClick={openModal}>Add User</button>
-      <div className='manage-user__forms'>
-        <form className='manage-user__form' onSubmit={handleSubmit}>
-          <input
-            className='manage-user__input'
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            placeholder="Email"
-            required
-          />
-          <select
-            className='manage-user__select'
-            name="role"
-            value={formData.role}
-            onChange={handleChange}
-            required
-          >
-            <option value="">Select Role</option>
-            <option value="Farmer">Farmer</option>
-            <option value="Customer">Customer</option>
-            <option value="Admin">Admin</option>
-          </select>
-          <button className='manage-user__button' type="submit">{editingUser ? 'Update' : 'Update'} User</button>
-        </form>
-      </div>
-      <table className='manage-user__table'>
-        <thead className='manage-user__thead'>
-          <tr>
-            <th className='manage-user__th'>Email</th>
-            <th className='manage-user__th'>Role</th>
-            <th className='manage-user__th'>Actions</th>
-          </tr>
-        </thead>
-        <tbody className='manage-user__tbody'>
-          {users && users.map((user) => (
-            <tr key={user._id}>
-              <td className='manage-user__td'>{user.email}</td>
-              <td className='manage-user__td'>{user.role}</td>
-              <td className='manage-user__td'>
-                <button className='manage-user__button' onClick={() => handleEdit(user)}>Edit</button>
-                <button className='manage-user__button' onClick={() => handleDelete(user._id)}>Delete</button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-
-      {isModalOpen && (
-        <div className='modal'>
-          <div className='modal-content'>
-            <span className='close' onClick={closeModal}>&times;</span>
-            <h2>Add New User</h2>
-            <form className='manage-user__form' onSubmit={handleSubmit}>
-              <input
-                className='manage-user__input'
-                type="email"
-                name="email"
-                value={newUser.email}
-                onChange={handleNewUserChange}
-                placeholder="Email"
-                required
-              />
-              <input
-                className='manage-user__input'
-                type="password"
-                name="password"
-                value={newUser.password}
-                onChange={handleNewUserChange}
-                placeholder="Password"
-                required
-              />
-              <input
-                className='manage-user__input'
-                type="text"
-                name="username"
-                value={newUser.username}
-                onChange={handleNewUserChange}
-                placeholder="Username"
-                required
-              />
-              <select
-                className='manage-user__select'
-                name="role"
-                value={newUser.role}
-                onChange={handleNewUserChange}
-                required
-              >
-                <option value="">Select Role</option>
-                <option value="farmer">Farmer</option>
-                <option value="customer">Customer</option>
-                <option value="admin">Admin</option>
-              </select>
-              <button className='manage-user__button' type="submit">Add User</button>
-            </form>
-          </div>
+      <div className='manage-user__outer-div'>
+        <h1 className='manage-user__title'>Manage Users</h1>
+        <div className='manage-user__button-container'>
+          <button className='manage-user__button_Add_button' onClick={openModal}>Add User</button>
+          <button className='manage-user__button_Add_button' onClick={exportToCSV}>Export to CSV</button>
         </div>
-      )}
-    </div>
+        <div className='manage-user__controls'>
+          <select className='manage-user__select' value={filterRole} onChange={handleFilterChange}>
+            <option value="all">All Roles</option>
+            <option value="farmer">Farmer</option>
+            <option value="customer">Customer</option>
+            <option value="admin">Admin</option>
+          </select>
+          <input
+            type="text"
+            className="manage-user__input"
+            placeholder="Search by email or username"
+            value={searchTerm}
+            onChange={handleSearchChange}
+          />
+        </div>
+        <table className='manage-user__table'>
+          <thead className='manage-user__thead'>
+            <tr>
+              <th className='manage-user__th'>Email</th>
+              <th className='manage-user__th'>Role</th>
+              <th className='manage-user__th'>Actions</th>
+            </tr>
+          </thead>
+          <tbody className='manage-user__tbody'>
+            {currentUsers.map((user) => (
+              <tr key={user._id}>
+                <td className='manage-user__td'>{user.email}</td>
+                <td className='manage-user__td'>{user.role}</td>
+                <td className='manage-user__td'>
+                  <button className='manage-user__button' onClick={() => handleEdit(user)}>Edit</button>
+                  <button className='manage-user__button' onClick={() => handleDelete(user._id)}>Delete</button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <div className='pagination'>
+          {pageNumbers.map(number => (
+            <button key={number} onClick={() => paginate(number)} className='page-link'>
+              {number}
+            </button>
+          ))}
+        </div>
+
+        {isModalOpen && (
+          <div className='modal'>
+            <div className='modal-content'>
+              <span className='close' onClick={closeModal}>&times;</span>
+              <h2>Add New User</h2>
+              <form className='manage-user__form' onSubmit={handleSubmit}>
+                <input
+                  className='manage-user__input'
+                  type="email"
+                  name="email"
+                  value={newUser.email}
+                  onChange={handleNewUserChange}
+                  placeholder="Email"
+                  required
+                />
+                <input
+                  className='manage-user__input'
+                  type="password"
+                  name="password"
+                  value={newUser.password}
+                  onChange={handleNewUserChange}
+                  placeholder="Password"
+                  required
+                />
+                <input
+                  className='manage-user__input'
+                  type="text"
+                  name="username"
+                  value={newUser.username}
+                  onChange={handleNewUserChange}
+                  placeholder="Username"
+                  required
+                />
+                <select
+                  className='manage-user__select'
+                  name="role"
+                  value={newUser.role}
+                  onChange={handleNewUserChange}
+                  required
+                >
+                  <option value="">Select Role</option>
+                  <option value="farmer">Farmer</option>
+                  <option value="customer">Customer</option>
+                  <option value="admin">Admin</option>
+                </select>
+                <button className='manage-user__button' type="submit">Add User</button>
+              </form>
+            </div>
+          </div>
+        )}
+
+        {isEditModalOpen && (
+          <div className='modal'>
+            <div className='modal-content'>
+              <span className='close' onClick={closeEditModal}>&times;</span>
+              <h2>Edit User</h2>
+              <form className='manage-user__form' onSubmit={handleSubmit}>
+                <input
+                  className='manage-user__input'
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  placeholder="Email"
+                  required
+                />
+                <select
+                  className='manage-user__select'
+                  name="role"
+                  value={formData.role}
+                  onChange={handleChange}
+                  required
+                >
+                  <option value="">Select Role</option>
+                  <option value="Farmer">Farmer</option>
+                  <option value="Customer">Customer</option>
+                  <option value="Admin">Admin</option>
+                </select>
+                <button className='manage-user__button' type="submit">Update User</button>
+              </form>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

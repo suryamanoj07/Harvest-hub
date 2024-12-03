@@ -7,11 +7,14 @@
   padding: 20px;
   text-align: center; /* Centers text horizontally */
   width: 100%; /* Full width */
+  padding-top: 6rem;
+  background-color: #f0f4f8; /* Light background color */
 }
 
 .manage-user__title {
-  font-size: 2rem;
+  font-size: 2.5rem;
   margin-bottom: 20px;
+  color: #333;
 }
 
 .manage-user__controls {
@@ -22,6 +25,12 @@
   flex-wrap: wrap; /* Allows wrapping for smaller screens */
 }
 
+.manage-user__button-container {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
 .manage-user__button_Add_button,
 .manage-user__button {
   padding: 10px 20px;
@@ -30,8 +39,7 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s;
-  margin-right: 10px; /* Add space between buttons */
+  transition: background-color 0.3s, transform 0.3s;
 }
 
 .manage-user__button:last-child {
@@ -41,6 +49,7 @@
 .manage-user__button_Add_button:hover,
 .manage-user__button:hover {
   background-color: #45a049;
+  transform: scale(1.05); /* Slightly enlarge on hover */
 }
 
 .manage-user__select,
@@ -49,18 +58,27 @@
   border: 1px solid #ccc;
   border-radius: 4px;
   width: 200px;
+  transition: border-color 0.3s;
 }
 
 .manage-user__input {
   width: 300px;
 }
 
+.manage-user__select:focus,
+.manage-user__input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
 .manage-user__table {
   margin: 0 auto; /* Centers horizontally */
   width: 100%; /* Adjust table width */
   max-width: 1000px; /* Limit the maximum width */
-  border: 1px solid black; /* Add border to the table */
+  border: 1px solid #ddd; /* Add border to the table */
   border-collapse: collapse; /* Ensure borders are collapsed */
+  background-color: #fff; /* White background for the table */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Add shadow */
 }
 
 .manage-user__thead {
@@ -83,6 +101,7 @@
   display: flex;
   justify-content: center;
   gap: 10px;
+  margin-top: 20px;
 }
 
 .page-link {
@@ -126,6 +145,7 @@
   transform: translateY(0); /* Prevents content from moving off-screen */
   max-height: 90vh; /* Ensures the modal doesn't exceed the viewport height */
   overflow-y: auto; /* Adds scroll for content overflow */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow */
 }
 
 .close {
