@@ -5,10 +5,9 @@ body {
     margin: 0;
     padding: 0;
     margin-top: 5%;
-}
-
-.manage-user__outer-div {
-    /* margin-top: 20%; */
+  }
+  
+  .manage-user__outer-div {
     max-width: 800px;
     margin: 25px auto;
     padding: 20px;
@@ -16,18 +15,17 @@ body {
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     min-width: 50%;
-}
-
-.manage-user__title {
+  }
+  
+  .manage-user__title {
     font-size: 2.5rem;
     font-weight: bold;
     color: #333;
     margin-bottom: 20px;
     text-align: center;
-    /* margin-left: 40%; */
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
   }
-
+  
   .manage-user__button_Add_button {
     border: 1px solid black;
     padding: 10px 20px;
@@ -39,14 +37,14 @@ body {
     transition: opacity 0.3s ease;
     display: block;
     margin-left: auto;
-    margin-right: 39%;
+    margin-right: 44%;
   }
-
-/* The Modal (background) */
-.modal {
+  
+  /* The Modal (background) */
+  .modal {
     display: block; /* Hidden by default */
     position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
+    z-index: 1001; /* Sit on top */
     left: 0;
     top: 0;
     width: 100%; /* Full width */
@@ -63,6 +61,9 @@ body {
     padding: 20px;
     border: 1px solid #888;
     width: 80%; /* Could be more or less, depending on screen size */
+    max-width: 500px; /* Maximum width for the modal */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3); /* Box shadow for the modal */
   }
   
   /* The Close Button */
@@ -93,69 +94,51 @@ body {
   .manage-user__button:hover {
     background-color: #218838;
   }
-
   
-/* Form Styles */
-.manage-user__form {
+  /* Form Styles */
+  .manage-user__form {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
+    gap: 10px;
     margin-bottom: 20px;
-}
-
-.manage-user__input,
-.manage-user__select {
+  }
+  
+  .manage-user__input,
+  .manage-user__select {
     padding: 10px;
-    font-size: 16px;
-    margin-right: 10px;
-    border: 2px solid #ddd;
-    border-radius: 5px;
-}
-
-.manage-user__button {
-    padding: 10px 20px;
-    background-color: #add8e6; /* Light blue */
-    color: black;
-    border: dashed 2px #add8e6; /* Light blue */
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-.manage-user__button:hover {
-    background-color: #87ceeb; /* Sky blue */
-}
-
-/* Table Styles */
-.manage-user__table {
+    border: 1px solid #ccc;
+    border-radius: 4px;
     width: 100%;
-    border-collapse: separate; /* Change to separate for border-spacing to work */
-    /* border-spacing: 0 10px; Add vertical spacing between rows */
-    margin-top: 20px;
-    background-color: #fff;
-}
-
-.manage-user__thead th {
-    background-color: #add8e6; /* Light blue */
+  }
+  
+  .manage-user__input:focus,
+  .manage-user__select:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+  
+  .manage-user__table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .manage-user__thead {
+    background-color: #007bff;
     color: white;
+  }
+  
+  .manage-user__th,
+  .manage-user__td {
+    padding: 10px;
+    border: 1px solid #ddd;
     text-align: left;
-    padding: 10px 20px; /* Increased padding for more space */
-    border-radius: 8px 8px 0 0;
-    font-weight: normal;
-    border-bottom: 2px solid #87ceeb; /* Separate bottom border for header */
-    border-color: black;
-}
-
-.manage-user__tbody td {
-    padding: 10px 20px; /* Increased padding for more space between columns */
-    border-bottom: 1px solid #ddd;
-}
-
-.manage-user__tbody tr:hover {
+  }
+  
+  .manage-user__tbody tr:hover {
     background-color: #f1f1f1;
-}
-
-.manage-user__td button {
+  }
+  
+  .manage-user__td button {
     padding: 8px 12px;
     background-color: #add8e6; /* Light blue */
     color: black;
@@ -163,64 +146,57 @@ body {
     border-radius: 5px;
     cursor: pointer;
     margin-right: 10px; /* Add space between buttons */
-}
-
-.manage-user__td button:hover {
+  }
+  
+  .manage-user__td button:hover {
     background-color: #87ceeb; /* Sky blue */
-}
-
-/* Responsive design for smaller screens */
-@media screen and (max-width: 768px) {
+  }
+  
+  /* Responsive design for smaller screens */
+  @media screen and (max-width: 768px) {
     .manage-user__form {
-        flex-direction: column;
-        align-items: flex-start;
+      flex-direction: column;
+      align-items: flex-start;
     }
-
+  
     .manage-user__input,
     .manage-user__select,
     .manage-user__button {
-        width: 100%;
-        margin: 5px 0;
+      width: 100%;
+      margin: 5px 0;
     }
-
+  
     .manage-user__table,
     .manage-user__thead,
     .manage-user__tbody,
     .manage-user__th,
     .manage-user__td,
     .manage-user__tr {
-        display: block;
+      display: block;
     }
-
+  
     .manage-user__thead tr {
-        display: none;
+      display: none;
     }
-
+  
     .manage-user__tbody tr {
-        margin-bottom: 15px;
-        padding: 10px;
-        background-color: #fff;
-        border: 1px solid #ddd;
-        border-radius: 8px;
+      margin-bottom: 15px;
+      padding: 10px;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
     }
-
+  
     .manage-user__td {
-        display: flex;
-        justify-content: space-between;
-        padding: 10px;
-        font-size: 16px;
-        text-align: left;
+      display: flex;
+      justify-content: space-between;
+      padding: 10px;
+      font-size: 16px;
+      text-align: left;
     }
-
+  
     .manage-user__td:before {
-        content: attr(data-label);
-        font-weight: bold;
-        text-transform: uppercase;
-        margin-right: 10px;
+      content: attr(data-label);
+      font-weight: bold;
     }
-
-    .manage-user__td button {
-        width: 100%;
-        margin-top: 10px;
-    }
-}
+  }

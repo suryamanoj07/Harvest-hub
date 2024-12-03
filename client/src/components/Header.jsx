@@ -9,7 +9,7 @@ import { storeContext } from "../pages/redux/context/storeContext";
 import { logoutSuccess } from "../../src/pages/redux/user/userSlice";
 import { useNavigate } from "react-router-dom";
 import { SearchBar } from "./SearchBar";
-import "./Header.css"; // Create a CSS file for additional styles
+import "./Header.css";
 
 export const Header = ({ toggleSidebar }) => {
   let { currentUser } = useSelector((state) => state.user);
@@ -17,7 +17,6 @@ export const Header = ({ toggleSidebar }) => {
   const { setToken } = useContext(storeContext);
   const navigate = useNavigate();
   const dispatch = useDispatch();
- const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const logout = () => {
     localStorage.removeItem("token");
@@ -26,14 +25,12 @@ export const Header = ({ toggleSidebar }) => {
     navigate("/");
   };
 
-  const handleToggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
-    toggleSidebar();
-  };
   return (
     <header className="bg-slate-300 shadow-md fixed top-0 left-0 min-w-full z-50 flex items-center justify-between p-3">
       <div className="flex items-center">
-        <FaBars className="text-2xl cursor-pointer mr-4" onClick={handleToggleSidebar} />
+        {currentUser?.role === "Admin" && (
+          <FaBars className="text-2xl cursor-pointer mr-4" onClick={toggleSidebar} />
+        )}
         <Link to="/">
           <h1 className="cursor-pointer">
             <span className="font-bold text-3xl text-blue-600">Harvest</span>

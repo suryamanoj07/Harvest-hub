@@ -55,7 +55,7 @@ const Aorder = () => {
   return (
     <div className="">
       <Sidebar />
-      <div className="absolute ml-52 mr-10 -mt-6">
+      <div className="absolut mr-10 -mt-6">
         <div className="min-w-80 p-10">
           <h3 className="text-center text-3xl">Orders Information</h3>
 

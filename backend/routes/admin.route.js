@@ -1,5 +1,5 @@
 import express from 'express';
-import { getAllUsers, createUser, updateUser, deleteUser , getDashboardStats , getSalesData,getUserGrowthData} from '../controllers/admin.js'; // Adjust path as needed
+import { getAllUsers, createUser, updateUser, deleteUser , getDashboardStats ,getUserGrowthData} from '../controllers/admin.js'; // Adjust path as needed
 
 const adminRouter = express.Router();
 
@@ -16,7 +16,7 @@ adminRouter.put('/users/:userId', updateUser);
 adminRouter.delete('/users/:userId', deleteUser);
 
 adminRouter.get('/dashboard-stats', getDashboardStats);
-adminRouter.get('/sales-data', getSalesData);
+
 adminRouter.get('/user-growth-data', getUserGrowthData);
 
 export default adminRouter;

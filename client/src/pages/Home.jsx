@@ -2,7 +2,11 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 // import { useState } from "react";
-import React, { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import ExploreMenu from "../components/ExploreMenu";
+import { LoginPopup } from "../components/LoginPopup";
+import background from "./../../assets/website-home.jpg";
+import { Products } from "./Products";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -23,6 +27,7 @@ const scrollContainer2 = (scrollOffset) => {
 export const Home = ({ category, setCategory }) => {
   const { currentUser } = useSelector((state) => state.user);
   const navigate = useNavigate();
+
   const [fastSellingItems, setFastSellingItems] = useState([]);
   const [newlyAddedProducts, setNewlyAddedProducts] = useState([]);
   const [fastSellingTools, setFastSellingTools] = useState([]);
@@ -92,7 +97,6 @@ export const Home = ({ category, setCategory }) => {
   };
 
   return (
-    <div className="home-container">
     <div
       className="bg-cover bg-center flex flex-col"
       style={{ backgroundImage: `url(${background}) `, height: "100vh" }}
@@ -288,7 +292,6 @@ export const Home = ({ category, setCategory }) => {
 
         </>
       )}
-    </div>
     </div>
   );
 };

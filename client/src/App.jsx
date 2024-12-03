@@ -10,7 +10,6 @@ import { Signup } from './pages/Signup';
 import React, { useState } from 'react';
 import PrivateRoute from './components/PrivateRoute';
 import Profile from './pages/Profile';
-import { Sidebar } from './components/Sidebar';
 import { Add } from './components/Add';
 import List from './components/List';
 import { Order } from './pages/Order';
@@ -28,14 +27,15 @@ import FarmerDashboard from './pages/FarmerDashboard';
 import FarmerRevenue from './pages/FarmerRevenue';
 import 'react-toastify/dist/ReactToastify.css';
 import FeedbackList from './components/FeedbackList';
-import  AdminDashboard  from './pages/AdminDashboard';
+import AdminDashboard from './pages/AdminDashboard';
+import { Sidebar } from './components/Sidebar';
 
 function App() {
   const [category, setCategory] = useState('All');
-  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const toggleSidebar = () => {
-    setIsSidebarCollapsed(!isSidebarCollapsed);
+    setIsSidebarOpen(!isSidebarOpen);
   };
 
   return (
@@ -43,9 +43,9 @@ function App() {
       <BrowserRouter>
         <ToastContainer />
         <Header toggleSidebar={toggleSidebar} />
-        <div className="flex">
-          {isSidebarCollapsed && <Sidebar isCollapsed={isSidebarCollapsed} />}
-          <div className={`content ${isSidebarCollapsed ? 'collapsed' : ''}`}>
+        <div className={`app-container ${isSidebarOpen ? 'sidebar-open' : ''}`}>
+          <Sidebar isOpen={isSidebarOpen} />
+          <div className="content">
             <Routes>
               <Route
                 path="/"
@@ -71,7 +71,6 @@ function App() {
                 <Route path="/myorders" element={<MyOrders />} />
                 <Route path="/admin" element={<AdminDashboard />} />
               </Route>
-              <Route path="/Sidebar" element={<Sidebar />} />
               <Route path="/add" element={<Add />} />
               <Route path="/addtool" element={<AddTool />} />
               <Route path="/list" element={<List />} />

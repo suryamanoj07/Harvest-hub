@@ -19,10 +19,6 @@ const AdminDashboard = () => {
     labels: [],
     datasets: [],
   });
-  const [salesData, setSalesData] = useState({
-    labels: [],
-    datasets: [],
-  });
   const [userGrowthData, setUserGrowthData] = useState({
     labels: [],
     datasets: [],
@@ -30,7 +26,6 @@ const AdminDashboard = () => {
 
   useEffect(() => {
     fetchDashboardData();
-    fetchSalesData();
     fetchUserGrowthData();
   }, []);
 
@@ -40,12 +35,12 @@ const AdminDashboard = () => {
       if (response.data.success) {
         setDashboardData(response.data.data);
         setChartData({
-          labels: ['Users', 'Sales', 'Products'],
+          labels: ['Users', 'Products'],
           datasets: [
             {
               label: 'Website Stats',
-              data: [response.data.data.totalUsers, response.data.data.totalSales, response.data.data.totalProducts],
-              backgroundColor: ['rgba(75, 192, 192, 0.6)', 'rgba(54, 162, 235, 0.6)', 'rgba(255, 206, 86, 0.6)'],
+              data: [response.data.data.totalUsers, response.data.data.totalProducts],
+              backgroundColor: ['rgba(75, 192, 192, 0.6)', 'rgba(255, 206, 86, 0.6)'],
             },
           ],
         });
@@ -54,29 +49,6 @@ const AdminDashboard = () => {
       }
     } catch (error) {
       toast.error('Error fetching dashboard data');
-    }
-  };
-
-  const fetchSalesData = async () => {
-    try {
-      const response = await axios.get('http://localhost:3000/api/admin/sales-data');
-      if (response.data.success) {
-        setSalesData({
-          labels: response.data.data.labels,
-          datasets: [
-            {
-              label: 'Sales Over Time',
-              data: response.data.data.sales,
-              borderColor: 'rgba(75, 192, 192, 1)',
-              backgroundColor: 'rgba(75, 192, 192, 0.2)',
-            },
-          ],
-        });
-      } else {
-        toast.error('Error fetching sales data');
-      }
-    } catch (error) {
-      toast.error('Error fetching sales data');
     }
   };
 
@@ -113,10 +85,6 @@ const AdminDashboard = () => {
             <p>{dashboardData.totalUsers}</p>
           </div>
           <div className="card">
-            <h3>Total Sales</h3>
-            <p>Rs {dashboardData.totalSales}/-</p>
-          </div>
-          <div className="card">
             <h3>Total Products</h3>
             <p>{dashboardData.totalProducts}</p>
           </div>
@@ -131,9 +99,6 @@ const AdminDashboard = () => {
           </div>
           <div className="chart">
             <Pie data={chartData} />
-          </div>
-          <div className="chart">
-            <Line data={salesData} />
           </div>
           <div className="chart">
             <Line data={userGrowthData} />

@@ -1,6 +1,7 @@
 import User from '../models/UserModel.js';
 import Product from '../models/ProductModel.js';
 import Order from '../models/orderModel.js';
+import bcryptjs from 'bcryptjs';
 
 export const getAllUsers = async (req, res) => {
   try {
@@ -47,48 +48,21 @@ export const deleteUser = async (req, res) => {
     res.status(500).json({ success: false, message: error.message });
   }
 };
+
 export const getDashboardStats = async (req, res) => {
   try {
     const totalUsers = await User.countDocuments();
-    const totalSales = await Order.aggregate([{ $group: { _id: null, total: { $sum: '$totalAmount' } } }]);
     const totalProducts = await Product.countDocuments();
-    const totalRevenue = await Order.aggregate([{ $group: { _id: null, total: { $sum: '$totalAmount' } } }]);
+    const totalRevenue = await Order.aggregate([
+      { $group: { _id: null, total: { $sum: '$amount' } } }
+    ]);
 
     res.json({
       success: true,
       data: {
         totalUsers,
-        totalSales: totalSales[0]?.total || 0,
         totalProducts,
-        totalRevenue: totalRevenue[0]?.total || 0, // Include totalRevenue in the response
-      },
-    });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ success: false, message: error.message });
-  }
-};
-
-export const getSalesData = async (req, res) => {
-  try {
-    const salesData = await Order.aggregate([
-      {
-        $group: {
-          _id: { $dateToString: { format: '%Y-%m-%d', date: '$createdAt' } },
-          totalSales: { $sum: '$totalAmount' },
-        },
-      },
-      { $sort: { _id: 1 } },
-    ]);
-
-    const labels = salesData.map((data) => data._id);
-    const sales = salesData.map((data) => data.totalSales);
-
-    res.json({
-      success: true,
-      data: {
-        labels,
-        sales,
+        totalRevenue: totalRevenue[0]?.total || 0,
       },
     });
   } catch (error) {

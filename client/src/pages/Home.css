@@ -1,8 +1,16 @@
+/* Home.css */
+
+/* Ensure the main container takes the full width and height of the viewport */
+.main-container {
+  width: 100vw;
+  height: 100vh;
+  overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+
 /* Horizontal scroll container */
 .horizontal-scroll-container {
   display: flex;
   overflow-x: auto;
-  /* background-color: rgb(194, 220, 247); */
   gap: 16px;
   padding: 2px;
   overflow-y: hidden;
@@ -10,7 +18,7 @@
   scrollbar-width: thin; /* For Firefox */
 }
 
-.gradient{
+.gradient {
   background: linear-gradient(140deg, #ea8bba, #73f2f0);
 }
 
@@ -48,7 +56,6 @@
 .horizontal-scroll-container::-webkit-scrollbar {
   display: none;
 }
-
 
 /* Optional: adjust each item width for consistent layout */
 .horizontal-scroll-container > * {

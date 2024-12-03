@@ -25,7 +25,7 @@ function FeedbackList() {
       <Sidebar/>
       <div className="feedback-list-container">
       <h2 className="feedback-list-title">Customer Feedback</h2>
-      <div className="feedback-cards ml-52">
+      <div className="feedback-cards ">
         {feedbacks.map((feedback) => (
           <FeedbackCard key={feedback._id} feedback={feedback} />
         ))}

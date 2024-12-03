@@ -34,7 +34,7 @@ const ListTool = () => {
   return (
     <div className="flex items-start gap-12">
       <Sidebar />
-    <div className='ml-52 mr-20'>
+    <div className='mr-20'>
     <div className='list add flex-col'>
       <p className='flex justify-center font-bold text-red-600 text-xl m-4'>All Products List</p>
       <div className='list-table mx-16'>
