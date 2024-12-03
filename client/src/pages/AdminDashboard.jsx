@@ -23,11 +23,19 @@ const AdminDashboard = () => {
     labels: [],
     datasets: [],
   });
+  const [revenueData, setRevenueData] = useState({
+    labels: [],
+    datasets: [],
+  });
+  const [topSellers, setTopSellers] = useState([]); // State for top sellers
+  const [timePeriod, setTimePeriod] = useState('1month'); // Default time period
 
   useEffect(() => {
     fetchDashboardData();
     fetchUserGrowthData();
-  }, []);
+    fetchRevenueData(timePeriod); // Fetch revenue data based on the default time period
+    fetchTopSellers(); // Fetch top sellers data
+  }, [timePeriod]);
 
   const fetchDashboardData = async () => {
     try {
@@ -75,6 +83,41 @@ const AdminDashboard = () => {
     }
   };
 
+  const fetchRevenueData = async (period) => {
+    try {
+      const response = await axios.get(`http://localhost:3000/api/admin/revenue-data?period=${period}`);
+      if (response.data.success) {
+        setRevenueData({
+          labels: response.data.data.labels,
+          datasets: [
+            {
+              label: 'Revenue Generated',
+              data: response.data.data.revenue,
+              backgroundColor: 'rgba(75, 192, 192, 0.6)',
+            },
+          ],
+        });
+      } else {
+        toast.error('Error fetching revenue data');
+      }
+    } catch (error) {
+      toast.error('Error fetching revenue data');
+    }
+  };
+
+  const fetchTopSellers = async () => {
+    try {
+      const response = await axios.get('http://localhost:3000/api/admin/top-sellers');
+      if (response.data.success) {
+        setTopSellers(response.data.data);
+      } else {
+        toast.error('Error fetching top sellers data');
+      }
+    } catch (error) {
+      toast.error('Error fetching top sellers data');
+    }
+  };
+
   return (
     <div className="admin-dashboard">
       <div className="dashboard-container">
@@ -102,6 +145,29 @@ const AdminDashboard = () => {
           </div>
           <div className="chart">
             <Line data={userGrowthData} />
+          </div>
+          <div className="chart">
+            <h3>Revenue Generated</h3>
+            <select onChange={(e) => setTimePeriod(e.target.value)} value={timePeriod}>
+              <option value="1month">1 Month</option>
+              <option value="6months">6 Months</option>
+              <option value="1year">1 Year</option>
+              <option value="all">All</option>
+            </select>
+            <Bar data={revenueData} />
+          </div>
+        </div>
+        <div className="top-sellers-card">
+          <h3>Top Sellers</h3>
+          <div className="top-sellers-list">
+            {topSellers.map((seller, index) => (
+              <div key={index} className="top-seller">
+                <p><strong>Name:</strong> {seller.name}</p>
+                <p><strong>Stock:</strong> {seller.stock}</p>
+                <p><strong>Revenue:</strong> Rs {seller.revenue}/-</p>
+                <p><strong>Percentage Increase:</strong> {seller.percentageIncrease}%</p>
+              </div>
+            ))}
           </div>
         </div>
       </div>

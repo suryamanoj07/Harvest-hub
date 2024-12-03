@@ -98,3 +98,94 @@ export const getUserGrowthData = async (req, res) => {
     res.status(500).json({ success: false, message: error.message });
   }
 };
+
+
+export const getRevenueData = async (req, res) => {
+  const { period } = req.query;
+  let startDate;
+
+  switch (period) {
+    case '1month':
+      startDate = new Date(new Date().setMonth(new Date().getMonth() - 1));
+      break;
+    case '6months':
+      startDate = new Date(new Date().setMonth(new Date().getMonth() - 6));
+      break;
+    case '1year':
+      startDate = new Date(new Date().setFullYear(new Date().getFullYear() - 1));
+      break;
+    case 'all':
+    default:
+      startDate = new Date(0); // All-time records
+      break;
+  }
+
+  try {
+    const orders = await Order.find({ createdAt: { $gte: startDate } });
+    const revenueData = {};
+
+    orders.forEach(order => {
+      const month = new Date(order.createdAt).toLocaleString('default', { month: 'short', year: 'numeric' });
+      if (!revenueData[month]) {
+        revenueData[month] = 0;
+      }
+      revenueData[month] += order.amount;
+    });
+
+    const labels = Object.keys(revenueData);
+    const revenue = Object.values(revenueData);
+
+    res.json({
+      success: true,
+      data: {
+        labels,
+        revenue,
+      },
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: 'Error fetching revenue data' });
+  }
+};
+
+
+export const getTopSellers = async (req, res) => {
+  try {
+    const sellers = await User.aggregate([
+      {
+        $lookup: {
+          from: 'orders',
+          localField: '_id',
+          foreignField: 'sellerId',
+          as: 'orders',
+        },
+      },
+      {
+        $unwind: '$orders',
+      },
+      {
+        $unwind: '$orders.items',
+      },
+      {
+        $group: {
+          _id: '$_id',
+          name: { $first: '$name' },
+          stock: { $sum: '$orders.items.stock' },
+          revenue: { $sum: { $multiply: ['$orders.items.price', '$orders.items.quantity'] } },
+        },
+      },
+      {
+        $sort: { revenue: -1 },
+      },
+      { $limit: 5 },
+    ]);
+
+    res.json({
+      success: true,
+      data: sellers,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: 'Error fetching top sellers data' });
+  }
+};
