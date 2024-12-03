@@ -134,7 +134,7 @@ const AdminDashboard = () => {
   };
 
   return (
-    <div className="admin-dashboard">
+    <div className="admin-dashboard ">
       <div className="dashboard-container">
         <h1>Admin Dashboard</h1>
         <div className="dashboard-cards">
@@ -177,6 +177,7 @@ const AdminDashboard = () => {
           <div className="top-sellers-list">
             {topSellers.map((seller, index) => (
               <div key={index} className="top-seller">
+                <p><strong>Email:</strong> {seller._id}</p>
                 <p><strong>Name:</strong> {seller.name}</p>
                 <p><strong>Stock:</strong> {seller.stock}</p>
                 <p><strong>Revenue:</strong> Rs {seller.revenue}/-</p>

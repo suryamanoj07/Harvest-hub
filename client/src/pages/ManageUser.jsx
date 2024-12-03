@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setUserInfo } from './redux/user/userSlice';
 import { Sidebar } from '../components/Sidebar';
 
+
 const ManageUser = () => {
   const dispatch = useDispatch();
   const users = useSelector((state) => state.user.userInfo);
@@ -38,7 +39,6 @@ const ManageUser = () => {
   const handleEdit = (user) => {
     setEditingUser(user);
     setFormData({ email: user.email, role: user.role });
-    setIsModalOpen(true);
   };
 
   const handleDelete = async (userId) => {
@@ -99,108 +99,108 @@ const ManageUser = () => {
   return (
     <div className="flex items-start gap-12">
       <Sidebar />
-      <div className='manage-user__outer-div'>
-        <h1 className='manage-user__title'>Manage Users</h1>
-        <button className='manage-user__button_Add_button items-center mr-56' onClick={openModal}>Add User</button>
-       {/* <div className='manage-user__forms'>
-          <form className='manage-user__form' onSubmit={handleSubmit}>
-            <input
-              className='manage-user__input'
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              placeholder="Email"
-              required
-            />
-            <select
-              className='manage-user__select'
-              name="role"
-              val ue={formData.role}
-              onChange={handleChange}
-              required
-            >
-              <option value="">Select Role</option>
-              <option value="farmer">Farmer</option>
-              <option value="customer">Customer</option>
-              <option value="admin">Admin</option>
-            </select>
-            <button className='manage-user__button' type="submit">{editingUser ? 'Update' : 'Add'} User</button>
-          </form>
-        </div> */}
-        <table className='manage-user__table'>
-          <thead className='manage-user__thead'>
-            <tr>
-              <th className='manage-user__th'>Email</th>
-              <th className='manage-user__th'>Role</th>
-              <th className='manage-user__th'>Actions</th>
-            </tr>
-          </thead>
-          <tbody className='manage-user__tbody'>
-            {users && users.map((user) => (
-              <tr key={user._id}>
-                <td className='manage-user__td'>{user.email}</td>
-                <td className='manage-user__td'>{user.role}</td>
-                <td className='manage-user__td'>
-                  <button className='manage-user__button' onClick={() => handleEdit(user)}>Edit</button>
-                  <button className='manage-user__button' onClick={() => handleDelete(user._id)}>Delete</button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-
-        {isModalOpen && (
-          <div className='modal'>
-            <div className='modal-content'>
-              <span className='close' onClick={closeModal}>&times;</span>
-              <h2>{editingUser ? 'Edit User' : 'Add New User'}</h2>
-              <form className='manage-user__form' onSubmit={handleSubmit}>
-                <input
-                  className='manage-user__input'
-                  type="email"
-                  name="email"
-                  value={editingUser ? formData.email : newUser.email}
-                  onChange={editingUser ? handleChange : handleNewUserChange}
-                  placeholder="Email"
-                  required
-                />
-                <input
-                  className='manage-user__input'
-                  type="password"
-                  name="password"
-                  value={newUser.password}
-                  onChange={handleNewUserChange}
-                  placeholder="Password"
-                  required={!editingUser} // Only required when adding a new user
-                />
-                <input
-                  className='manage-user__input'
-                  type="text"
-                  name="username"
-                  value={newUser.username}
-                  onChange={handleNewUserChange}
-                  placeholder="Username"
-                  required
-                />
-                <select
-                  className='manage-user__select'
-                  name="role"
-                  value={editingUser ? formData.role : newUser.role}
-                  onChange={editingUser ? handleChange : handleNewUserChange}
-                  required
-                >
-                  <option value="">Select Role</option>
-                  <option value="farmer">Farmer</option>
-                  <option value="customer">Customer</option>
-                  <option value="admin">Admin</option>
-                </select>
-                <button className='manage-user__button' type="submit">{editingUser ? 'Update' : 'Add'} User</button>
-              </form>
-            </div>
-          </div>
-        )}
+    <div className='manage-user__outer-div'>
+      <h1 className='manage-user__title'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Manage Users</h1>
+      <button className='manage-user__button_Add_button' onClick={openModal}>Add User</button>
+      <div className='manage-user__forms'>
+        <form className='manage-user__form' onSubmit={handleSubmit}>
+          <input
+            className='manage-user__input'
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            placeholder="Email"
+            required
+          />
+          <select
+            className='manage-user__select'
+            name="role"
+            value={formData.role}
+            onChange={handleChange}
+            required
+          >
+            <option value="">Select Role</option>
+            <option value="Farmer">Farmer</option>
+            <option value="Customer">Customer</option>
+            <option value="Admin">Admin</option>
+          </select>
+          <button className='manage-user__button' type="submit">{editingUser ? 'Update' : 'Update'} User</button>
+        </form>
       </div>
+      <table className='manage-user__table'>
+        <thead className='manage-user__thead'>
+          <tr>
+            <th className='manage-user__th'>Email</th>
+            <th className='manage-user__th'>Role</th>
+            <th className='manage-user__th'>Actions</th>
+          </tr>
+        </thead>
+        <tbody className='manage-user__tbody'>
+          {users && users.map((user) => (
+            <tr key={user._id}>
+              <td className='manage-user__td'>{user.email}</td>
+              <td className='manage-user__td'>{user.role}</td>
+              <td className='manage-user__td'>
+                <button className='manage-user__button' onClick={() => handleEdit(user)}>Edit</button>
+                <button className='manage-user__button' onClick={() => handleDelete(user._id)}>Delete</button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+      {isModalOpen && (
+        <div className='modal'>
+          <div className='modal-content'>
+            <span className='close' onClick={closeModal}>&times;</span>
+            <h2>Add New User</h2>
+            <form className='manage-user__form' onSubmit={handleSubmit}>
+              <input
+                className='manage-user__input'
+                type="email"
+                name="email"
+                value={newUser.email}
+                onChange={handleNewUserChange}
+                placeholder="Email"
+                required
+              />
+              <input
+                className='manage-user__input'
+                type="password"
+                name="password"
+                value={newUser.password}
+                onChange={handleNewUserChange}
+                placeholder="Password"
+                required
+              />
+              <input
+                className='manage-user__input'
+                type="text"
+                name="username"
+                value={newUser.username}
+                onChange={handleNewUserChange}
+                placeholder="Username"
+                required
+              />
+              <select
+                className='manage-user__select'
+                name="role"
+                value={newUser.role}
+                onChange={handleNewUserChange}
+                required
+              >
+                <option value="">Select Role</option>
+                <option value="farmer">Farmer</option>
+                <option value="customer">Customer</option>
+                <option value="admin">Admin</option>
+              </select>
+              <button className='manage-user__button' type="submit">Add User</button>
+            </form>
+          </div>
+        </div>
+      )}
+    </div>
     </div>
   );
 };

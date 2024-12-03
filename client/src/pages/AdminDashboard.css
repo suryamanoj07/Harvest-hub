@@ -4,10 +4,10 @@
   padding: 20px;
   font-family: Arial, sans-serif;
   min-height: 100vh;
-  background-color: #f8f8f8;
   display: flex;
   justify-content: center;
   align-items: flex-start;
+  padding-top: 6rem;
 }
 
 .dashboard-container {

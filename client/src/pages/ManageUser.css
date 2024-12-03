@@ -1,202 +1,164 @@
-/* General styles */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f9f9f9;
-    margin: 0;
-    padding: 0;
-    margin-top: 5%;
-  }
-  
-  .manage-user__outer-div {
-    max-width: 800px;
-    margin: 25px auto;
-    padding: 20px;
-    background-color: #fff;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    min-width: 50%;
-  }
-  
-  .manage-user__title {
-    font-size: 2.5rem;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 20px;
-    text-align: center;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .manage-user__button_Add_button {
-    border: 1px solid black;
-    padding: 10px 20px;
-    border-radius: 5px;
-    background-color: #007bff;
-    color: white;
-    cursor: pointer;
-    margin-bottom: 20px;
-    transition: opacity 0.3s ease;
-    display: block;
-    margin-left: auto;
-    margin-right: 44%;
-  }
-  
-  /* The Modal (background) */
-  .modal {
-    display: block; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1001; /* Sit on top */
-    left: 0;
-    top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-  }
-  
-  /* Modal Content/Box */
-  .modal-content {
-    background-color: #fefefe;
-    margin: 15% auto; /* 15% from the top and centered */
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%; /* Could be more or less, depending on screen size */
-    max-width: 500px; /* Maximum width for the modal */
-    border-radius: 10px; /* Rounded corners */
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3); /* Box shadow for the modal */
-  }
-  
-  /* The Close Button */
-  .close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-  }
-  
-  .close:hover,
-  .close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-  }
-  
-  .manage-user__button {
-    padding: 10px;
-    margin: 10px;
-    background-color: #28a745;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .manage-user__button:hover {
-    background-color: #218838;
-  }
-  
-  /* Form Styles */
-  .manage-user__form {
-    display: flex;
+.manage-user__outer-div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; /* Centers vertically */
+  min-height: 100vh; /* Full height for centering */
+  padding: 20px;
+  text-align: center; /* Centers text horizontally */
+  width: 100%; /* Full width */
+}
+
+.manage-user__title {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.manage-user__controls {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+  justify-content: center;
+  flex-wrap: wrap; /* Allows wrapping for smaller screens */
+}
+
+.manage-user__button_Add_button,
+.manage-user__button {
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-right: 10px; /* Add space between buttons */
+}
+
+.manage-user__button:last-child {
+  margin-right: 0; /* Remove margin for the last button */
+}
+
+.manage-user__button_Add_button:hover,
+.manage-user__button:hover {
+  background-color: #45a049;
+}
+
+.manage-user__select,
+.manage-user__input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 200px;
+}
+
+.manage-user__input {
+  width: 300px;
+}
+
+.manage-user__table {
+  margin: 0 auto; /* Centers horizontally */
+  width: 100%; /* Adjust table width */
+  max-width: 1000px; /* Limit the maximum width */
+  border: 1px solid black; /* Add border to the table */
+  border-collapse: collapse; /* Ensure borders are collapsed */
+}
+
+.manage-user__thead {
+  background-color: #007bff;
+  color: white;
+}
+
+.manage-user__th,
+.manage-user__td {
+  padding: 10px;
+  border: 1px solid #ddd; /* Add border to table cells */
+  text-align: left;
+}
+
+.manage-user__tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.page-link {
+  padding: 10px 15px;
+  border: 1px solid #007bff;
+  color: #007bff;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.page-link:hover {
+  background-color: #007bff;
+  color: white;
+}
+
+/* Modal styles */
+.modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto; /* Ensures scrollability for overflowing content */
+  background-color: rgba(0, 0, 0, 0.5);
+  transition: opacity 0.3s ease;
+}
+
+.modal-content {
+  background-color: #fff;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 90%; /* Dynamic width for smaller screens */
+  max-width: 500px; /* Maximum width */
+  border-radius: 10px;
+  position: relative;
+  transform: translateY(0); /* Prevents content from moving off-screen */
+  max-height: 90vh; /* Ensures the modal doesn't exceed the viewport height */
+  overflow-y: auto; /* Adds scroll for content overflow */
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.manage-user__form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Responsive design for smaller screens */
+@media screen and (max-width: 768px) {
+  .manage-user__controls {
     flex-direction: column;
-    gap: 10px;
-    margin-bottom: 20px;
+    align-items: flex-start;
   }
-  
+
   .manage-user__input,
-  .manage-user__select {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    width: 100%;
+  .manage-user__select,
+  .manage-user__button_Add_button,
+  .manage-user__button {
+    width: 100%; /* Full width for smaller screens */
   }
-  
-  .manage-user__input:focus,
-  .manage-user__select:focus {
-    border-color: #007bff;
-    outline: none;
-  }
-  
-  .manage-user__table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  .manage-user__thead {
-    background-color: #007bff;
-    color: white;
-  }
-  
-  .manage-user__th,
-  .manage-user__td {
-    padding: 10px;
-    border: 1px solid #ddd;
-    text-align: left;
-  }
-  
-  .manage-user__tbody tr:hover {
-    background-color: #f1f1f1;
-  }
-  
-  .manage-user__td button {
-    padding: 8px 12px;
-    background-color: #add8e6; /* Light blue */
-    color: black;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-right: 10px; /* Add space between buttons */
-  }
-  
-  .manage-user__td button:hover {
-    background-color: #87ceeb; /* Sky blue */
-  }
-  
-  /* Responsive design for smaller screens */
-  @media screen and (max-width: 768px) {
-    .manage-user__form {
-      flex-direction: column;
-      align-items: flex-start;
-    }
-  
-    .manage-user__input,
-    .manage-user__select,
-    .manage-user__button {
-      width: 100%;
-      margin: 5px 0;
-    }
-  
-    .manage-user__table,
-    .manage-user__thead,
-    .manage-user__tbody,
-    .manage-user__th,
-    .manage-user__td,
-    .manage-user__tr {
-      display: block;
-    }
-  
-    .manage-user__thead tr {
-      display: none;
-    }
-  
-    .manage-user__tbody tr {
-      margin-bottom: 15px;
-      padding: 10px;
-      background-color: #fff;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-    }
-  
-    .manage-user__td {
-      display: flex;
-      justify-content: space-between;
-      padding: 10px;
-      font-size: 16px;
-      text-align: left;
-    }
-  
-    .manage-user__td:before {
-      content: attr(data-label);
-      font-weight: bold;
-    }
-  }
+}

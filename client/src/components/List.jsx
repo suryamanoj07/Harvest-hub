@@ -39,7 +39,7 @@ const List = () => {
     <div className="flex items-start">
       <Sidebar />
       <div className="mr-10">
-        <div className="list add flex-col">
+        <div className="list add flex-col p-10">
           <p className="flex justify-center font-bold text-red-600 text-xl m-4">
             All Items List
           </p>
