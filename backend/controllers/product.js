@@ -246,4 +246,32 @@ const newlyAddedProducts = async (req, res) => {
 //     }
 //   };
 
-export {addProduct,listProduct,deleteProduct,searchProduct,fastSellingItems,newlyAddedProducts,farmerList,updateProduct,farmerDelete, farmerRevenue}
+export const getTopSellingProducts = async (req, res) => {
+  try {
+    const topProducts = await Order.aggregate([
+      { $unwind: "$items" },
+      {
+        $group: {
+          _id: "$items._id",
+          name: { $first: "$items.name" },
+          price: { $first: "$items.price" },
+          stock: { $first: "$items.stockQuantity" },
+          totalOrders: { $sum: 1 },
+          totalAmount: { $sum: { $multiply: ["$items.price", "$items.quantity"] } },
+        },
+      },
+      { $sort: { totalAmount: -1 } },
+      { $limit: 5 },
+    ]);
+
+    res.json({
+      success: true,
+      data: topProducts,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: "Error fetching top selling products" });
+  }
+};
+
+export { addProduct,listProduct,deleteProduct,searchProduct,fastSellingItems,newlyAddedProducts,farmerList,updateProduct,farmerDelete, farmerRevenue}

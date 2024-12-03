@@ -13,7 +13,7 @@ const AdminDashboard = () => {
     totalUsers: 0,
     totalSales: 0,
     totalProducts: 0,
-    totalRevenue: 0, // Add totalRevenue to the state
+    totalRevenue: 0,
   });
   const [chartData, setChartData] = useState({
     labels: [],
@@ -27,14 +27,16 @@ const AdminDashboard = () => {
     labels: [],
     datasets: [],
   });
-  const [topSellers, setTopSellers] = useState([]); // State for top sellers
-  const [timePeriod, setTimePeriod] = useState('1month'); // Default time period
+  const [topSellers, setTopSellers] = useState([]);
+  const [topProducts, setTopProducts] = useState([]);
+  const [timePeriod, setTimePeriod] = useState('1month');
 
   useEffect(() => {
     fetchDashboardData();
     fetchUserGrowthData();
-    fetchRevenueData(timePeriod); // Fetch revenue data based on the default time period
-    fetchTopSellers(); // Fetch top sellers data
+    fetchRevenueData(timePeriod);
+    fetchTopSellers();
+    fetchTopSellingProducts();
   }, [timePeriod]);
 
   const fetchDashboardData = async () => {
@@ -118,6 +120,19 @@ const AdminDashboard = () => {
     }
   };
 
+  const fetchTopSellingProducts = async () => {
+    try {
+      const response = await axios.get('http://localhost:3000/api/product/top-selling-products');
+      if (response.data.success) {
+        setTopProducts(response.data.data);
+      } else {
+        toast.error('Error fetching top selling products data');
+      }
+    } catch (error) {
+      toast.error('Error fetching top selling products data');
+    }
+  };
+
   return (
     <div className="admin-dashboard">
       <div className="dashboard-container">
@@ -165,7 +180,20 @@ const AdminDashboard = () => {
                 <p><strong>Name:</strong> {seller.name}</p>
                 <p><strong>Stock:</strong> {seller.stock}</p>
                 <p><strong>Revenue:</strong> Rs {seller.revenue}/-</p>
-                <p><strong>Percentage Increase:</strong> {seller.percentageIncrease}%</p>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="top-products-card">
+          <h3>Top Selling Products</h3>
+          <div className="top-products-list">
+            {topProducts.map((product, index) => (
+              <div key={index} className="top-product">
+                <p><strong>Name:</strong> {product.name}</p>
+                <p><strong>Price:</strong> Rs {product.price}/-</p>
+                <p><strong>Stock:</strong> {product.stock}</p>
+                <p><strong>Total Orders:</strong> {product.totalOrders}</p>
+                <p><strong>Total Amount:</strong> Rs {product.totalAmount}/-</p>
               </div>
             ))}
           </div>
