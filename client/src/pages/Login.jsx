@@ -20,25 +20,29 @@ export const Login = () => {
         })
     }
 
-    const submitForm=async(e)=>{
+    const submitForm = async (e) => {
         e.preventDefault();
         
-        dispatch(loginInStart())
-        try{
-            const res = await axios.post('http://localhost:3000/api/auth/login',formData)
-        if(res.data.success=='false'){
-            dispatch(loginInFailure(res.data.message))  
-            return
+        dispatch(loginInStart());
+        try {
+            const res = await axios.post('http://localhost:3000/api/auth/login', formData);
+            if (res.data.success == 'false') {
+                dispatch(loginInFailure(res.data.message));
+                return;
+            }
+            dispatch(loginInSuccess(res.data.user));
+            setToken(res.data.token);
+            localStorage.setItem("token", res.data.token);
+            
+            if (res.data.user.role === 'Admin') {
+                navigate('/admin'); // Redirects to the admin page
+            } else {
+                navigate('/'); // Redirects to the home page
+            }
+        } catch (err) {
+            dispatch(loginInFailure(err.message));
         }
-        dispatch(loginInSuccess(res.data.user))
-        setToken(res.data.token)
-        localStorage.setItem("token",res.data.token)
-        
-        navigate('/')
-        }catch(err){
-            dispatch(loginInFailure(err.message))
-        }
-    }
+    };
 
   return (
     <div className="max-w-lg p-3 mx-auto">

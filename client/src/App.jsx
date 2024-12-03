@@ -28,49 +28,60 @@ import FarmerDashboard from './pages/FarmerDashboard';
 import FarmerRevenue from './pages/FarmerRevenue';
 import 'react-toastify/dist/ReactToastify.css';
 import FeedbackList from './components/FeedbackList';
+import  AdminDashboard  from './pages/AdminDashboard';
 
 function App() {
   const [category, setCategory] = useState('All');
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+
+  const toggleSidebar = () => {
+    setIsSidebarCollapsed(!isSidebarCollapsed);
+  };
 
   return (
     <React.StrictMode>
       <BrowserRouter>
         <ToastContainer />
-        <Header />
-        <Routes>
-          <Route
-            path="/"
-            element={<Home category={category} setCategory={setCategory} />}
-          />
-          <Route
-            path="/Market"
-            element={<Products category={category} setCategory={setCategory} />}
-          />
-          <Route path="/About" element={<About />} />
-          <Route path="/Schemes" element={<Schemes />} />
-          <Route path="/Articles" element={<Articles />} />
-          <Route path="/Login" element={<Login />} />
-          <Route path="/Signup" element={<Signup />} />
-          <Route element={<PrivateRoute />}>
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/farmerdashboard" element={<FarmerDashboard />} />
-            <Route path="/farmerrevenue" element={<FarmerRevenue />} />
-            <Route path="/cart" element={<Cart />} />
-            <Route path="/empty" element={<Empty />} />
-            <Route path="/order" element={<Order />} />
-            <Route path="/verify" element={<Verify />} />
-            <Route path="/myorders" element={<MyOrders />} />
-            <Route path="/admin" element={<Add />} />
-          </Route>
-          <Route path="/Sidebar" element={<Sidebar />} />
-          <Route path="/add" element={<Add />} />
-          <Route path="/addtool" element={<AddTool />} />
-          <Route path="/list" element={<List />} />
-          <Route path="/listtool" element={<ListTool />} />
-          <Route path="/orders" element={<Aorder />} />
-          <Route path="/manage-users" element={<ManageUser />} />
-          <Route path="/feedbacks" element={<FeedbackList />} />
-        </Routes>
+        <Header toggleSidebar={toggleSidebar} />
+        <div className="flex">
+          {isSidebarCollapsed && <Sidebar isCollapsed={isSidebarCollapsed} />}
+          <div className={`content ${isSidebarCollapsed ? 'collapsed' : ''}`}>
+            <Routes>
+              <Route
+                path="/"
+                element={<Home category={category} setCategory={setCategory} />}
+              />
+              <Route
+                path="/Market"
+                element={<Products category={category} setCategory={setCategory} />}
+              />
+              <Route path="/About" element={<About />} />
+              <Route path="/Schemes" element={<Schemes />} />
+              <Route path="/Articles" element={<Articles />} />
+              <Route path="/Login" element={<Login />} />
+              <Route path="/Signup" element={<Signup />} />
+              <Route element={<PrivateRoute />}>
+                <Route path="/profile" element={<Profile />} />
+                <Route path="/farmerdashboard" element={<FarmerDashboard />} />
+                <Route path="/farmerrevenue" element={<FarmerRevenue />} />
+                <Route path="/cart" element={<Cart />} />
+                <Route path="/empty" element={<Empty />} />
+                <Route path="/order" element={<Order />} />
+                <Route path="/verify" element={<Verify />} />
+                <Route path="/myorders" element={<MyOrders />} />
+                <Route path="/admin" element={<AdminDashboard />} />
+              </Route>
+              <Route path="/Sidebar" element={<Sidebar />} />
+              <Route path="/add" element={<Add />} />
+              <Route path="/addtool" element={<AddTool />} />
+              <Route path="/list" element={<List />} />
+              <Route path="/listtool" element={<ListTool />} />
+              <Route path="/orders" element={<Aorder />} />
+              <Route path="/manage-users" element={<ManageUser />} />
+              <Route path="/feedbacks" element={<FeedbackList />} />
+            </Routes>
+          </div>
+        </div>
       </BrowserRouter>
     </React.StrictMode>
   );
