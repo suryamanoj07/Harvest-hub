@@ -134,6 +134,12 @@ export const getRevenueData = async (req, res) => {
   let startDate;
 
   switch (period) {
+    case "1day":
+      startDate = new Date(new Date().setDate(new Date().getDate() - 1));
+      break;
+    case "1week":
+      startDate = new Date(new Date().setDate(new Date().getDate() - 7));
+      break;
     case "1month":
       startDate = new Date(new Date().setMonth(new Date().getMonth() - 1));
       break;
@@ -154,12 +160,9 @@ export const getRevenueData = async (req, res) => {
     const revenueData = {};
 
     orders.forEach((order) => {
-      const month = new Date(order.createdAt).toLocaleString("default", {
-        month: "short",
-        year: "numeric",
-      });
-      if (!revenueData[month]) revenueData[month] = 0;
-      revenueData[month] += order.amount;
+      const date = new Date(order.createdAt).toLocaleDateString();
+      if (!revenueData[date]) revenueData[date] = 0;
+      revenueData[date] += order.amount;
     });
 
     const labels = Object.keys(revenueData);
@@ -171,7 +174,7 @@ export const getRevenueData = async (req, res) => {
     });
   } catch (error) {
     console.error(error);
-    sendErrorResponse(res, 500, "Error fetching revenue data.");
+    res.status(500).json({ success: false, message: "Error fetching revenue data" });
   }
 };
 

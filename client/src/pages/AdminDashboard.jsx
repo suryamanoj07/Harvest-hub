@@ -79,6 +79,13 @@ const AdminDashboard = () => {
       toast.error('Error fetching revenue data');
     }
   };
+  
+  useEffect(() => {
+    fetchDashboardData();
+    fetchRevenueData(timePeriod);
+    fetchTopSellers();
+    fetchTopSellingProducts();
+  }, [timePeriod]);
 
   const fetchTopSellers = async () => {
     try {
