@@ -26,11 +26,9 @@ export const Header = ({ toggleSidebar }) => {
   };
 
   return (
-    <header className="bg-slate-300 shadow-md fixed top-0 left-0 min-w-full z-50 flex items-center justify-between p-3">
+    <header className="bg-slate-300 shadow-md fixed top-0 left-0 min-w-full z-50 flex items-center  p-3">
       <div className="flex items-center">
-        {currentUser?.role === "Admin" && (
-          <FaBars className="text-2xl cursor-pointer mr-4" onClick={toggleSidebar} />
-        )}
+        <FaBars className="text-2xl cursor-pointer mr-4" onClick={toggleSidebar} />
         <Link to="/">
           <h1 className="cursor-pointer">
             <span className="font-bold text-3xl text-blue-600">Harvest</span>
@@ -39,7 +37,7 @@ export const Header = ({ toggleSidebar }) => {
         </Link>
       </div>
 
-      <div className="flex items-center gap-16">
+      <div className="flex items-center gap-16 ml-72">
         <ul className="flex gap-4">
           <Link to="/Market">
             <li className="text-slate-700 hover:underline font-semibold text-lg">
@@ -114,16 +112,16 @@ export const Header = ({ toggleSidebar }) => {
             )}
           </Link>
         </ul>
-      </div>
 
-      {currentUser && (
-        <div
-          className="bg-blue-500 p-1 px-3 border-blue-600 border-2 rounded-3xl cursor-pointer hover:bg-blue-400 ml-6"
-          onClick={logout}
-        >
-          Logout
-        </div>
-      )}
+        {currentUser && (
+          <div
+            className="bg-blue-500 p-1 px-3 border-blue-600 border-2 rounded-3xl cursor-pointer hover:bg-blue-400 ml-6"
+            onClick={logout}
+          >
+            Logout
+          </div>
+        )}
+      </div>
     </header>
   );
 };

@@ -12,7 +12,20 @@ const ManageUser = () => {
   const users = useSelector((state) => state.user.userInfo);
   const currentUser = useSelector((state) => state.user.currentUser);
   const [editingUser, setEditingUser] = useState(null);
-  const [formData, setFormData] = useState({ email: '', role: '' });
+  const [formData, setFormData] = useState({
+    email: '',
+    username: '',
+    role: '',
+    contact_number: '',
+    personal_address: '',
+    business_name: '',
+    business_email: '',
+    business_contact_number: '',
+    business_address: '',
+    business_account_number: '',
+    business_gstin: '',
+    business_about: ''
+  });
   const [newUser, setNewUser] = useState({ email: '', password: '', username: '', role: '' });
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false); // State to manage the visibility of the edit modal
@@ -42,7 +55,20 @@ const ManageUser = () => {
 
   const handleEdit = (user) => {
     setEditingUser(user);
-    setFormData({ email: user.email, role: user.role });
+    setFormData({
+      email: user.email,
+      username: user.username,
+      role: user.role,
+      contact_number: user.contact_number,
+      personal_address: user.personal_address,
+      business_name: user.business_name,
+      business_email: user.business_email,
+      business_contact_number: user.business_contact_number,
+      business_address: user.business_address,
+      business_account_number: user.business_account_number,
+      business_gstin: user.business_gstin,
+      business_about: user.business_about
+    });
     setIsEditModalOpen(true); // Open the edit modal
   };
 
@@ -80,7 +106,20 @@ const ManageUser = () => {
         });
       }
       setEditingUser(null);
-      setFormData({ email: '', role: '' });
+      setFormData({
+        email: '',
+        username: '',
+        role: '',
+        contact_number: '',
+        personal_address: '',
+        business_name: '',
+        business_email: '',
+        business_contact_number: '',
+        business_address: '',
+        business_account_number: '',
+        business_gstin: '',
+        business_about: ''
+      });
       setNewUser({ email: '', password: '', username: '', role: '' });
       fetchUsers();
       setIsModalOpen(false); // Close the modal after submission
@@ -112,14 +151,23 @@ const ManageUser = () => {
 
   const exportToCSV = () => {
     const csvRows = [];
-    const headers = ['Email', 'Username', 'Role'];
+    const headers = ['Email', 'Username', 'Role', 'Contact Number', 'Personal Address', 'Business Name', 'Business Email', 'Business Contact Number', 'Business Address', 'Business Account Number', 'Business GSTIN', 'Business About'];
     csvRows.push(headers.join(','));
 
     users.forEach(user => {
       const row = [
         user.email,
         user.username || '',
-        user.role
+        user.role,
+        user.contact_number || '',
+        user.personal_address || '',
+        user.business_name || '',
+        user.business_email || '',
+        user.business_contact_number || '',
+        user.business_address || '',
+        user.business_account_number || '',
+        user.business_gstin || '',
+        user.business_about || ''
       ];
       csvRows.push(row.join(','));
     });
@@ -277,6 +325,15 @@ const ManageUser = () => {
                   placeholder="Email"
                   required
                 />
+                <input
+                  className='manage-user__input'
+                  type="text"
+                  name="username"
+                  value={formData.username}
+                  onChange={handleChange}
+                  placeholder="Username"
+                  required
+                />
                 <select
                   className='manage-user__select'
                   name="role"
@@ -289,6 +346,78 @@ const ManageUser = () => {
                   <option value="Customer">Customer</option>
                   <option value="Admin">Admin</option>
                 </select>
+                <input
+                  className='manage-user__input'
+                  type="text"
+                  name="contact_number"
+                  value={formData.contact_number}
+                  onChange={handleChange}
+                  placeholder="Contact Number"
+                />
+                <input
+                  className='manage-user__input'
+                  type="text"
+                  name="personal_address"
+                  value={formData.personal_address}
+                  onChange={handleChange}
+                  placeholder="Personal Address"
+                />
+                <input
+                  className='manage-user__input'
+                  type="text"
+                  name="business_name"
+                  value={formData.business_name}
+                  onChange={handleChange}
+                  placeholder="Business Name"
+                />
+                <input
+                  className='manage-user__input'
+                  type="email"
+                  name="business_email"
+                  value={formData.business_email}
+                  onChange={handleChange}
+                  placeholder="Business Email"
+                />
+                <input
+                  className='manage-user__input'
+                  type="text"
+                  name="business_contact_number"
+                  value={formData.business_contact_number}
+                  onChange={handleChange}
+                  placeholder="Business Contact Number"
+                />
+                <input
+                  className='manage-user__input'
+                  type="text"
+                  name="business_address"
+                  value={formData.business_address}
+                  onChange={handleChange}
+                  placeholder="Business Address"
+                />
+                <input
+                  className='manage-user__input'
+                  type="text"
+                  name="business_account_number"
+                  value={formData.business_account_number}
+                  onChange={handleChange}
+                  placeholder="Business Account Number"
+                />
+                <input
+                  className='manage-user__input'
+                  type="text"
+                  name="business_gstin"
+                  value={formData.business_gstin}
+                  onChange={handleChange}
+                  placeholder="Business GSTIN"
+                />
+                <textarea
+                  className='manage-user__input'
+                  name="business_about"
+                  value={formData.business_about}
+                  onChange={handleChange}
+                  placeholder="Business About"
+                  rows="4"
+                />
                 <button className='manage-user__button' type="submit">Update User</button>
               </form>
             </div>
