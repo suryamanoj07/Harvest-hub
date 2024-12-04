@@ -1,21 +1,79 @@
 .list-table-format{
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 0.5fr;
+    grid-template-columns: 150px 1fr 1fr 1fr 1fr 1fr;
     align-items: center;
-    gap: 10px;
-    padding: 12px 15px;
-    border: 1px solid #cacaca;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
     font-size: 18px;
 }
 .list-table-format.title{
-    background-color: #74b5f1;
+    background-color: #f0f4f8;
+    font-weight: bold;
 }
 .list-table-format img{
-    width: 120px;
+    height: 90px;
+    width: 150px;
+    object-fit: cover;
 }
 .cursor{
     cursor: pointer;
     color: red;
     font-size: 25px;
     font-weight: 500;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.list-table {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.list-table-format p,
+.list-table-format b {
+  margin: 0;
+  padding: 0 10px;
+}
+
+.list-table-format .actions {
+  display: flex;
+  gap: 10px;
+}
+
+.list-table-format .actions button {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.list-table-format .actions .edit-button {
+  background-color: #4caf50;
+  color: white;
+}
+
+.list-table-format .actions .edit-button:hover {
+  background-color: #45a049;
+}
+
+.list-table-format .actions .remove-button {
+  background-color: #f44336;
+  color: white;
+}
+
+.list-table-format .actions .remove-button:hover {
+  background-color: #e53935;
+}
+
+.list-table-format input[type="number"] {
+  width: 60px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }

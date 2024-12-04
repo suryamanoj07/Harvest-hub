@@ -1,4 +1,5 @@
 import add_icon from "./../../assets/add_icon.png";
+import admin_dash from "./../../assets/admin_dash.jpg";
 import order_icon from "./../../assets/order_icon.png";
 import manage_user from "./../../assets/manage_user.png";
 import feedback_icon from "./../../assets/feedback.png";
@@ -14,7 +15,7 @@ export const Sidebar = ({ isOpen }) => {
         <>
           <Link to="/admin">
             <div className="sidebar-item">
-              <img src={add_icon} alt="Admin Dashboard" className="h-6 w-6" />
+              <img src={admin_dash} alt="Admin Dashboard" className="h-6 w-6" />
               <p>Admin Dashboard</p>
             </div>
           </Link>
