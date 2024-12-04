@@ -25,6 +25,8 @@ productRouter.get("/recentadded",newlyAddedProducts)
 productRouter.get("/search/:search",searchProduct)
 productRouter.post("/delete/:id",deleteProduct)
 productRouter.get('/top-selling-products', getTopSellingProducts);
+productRouter.put('/product/update/:id', updateProduct);
+productRouter.put('/update/:id', updateProduct);
 // productRouter.post("/delete/:id",deleteProduct)
 // productRouter.post('/rating', addRating); // Add or update rating
 // productRouter.post('/review', addReview); // Add review

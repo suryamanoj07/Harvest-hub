@@ -136,7 +136,7 @@ const AdminDashboard = () => {
             <Pie data={chartData} />
           </div>
         </div>
-        <div className="chart">
+        <div className="chart top-sellers-card">
           <h3>Revenue Generated</h3>
           <select onChange={(e) => setTimePeriod(e.target.value)} value={timePeriod}>
             <option value="1day">1 Day</option>

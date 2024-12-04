@@ -75,16 +75,11 @@ const farmerDelete = async (req, res) => {
 
   const updateProduct = async (req, res) => {
     const { id } = req.params;
-    const { name, description, price, category, stockQuantity, status } = req.body;
+    const { stockQuantity } = req.body;
   
     try {
       const updatedProduct = await productModel.findByIdAndUpdate(id, {
-        name,
-        description,
-        price,
-        category,
         stockQuantity,
-        status
       }, { new: true });
   
       if (!updatedProduct) {

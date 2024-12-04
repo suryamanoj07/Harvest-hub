@@ -33,17 +33,22 @@ const List = () => {
   };
 
   const updateStock = async (id) => {
-    const response = await axios.put(
-      `http://localhost:3000/api/product/update/${id}`,
-      { stockQuantity: newStock[id] }
-    );
-    await fetchList();
-    if (response.data.success) {
-      toast.success("Stock updated successfully");
-    } else {
-      toast.error("Error updating stock");
+    try {
+      const response = await axios.put(
+        `http://localhost:3000/api/product/update/${id}`,
+        { stockQuantity: newStock[id] }
+      );
+      await fetchList();
+      if (response.data.success) {
+        toast.success("Stock updated successfully");
+      } else {
+        toast.error("Error updating stock");
+      }
+      setEditingStock(null);
+    } catch (error) {
+      console.error('Error updating stock:', error);
+      toast.error('Error updating stock');
     }
-    setEditingStock(null);
   };
 
   useEffect(() => {

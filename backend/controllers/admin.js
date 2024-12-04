@@ -31,7 +31,7 @@ export const createUser = async (req, res) => {
   try {
     // Hash the password
     const hashPassword = bcryptjs.hashSync(password, 10);
-    const newUser = new User({ email, password: hashPassword, username, role });
+    const newUser = new User({ email, password: hashPassword, user_name: username, role });
     await newUser.save();
     res.json({ success: true, message: newUser });
   } catch (error) {
@@ -43,20 +43,7 @@ export const createUser = async (req, res) => {
 // Update user details
 export const updateUser = async (req, res) => {
   const { userId } = req.params;
-  const {
-    email,
-    username,
-    role,
-    contact_number,
-    personal_address,
-    business_name,
-    business_email,
-    business_contact_number,
-    business_address,
-    business_account_number,
-    business_gstin,
-    business_about,
-  } = req.body;
+  const { email, username, role } = req.body;
 
   try {
     const user = await User.findById(userId);
@@ -65,18 +52,9 @@ export const updateUser = async (req, res) => {
     }
 
     // Update fields if provided
-    if (email) user.set("email", email || user.email);
-    if (username) user.set("username", username || user.username);
-    if (role) user.set("role", role || user.role);
-    if (contact_number) user.set("contact_number", contact_number || user.contact_number);
-    if (personal_address) user.set("personal_address", personal_address || user.personal_address);
-    if (business_name) user.set("business_name", business_name || user.business_name);
-    if (business_email) user.set("business_email", business_email);
-    if (business_contact_number) user.set("business_contact_number", business_contact_number || user.business_contact_number);
-    if (business_address) user.set("business_address", business_address || user.business_address);
-    if (business_account_number) user.set("business_account_number", business_account_number || user.business_account_number);
-    if (business_gstin) user.set("business_gstin", business_gstin || user.business_gstin);
-    if (business_about) user.set("business_about", business_about || user.business_about);
+    if (email) user.email = email;
+    if (username) user.user_name = username;
+    if (role) user.role = role;
 
     await user.save();
     res.json({ success: true, message: "User updated successfully", user });
