@@ -1,108 +1,143 @@
-import User from '../models/UserModel.js'; // Adjust path based on your project structure
-import Order from '../models/orderModel.js';
-import productModel from '../models/ProductModel.js';
-import bcryptjs from 'bcryptjs';
+import User from "../models/UserModel.js";
+import productModel from "../models/ProductModel.js";
+import Order from "../models/orderModel.js";
+import bcryptjs from "bcryptjs";
+import toolModel from "../models/toolModel.js"; // Import the Tool model
 
-// Controller to fetch all users
+// Helper function for error responses
+const sendErrorResponse = (res, status, message) => {
+  res.status(status).json({ success: false, message });
+};
+
+// Get all users
 export const getAllUsers = async (req, res) => {
-    try {
-        const users = await User.find({});
-        res.json({ success: true, message: users });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ success: false, message: error.message });
-    }
+  try {
+    const users = await User.find({});
+    res.json({ success: true, message: users });
+  } catch (error) {
+    console.error(error);
+    sendErrorResponse(res, 500, error.message);
+  }
 };
 
-// Controller to create a new user
+// Create a new user
 export const createUser = async (req, res) => {
-    const { email, password, username, role } = req.body;
-    try {
-        const hashPassword = bcryptjs.hashSync(password, 10);
-        const newUser = new User({ email, password: hashPassword, username, role });
-        await newUser.save();
-        res.json({ success: true, message: newUser });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ success: false, message: error.message });
-    }
+  const { email, password, username, role } = req.body;
+
+  // Validate request body
+  if (!email || !password || !username || !role) {
+    return sendErrorResponse(res, 400, "Email, username, role, and password are required.");
+  }
+
+  try {
+    // Hash the password
+    const hashPassword = bcryptjs.hashSync(password, 10);
+    const newUser = new User({ email, password: hashPassword, user_name: username, role });
+    await newUser.save();
+    res.json({ success: true, message: newUser });
+  } catch (error) {
+    console.error(error);
+    sendErrorResponse(res, 500, error.message);
+  }
 };
 
-// Controller to update an existing user
+// Update user details
 export const updateUser = async (req, res) => {
-    const { userId } = req.params;
-    const { email, role } = req.body;
-    try {
-        const updatedUser = await User.findByIdAndUpdate(userId, { email, role }, { new: true });
-        res.json({ success: true, message: updatedUser });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ success: false, message: error.message });
+  const { userId } = req.params;
+  const { email, username, role } = req.body;
+
+  try {
+    const user = await User.findById(userId);
+    if (!user) {
+      return sendErrorResponse(res, 404, "User not found.");
     }
+
+    // Update fields if provided
+    if (email) user.email = email;
+    if (username) user.user_name = username;
+    if (role) user.role = role;
+
+    await user.save();
+    res.json({ success: true, message: "User updated successfully", user });
+  } catch (error) {
+    console.error(error);
+    sendErrorResponse(res, 500, "Internal server error.");
+  }
 };
 
-export const getDashboardStats = async (req, res) => {
-    try {
-      const totalUsers = await User.countDocuments();
-      const totalProducts = await productModel.countDocuments();
-      const totalRevenue = await Order.aggregate([
-        { $group: { _id: null, total: { $sum: "$amount" } } },
-      ]);
-  
-      res.json({
-        success: true,
-        data: {
-          totalUsers,
-          totalProducts,
-          totalRevenue: totalRevenue[0]?.total || 0,
-        },
-      });
-    } catch (error) {
-      res.json(error.message)
-    }
-  };
-
-// Controller to delete a user
+// Delete a user
 export const deleteUser = async (req, res) => {
-    const { userId } = req.params;
-    try {
-        await User.findByIdAndDelete(userId);
-        res.json({ success: true, message: 'User deleted successfully' });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ success: false, message: error.message });
-    }
+  const { userId } = req.params;
+  try {
+    await User.findByIdAndDelete(userId);
+    res.json({ success: true, message: "User deleted successfully." });
+  } catch (error) {
+    console.error(error);
+    sendErrorResponse(res, 500, error.message);
+  }
 };
 
-export const getUserGrowthData = async (req, res) => {
-    try {
-      const userGrowthData = await User.aggregate([
-        {
-          $group: {
-            _id: { $dateToString: { format: "%Y-%m-%d", date: "$createdAt" } },
-            totalUsers: { $sum: 1 },
-          },
-        },
-        { $sort: { _id: 1 } },
-      ]);
-  
-      const labels = userGrowthData.map((data) => data._id);
-      const users = userGrowthData.map((data) => data.totalUsers);
-  
-      res.json({
-        success: true,
-        data: { labels, users },
-      });
-    } catch (error) {
-        res.json(error.message)
-    }
-  };
+// Get dashboard statistics
+export const getDashboardStats = async (req, res) => {
+  try {
+    const totalUsers = await User.countDocuments();
+    const totalProducts = await productModel.countDocuments();
+    const totalTools = await toolModel.countDocuments(); // Calculate total tools
+    const totalRevenue = await Order.aggregate([
+      { $group: { _id: null, total: { $sum: "$amount" } } },
+    ]);
 
-  export const getRevenueData = async (req, res) => {
+    res.json({
+      success: true,
+      data: {
+        totalUsers,
+        totalProducts,
+        totalTools, // Include total tools in the response
+        totalRevenue: totalRevenue[0]?.total || 0,
+      },
+    });
+  } catch (error) {
+    console.log(error.message)
+  }
+};
+
+// Get user growth data
+export const getUserGrowthData = async (req, res) => {
+  try {
+    const userGrowthData = await User.aggregate([
+      {
+        $group: {
+          _id: { $dateToString: { format: "%Y-%m-%d", date: "$createdAt" } },
+          totalUsers: { $sum: 1 },
+        },
+      },
+      { $sort: { _id: 1 } },
+    ]);
+
+    const labels = userGrowthData.map((data) => data._id);
+    const users = userGrowthData.map((data) => data.totalUsers);
+
+    res.json({
+      success: true,
+      data: { labels, users },
+    });
+  } catch (error) {
+    console.log(error.message)
+  }
+};
+
+// Get revenue data
+export const getRevenueData = async (req, res) => {
     const { period } = req.query;
     let startDate;
   
     switch (period) {
+      case "1day":
+        startDate = new Date(new Date().setDate(new Date().getDate() - 1));
+        break;
+      case "1week":
+        startDate = new Date(new Date().setDate(new Date().getDate() - 7));
+        break;
       case "1month":
         startDate = new Date(new Date().setMonth(new Date().getMonth() - 1));
         break;
@@ -123,12 +158,9 @@ export const getUserGrowthData = async (req, res) => {
       const revenueData = {};
   
       orders.forEach((order) => {
-        const month = new Date(order.createdAt).toLocaleString("default", {
-          month: "short",
-          year: "numeric",
-        });
-        if (!revenueData[month]) revenueData[month] = 0;
-        revenueData[month] += order.amount;
+        const date = new Date(order.createdAt).toLocaleDateString();
+        if (!revenueData[date]) revenueData[date] = 0;
+        revenueData[date] += order.amount;
       });
   
       const labels = Object.keys(revenueData);
@@ -139,28 +171,31 @@ export const getUserGrowthData = async (req, res) => {
         data: { labels, revenue },
       });
     } catch (error) {
-        res.json(error.message)
+      console.error(error);
+      res.status(500).json({ success: false, message: "Error fetching revenue data" });
     }
   };
 
-  export const getTopSellers = async (req, res) => {
-    try {
-      const sellers = await Order.aggregate([
-        { $unwind: "$items" },
-        {
-          $group: {
-            _id: "$items.email",
-            name: { $first: "$items.name" },
-            stock: { $sum: "$items.stockQuantity" },
-            revenue: { $sum: { $multiply: ["$items.price", "$items.quantity"] } },
-          },
+// Get top sellers
+export const getTopSellers = async (req, res) => {
+  try {
+    const sellers = await Order.aggregate([
+      { $unwind: "$items" },
+      {
+        $group: {
+          _id: "$items.email",
+          name: { $first: "$items.name" },
+          stock: { $sum: "$items.stockQuantity" },
+          revenue: { $sum: { $multiply: ["$items.price", "$items.quantity"] } },
         },
-        { $sort: { revenue: -1 } },
-        { $limit: 5 },
-      ]);
-  
-      res.json({ success: true, data: sellers });
-    } catch (error) {
-        res.json(error.message)
-    }
-  };
+      },
+      { $sort: { revenue: -1 } },
+      { $limit: 5 },
+    ]);
+
+    res.json({ success: true, data: sellers });
+  } catch (error) {
+    console.log(error.message);
+    
+  }
+};

@@ -4,10 +4,11 @@ import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUserInfo } from './redux/user/userSlice';
 import { Sidebar } from '../components/Sidebar';
+import { toast } from 'react-toastify';
 
 const ManageUser = () => {
   const dispatch = useDispatch();
-  const users = useSelector((state) => state.user.userInfo);
+  const users = useSelector((state) => state.user.userInfo) || [];
   const currentUser = useSelector((state) => state.user.currentUser);
   const [editingUser, setEditingUser] = useState(null);
   const [formData, setFormData] = useState({
@@ -26,11 +27,11 @@ const ManageUser = () => {
   });
   const [newUser, setNewUser] = useState({ email: '', password: '', username: '', role: '' });
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false); // State to manage the visibility of the edit modal
-  const [filterRole, setFilterRole] = useState('all'); // State to manage the selected role filter
-  const [searchTerm, setSearchTerm] = useState(''); // State to manage the search term
-  const [currentPage, setCurrentPage] = useState(1); // State to manage the current page
-  const usersPerPage = 10; // Number of users to display per page
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [filterRole, setFilterRole] = useState('all');
+  const [searchTerm, setSearchTerm] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const usersPerPage = 10;
 
   useEffect(() => {
     if (currentUser?.role.toLowerCase() !== 'admin') {
@@ -45,13 +46,22 @@ const ManageUser = () => {
       const response = await axios.get('http://localhost:3000/api/admin/users', {
         headers: { Authorization: `Bearer ${currentUser.token}` },
       });
-      dispatch(setUserInfo(response.data.message));
+      let users = response.data.message || [];
+      if (currentUser.email !== 'superadmin@g.com') {
+        users = users.filter(user => user.role.toLowerCase() !== 'admin');
+      }
+      dispatch(setUserInfo(users));
     } catch (error) {
       console.error('Error fetching users:', error);
+      toast.error('Error fetching users');
     }
   };
 
   const handleEdit = (user) => {
+    if (currentUser.email !== 'superadmin@g.com' && user.role.toLowerCase() === 'admin') {
+      toast.error('You do not have permission to edit other admins.');
+      return;
+    }
     setEditingUser(user);
     setFormData({
       email: user.email,
@@ -67,7 +77,7 @@ const ManageUser = () => {
       business_gstin: user.business_gstin,
       business_about: user.business_about
     });
-    setIsEditModalOpen(true); // Open the edit modal
+    setIsEditModalOpen(true);
   };
 
   const handleDelete = async (userId) => {
@@ -78,6 +88,7 @@ const ManageUser = () => {
       fetchUsers();
     } catch (error) {
       console.error('Error deleting user:', error);
+      toast.error('Error deleting user');
     }
   };
 
@@ -120,10 +131,11 @@ const ManageUser = () => {
       });
       setNewUser({ email: '', password: '', username: '', role: '' });
       fetchUsers();
-      setIsModalOpen(false); // Close the modal after submission
-      setIsEditModalOpen(false); // Close the edit modal after submission
+      setIsModalOpen(false);
+      setIsEditModalOpen(false);
     } catch (error) {
       console.error('Error saving user:', error.response ? error.response.data : error.message);
+      toast.error('Error saving user');
     }
   };
 
@@ -173,12 +185,14 @@ const ManageUser = () => {
     document.body.removeChild(link);
   };
 
-  const filteredUsers = users
-    .filter((user) => filterRole === 'all' || user.role.toLowerCase() === filterRole.toLowerCase())
-    .filter((user) => 
-      user.email.toLowerCase().includes(searchTerm.toLowerCase()) || 
-      (user.user_name && user.user_name.toLowerCase().includes(searchTerm.toLowerCase()))
-    );
+  const filteredUsers = Array.isArray(users)
+    ? users
+        .filter((user) => filterRole === 'all' || user.role.toLowerCase() === filterRole.toLowerCase())
+        .filter((user) => 
+          user.email.toLowerCase().includes(searchTerm.toLowerCase()) || 
+          (user.user_name && user.user_name.toLowerCase().includes(searchTerm.toLowerCase()))
+        )
+    : [];
 
   const indexOfLastUser = currentPage * usersPerPage;
   const indexOfFirstUser = indexOfLastUser - usersPerPage;
@@ -209,7 +223,9 @@ const ManageUser = () => {
             <option value="all">All Roles</option>
             <option value="farmer">Farmer</option>
             <option value="customer">Customer</option>
-            <option value="admin">Admin</option>
+            {currentUser.email === 'superadmin@g.com' && (
+              <option value="admin">Admin</option>
+            )}
           </select>
           <input
             type="text"
@@ -289,9 +305,9 @@ const ManageUser = () => {
                   required
                 >
                   <option value="">Select Role</option>
-                  <option value="farmer">Farmer</option>
-                  <option value="customer">Customer</option>
-                  <option value="admin">Admin</option>
+                  <option value="Farmer">Farmer</option>
+                  <option value="Customer">Customer</option>
+                  <option value="Admin">Admin</option>
                 </select>
                 <button className='manage-user__button' type="submit">Add User</button>
               </form>

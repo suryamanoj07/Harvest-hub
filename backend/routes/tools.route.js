@@ -1,5 +1,5 @@
 import express from 'express'
-import { addtool, deletetool, listtool, searchTool, fastSellingItems, newlyAddedProducts } from '../controllers/tools.js'
+import { addtool, deletetool, listtool, searchTool, fastSellingItems, newlyAddedProducts , updateTool } from '../controllers/tools.js'
 import multer from 'multer'
 
 const toolRouter = express.Router()
@@ -19,5 +19,6 @@ toolRouter.get("/topselling",fastSellingItems)
 toolRouter.get("/recentadded",newlyAddedProducts)
 toolRouter.get("/list",listtool)
 toolRouter.get("/search/:search",searchTool)
+toolRouter.put('/update/:id', updateTool);
 
 export default toolRouter

@@ -75,16 +75,11 @@ const farmerDelete = async (req, res) => {
 
   const updateProduct = async (req, res) => {
     const { id } = req.params;
-    const { name, description, price, category, stockQuantity, status } = req.body;
+    const { stockQuantity } = req.body;
   
     try {
       const updatedProduct = await productModel.findByIdAndUpdate(id, {
-        name,
-        description,
-        price,
-        category,
         stockQuantity,
-        status
       }, { new: true });
   
       if (!updatedProduct) {
@@ -246,77 +241,32 @@ const newlyAddedProducts = async (req, res) => {
 //     }
 //   };
 
-  // const addReview = async (req, res) => {
-  //   const { productId, userId, comment } = req.body;
-  
-  //   try {
-  //     const product = await productModel.findById(productId);
-  //     if (!product) return res.status(404).json({ success: false, message: 'Product not found' });
-  
-  //     // Check if the user has already reviewed this product
-  //     const existingReview = product.reviews.find((review) => review.user.toString() === userId);
-  //     if (existingReview) {
-  //       return res.status(400).json({ success: false, message: 'You have already reviewed this product' });
-  //     }
-  
-  //     // Add new review
-  //     product.reviews.push({ user: userId, comment });
-  //     await product.save();
-  
-  //     res.json({ success: true, message: 'Review added successfully', reviews: product.reviews });
-  //   } catch (error) {
-  //     res.status(500).json({ success: false, message: error.message });
-  //   }
-  // };
-
-  // const getProductDetails = async (req, res) => {
-  //   try {
-  //     const product = await productModel.findById(req.params.id).populate('reviews.user', 'name');
-  //     if (!product) return res.status(404).json({ success: false, message: 'Product not found' });
-  
-  //     res.json({
-  //       success: true,
-  //       product: {
-  //         name: product.name,
-  //         price: product.price,
-  //         description: product.description,
-  //         ratings: product.ratings,
-  //         reviews: product.reviews,
-  //       },
-  //     });
-  //   } catch (error) {
-  //     res.status(500).json({ success: false, message: error.message });
-  //   }
-  // };
-  
-  const getTopSellingProducts = async (req, res) => {
-    try {
-      const topProducts = await Order.aggregate([
-        { $unwind: "$items" },
-        {
-          $group: {
-            _id: "$items._id",
-            name: { $first: "$items.name" },
-            price: { $first: "$items.price" },
-            stock: { $first: "$items.stockQuantity" },
-            totalOrders: { $sum: 1 },
-            totalAmount: { $sum: { $multiply: ["$items.price", "$items.quantity"] } },
-          },
+export const getTopSellingProducts = async (req, res) => {
+  try {
+    const topProducts = await Order.aggregate([
+      { $unwind: "$items" },
+      {
+        $group: {
+          _id: "$items._id",
+          name: { $first: "$items.name" },
+          price: { $first: "$items.price" },
+          stock: { $first: "$items.stockQuantity" },
+          totalOrders: { $sum: 1 },
+          totalAmount: { $sum: { $multiply: ["$items.price", "$items.quantity"] } },
         },
-        { $sort: { totalAmount: -1 } },
-        { $limit: 5 },
-      ]);
-  
-      res.json({
-        success: true,
-        data: topProducts,
-      });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ success: false, message: "Error fetching top selling products" });
-    }
-  };
-  
-  
+      },
+      { $sort: { totalAmount: -1 } },
+      { $limit: 5 },
+    ]);
 
-export {addProduct,listProduct,deleteProduct,searchProduct,fastSellingItems,newlyAddedProducts,farmerList,updateProduct,farmerDelete, farmerRevenue, getTopSellingProducts}
+    res.json({
+      success: true,
+      data: topProducts,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: "Error fetching top selling products" });
+  }
+};
+
+export { addProduct,listProduct,deleteProduct,searchProduct,fastSellingItems,newlyAddedProducts,farmerList,updateProduct,farmerDelete, farmerRevenue}

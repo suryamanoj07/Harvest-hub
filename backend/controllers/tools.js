@@ -71,29 +71,24 @@ const farmerDeleteTool = async (req, res) => {
     }
   };
 
-  const updateTool = async (req, res) => {
-    const { id } = req.params;
-    const { name, description, price, category, stockQuantity, status } = req.body;
-  
-    try {
-      const updatedProduct = await toolModel.findByIdAndUpdate(id, {
-        name,
-        description,
-        price,
-        category,
-        stockQuantity,
-        status
-      }, { new: true });
-  
-      if (!updatedProduct) {
-        return res.status(404).json({ success: false, message: "Tool not found" });
-      }
-  
-      res.status(200).json({ success: true, message: "Tool updated successfully", tool: updatedProduct });
-    } catch (err) {
-      res.status(500).json({ success: false, message: "Error updating product", error: err.message });
+const updateTool = async (req, res) => {
+  const { id } = req.params;
+  const { stockQuantity } = req.body;
+
+  try {
+    const updatedTool = await toolModel.findByIdAndUpdate(id, {
+      stockQuantity,
+    }, { new: true });
+
+    if (!updatedTool) {
+      return res.status(404).json({ success: false, message: "Tool not found" });
     }
-  };
+
+    res.status(200).json({ success: true, message: "Tool updated successfully", tool: updatedTool });
+  } catch (err) {
+    res.status(500).json({ success: false, message: "Error updating tool", error: err.message });
+  }
+};
 
 const searchTool = async(req,res)=>{
     const {search} = req.params
@@ -148,4 +143,4 @@ const newlyAddedProducts = async (req, res) => {
     }
 };
 
-export {addtool,listtool,deletetool,searchTool,fastSellingItems,newlyAddedProducts}
+export {addtool,listtool,deletetool,searchTool,fastSellingItems,newlyAddedProducts, updateTool}
