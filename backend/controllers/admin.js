@@ -2,6 +2,7 @@ import User from "../models/UserModel.js";
 import Product from "../models/ProductModel.js";
 import Order from "../models/orderModel.js";
 import bcryptjs from "bcryptjs";
+import Tool from "../models/toolModel.js"; // Import the Tool model
 
 // Helper function for error responses
 const sendErrorResponse = (res, status, message) => {
@@ -81,6 +82,7 @@ export const getDashboardStats = async (req, res) => {
   try {
     const totalUsers = await User.countDocuments();
     const totalProducts = await Product.countDocuments();
+    const totalTools = await Tool.countDocuments(); // Calculate total tools
     const totalRevenue = await Order.aggregate([
       { $group: { _id: null, total: { $sum: "$amount" } } },
     ]);
@@ -90,6 +92,7 @@ export const getDashboardStats = async (req, res) => {
       data: {
         totalUsers,
         totalProducts,
+        totalTools, // Include total tools in the response
         totalRevenue: totalRevenue[0]?.total || 0,
       },
     });
