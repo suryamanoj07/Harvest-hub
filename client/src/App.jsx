@@ -29,6 +29,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import FeedbackList from './components/FeedbackList';
 import AdminDashboard from './pages/AdminDashboard';
 import { Sidebar } from './components/Sidebar';
+import ProductDetails from './pages/ProductDetails';
 
 function App() {
   const [category, setCategory] = useState('All');

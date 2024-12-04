@@ -25,6 +25,10 @@ productRouter.get("/recentadded",newlyAddedProducts)
 productRouter.get("/search/:search",searchProduct)
 productRouter.post("/delete/:id",deleteProduct)
 productRouter.get('/top-selling-products', getTopSellingProducts);
+// productRouter.post("/delete/:id",deleteProduct)
+// productRouter.post('/rating', addRating); // Add or update rating
+// productRouter.post('/review', addReview); // Add review
+// productRouter.get('/:id', getProductDetails); // Get product details
 // productRouter.post("/rate",addRating)
 
 

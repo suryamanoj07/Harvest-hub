@@ -37,27 +37,74 @@ export const Header = ({ toggleSidebar }) => {
         </Link>
       </div>
 
-      <div className="flex items-center gap-16 ml-72">
-        <ul className="flex gap-4">
-          <Link to="/Market">
-            <li className="text-slate-700 hover:underline font-semibold text-lg">
-              Market
-            </li>
-          </Link>
-          <Link to="/About">
-            <li className="text-slate-700 hover:underline font-semibold text-lg">
-              About
-            </li>
-          </Link>
-          <Link to="/Schemes">
-            <li className="text-slate-700 hover:underline font-semibold text-lg">
-              Schemes
-            </li>
-          </Link>
-          {(currentUser === null || currentUser.role === "Customer") && (
-            <Link to="/Articles">
-              <li className="text-slate-700 hover:underline font-semibold text-lg">
-                Articles
+        {currentUser && currentUser.role === "Admin" ? (
+          <div className="flex items-center">
+            <div className="text-2xl mr-80">
+              Welcome {currentUser.user_name}
+            </div>
+            <Link to="profile">
+              <div className="flex flex-col justify-center items-center ml-60">
+                <img src={user_image} alt="" width="25px" />
+                <p>{currentUser.user_name}</p>
+              </div>
+            </Link>
+          </div>
+        ) : (
+          <div className="flex items-center gap-16">
+            <ul className="flex gap-4">
+              <Link to="/Market">
+                <li className="text-slate-700 hover:underline font-semibold text-lg">
+                  Market
+                </li>
+              </Link>
+
+              <Link to="/About">
+                <li className="text-slate-700 hover:underline font-semibold text-lg">
+                  About
+                </li>
+              </Link>
+
+              <Link to="/Schemes">
+                <li className="text-slate-700 hover:underline font-semibold text-lg">
+                  Schemes
+                </li>
+              </Link>
+
+              {(currentUser === null || currentUser.role === "Customer") && (
+                <Link to="/Articles">
+                  <li className="text-slate-700 hover:underline font-semibold text-lg">
+                    Articles
+                  </li>
+                </Link>
+              )}
+
+              {currentUser && currentUser.role === "Farmer" ? (
+                <div className="sell-dropdown text-slate-700 font-semibold text-lg">
+                  <span className="cursor-pointer">Sell</span>
+                  <ul className="dropdown-content">
+                    <li>
+                      <a href="/sell.html">Products</a>
+                    </li>
+                    <li>
+                      <a href="/sell2.html">Tools</a>
+                    </li>
+                  </ul>
+                </div>
+              ) : (
+                <Link to="/">
+                  <li className="text-slate-700 hover:underline font-semibold text-lg">
+                    Home
+                  </li>
+                </Link>
+              )}
+            </ul>
+
+        <SearchBar />
+
+            <ul className="flex gap-6 ">
+              <li className="font-bold flex flex-col items-center justify-center cursor-pointer">
+                <FaRegHeart />
+                Wishlist
               </li>
             </Link>
           )}
