@@ -1,5 +1,6 @@
-import add_icon from "./../../assets/add_icon.png"
+// import add_icon from "./../../assets/add_icon.png"
 import order_icon from "./../../assets/order_icon.png"
+import admin_dash from "./../../assets/admin_dash.jpg";
 import manage_user from "./../../assets/manage_user.png";
 import feedback_icon from "./../../assets/feedback.png"
 import { Link } from "react-router-dom";
@@ -14,7 +15,7 @@ export const Sidebar = () => {
         <div className="max-w-80 border-r-slate-400 border-2 flex flex-col gap-0 fixed" style={{ height: "91.5vh" }}>
           <Link to="/admin">
             <div className="flex flex-col gap-2 p-6 justify-center items-center hover:bg-slate-400 cursor-pointer border-b-2 border-slate-400 bg-slate-300">
-              <img src={add_icon} alt="add product" className="h-6 w-6" />
+              <img src={admin_dash} alt="add product" className="h-6 w-6" />
               <p>Admin Dashboard</p>
             </div>
           </Link>

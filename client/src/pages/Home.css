@@ -1,57 +1,99 @@
-/* Horizontal scroll container */
-.horizontal-scroll-container {
+/* Enhanced Home Styles */
+:root {
+  --primary-color: #ea8bba;
+  --secondary-color: #73f2f0;
+  --text-color: #333;
+  --background-color: #f4f4f4;
+}
+
+.parallax-container {
+  width: 100%;
+  min-height: 100vh;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.home-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.hero-section {
+  color: white;
+  text-align: left;
+  padding: 4rem 0;
+}
+
+.hero-section h1 {
+  font-size: 3.5rem;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+
+.hero-section .highlight {
+  display: block;
+  color: var(--secondary-color);
+  font-weight: bold;
+}
+
+.enhanced-scroll-section {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+
+.section-header {
   display: flex;
-  overflow-x: auto;
-  /* background-color: rgb(194, 220, 247); */
-  gap: 16px;
-  padding: 2px;
-  overflow-y: hidden;
-  scroll-behavior: smooth;
-  scrollbar-width: thin; /* For Firefox */
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
 }
 
-.gradient{
-  background: linear-gradient(140deg, #ea8bba, #73f2f0);
+.view-all-btn {
+  display: flex;
+  align-items: center;
+  color: white;
+  text-decoration: none;
+  transition: transform 0.3s ease;
 }
 
-/* Arrows */
-.scroll-arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 2rem;
-  background-color: rgba(0, 0, 0, 0.5);
+.view-all-btn:hover {
+  transform: translateX(5px);
+}
+
+.scroll-navigation {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.nav-button {
+  background: rgba(0, 0, 0, 0.5);
   color: white;
   border: none;
+  border-radius: 50%;
+  padding: 0.5rem;
+  margin: 0 1rem;
   cursor: pointer;
-  padding: 8px;
-  z-index: 10;
-  opacity: 0.8;
-  transition: opacity 0.3s ease;
+  transition: all 0.3s ease;
 }
 
-.scroll-arrow:hover {
-  opacity: 1;
+.enhanced-scroll-container {
+  display: flex;
+  overflow-x: auto;
+  gap: 1rem;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
 }
 
-/* Left arrow position */
-.left-arrow {
-  left: -20px;
-}
-
-/* Right arrow position */
-.right-arrow {
-  right: -20px;
-}
-
-/* Hide default scrollbar for Webkit browsers */
-.horizontal-scroll-container::-webkit-scrollbar {
-  display: none;
-}
-
-
-/* Optional: adjust each item width for consistent layout */
-.horizontal-scroll-container > * {
-  flex: 0 0 auto; /* Prevent shrinking */
-  width: 250px; /* Set width for each item */
+.scroll-item {
+  flex: 0 0 250px;
+  scroll-snap-align: start;
 }
