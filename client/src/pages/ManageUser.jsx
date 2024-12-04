@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react';
 import './ManageUser.css';
 import axios from 'axios';
@@ -15,16 +13,7 @@ const ManageUser = () => {
   const [formData, setFormData] = useState({
     email: '',
     username: '',
-    role: '',
-    contact_number: '',
-    personal_address: '',
-    business_name: '',
-    business_email: '',
-    business_contact_number: '',
-    business_address: '',
-    business_account_number: '',
-    business_gstin: '',
-    business_about: ''
+    role: ''
   });
   const [newUser, setNewUser] = useState({ email: '', password: '', username: '', role: '' });
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -57,17 +46,8 @@ const ManageUser = () => {
     setEditingUser(user);
     setFormData({
       email: user.email,
-      username: user.username,
-      role: user.role,
-      contact_number: user.contact_number,
-      personal_address: user.personal_address,
-      business_name: user.business_name,
-      business_email: user.business_email,
-      business_contact_number: user.business_contact_number,
-      business_address: user.business_address,
-      business_account_number: user.business_account_number,
-      business_gstin: user.business_gstin,
-      business_about: user.business_about
+      username: user.user_name,
+      role: user.role
     });
     setIsEditModalOpen(true); // Open the edit modal
   };
@@ -109,16 +89,7 @@ const ManageUser = () => {
       setFormData({
         email: '',
         username: '',
-        role: '',
-        contact_number: '',
-        personal_address: '',
-        business_name: '',
-        business_email: '',
-        business_contact_number: '',
-        business_address: '',
-        business_account_number: '',
-        business_gstin: '',
-        business_about: ''
+        role: ''
       });
       setNewUser({ email: '', password: '', username: '', role: '' });
       fetchUsers();
@@ -151,23 +122,14 @@ const ManageUser = () => {
 
   const exportToCSV = () => {
     const csvRows = [];
-    const headers = ['Email', 'Username', 'Role', 'Contact Number', 'Personal Address', 'Business Name', 'Business Email', 'Business Contact Number', 'Business Address', 'Business Account Number', 'Business GSTIN', 'Business About'];
+    const headers = ['Email', 'Username', 'Role'];
     csvRows.push(headers.join(','));
 
     users.forEach(user => {
       const row = [
         user.email,
-        user.username || '',
-        user.role,
-        user.contact_number || '',
-        user.personal_address || '',
-        user.business_name || '',
-        user.business_email || '',
-        user.business_contact_number || '',
-        user.business_address || '',
-        user.business_account_number || '',
-        user.business_gstin || '',
-        user.business_about || ''
+        user.user_name || '',
+        user.role
       ];
       csvRows.push(row.join(','));
     });
@@ -188,7 +150,7 @@ const ManageUser = () => {
     .filter((user) => filterRole === 'all' || user.role.toLowerCase() === filterRole.toLowerCase())
     .filter((user) => 
       user.email.toLowerCase().includes(searchTerm.toLowerCase()) || 
-      (user.username && user.username.toLowerCase().includes(searchTerm.toLowerCase()))
+      (user.user_name && user.user_name.toLowerCase().includes(searchTerm.toLowerCase()))
     );
 
   const indexOfLastUser = currentPage * usersPerPage;
@@ -346,78 +308,6 @@ const ManageUser = () => {
                   <option value="Customer">Customer</option>
                   <option value="Admin">Admin</option>
                 </select>
-                <input
-                  className='manage-user__input'
-                  type="text"
-                  name="contact_number"
-                  value={formData.contact_number}
-                  onChange={handleChange}
-                  placeholder="Contact Number"
-                />
-                <input
-                  className='manage-user__input'
-                  type="text"
-                  name="personal_address"
-                  value={formData.personal_address}
-                  onChange={handleChange}
-                  placeholder="Personal Address"
-                />
-                <input
-                  className='manage-user__input'
-                  type="text"
-                  name="business_name"
-                  value={formData.business_name}
-                  onChange={handleChange}
-                  placeholder="Business Name"
-                />
-                <input
-                  className='manage-user__input'
-                  type="email"
-                  name="business_email"
-                  value={formData.business_email}
-                  onChange={handleChange}
-                  placeholder="Business Email"
-                />
-                <input
-                  className='manage-user__input'
-                  type="text"
-                  name="business_contact_number"
-                  value={formData.business_contact_number}
-                  onChange={handleChange}
-                  placeholder="Business Contact Number"
-                />
-                <input
-                  className='manage-user__input'
-                  type="text"
-                  name="business_address"
-                  value={formData.business_address}
-                  onChange={handleChange}
-                  placeholder="Business Address"
-                />
-                <input
-                  className='manage-user__input'
-                  type="text"
-                  name="business_account_number"
-                  value={formData.business_account_number}
-                  onChange={handleChange}
-                  placeholder="Business Account Number"
-                />
-                <input
-                  className='manage-user__input'
-                  type="text"
-                  name="business_gstin"
-                  value={formData.business_gstin}
-                  onChange={handleChange}
-                  placeholder="Business GSTIN"
-                />
-                <textarea
-                  className='manage-user__input'
-                  name="business_about"
-                  value={formData.business_about}
-                  onChange={handleChange}
-                  placeholder="Business About"
-                  rows="4"
-                />
                 <button className='manage-user__button' type="submit">Update User</button>
               </form>
             </div>
