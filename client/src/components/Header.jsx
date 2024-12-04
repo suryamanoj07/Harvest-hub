@@ -38,7 +38,7 @@ export const Header = () => {
 
         {currentUser && currentUser.role === "Admin" ? (
           <div className="flex items-center">
-            <div className="text-3xl mr-80">
+            <div className="text-2xl mr-80">
               Welcome {currentUser.user_name}
             </div>
             <Link to="profile">

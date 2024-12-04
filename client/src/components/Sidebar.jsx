@@ -12,38 +12,38 @@ export const Sidebar = () => {
     <>
       {currentUser?.role.toLowerCase() === 'admin' && (
         <div className="max-w-80 border-r-slate-400 border-2 flex flex-col gap-0 fixed" style={{ height: "91.5vh" }}>
-          <Link to="/add">
+          <Link to="/admin">
             <div className="flex flex-col gap-2 p-6 justify-center items-center hover:bg-slate-400 cursor-pointer border-b-2 border-slate-400 bg-slate-300">
               <img src={add_icon} alt="add product" className="h-6 w-6" />
-              <p>Add new product</p>
+              <p>Admin Dashboard</p>
             </div>
           </Link>
           <Link to="/list">
-            <div className="flex flex-col gap-2 p-6 justify-center items-center hover:bg-slate-300 cursor-pointer border-b-2 border-slate-400 bg-slate-300">
+            <div className="flex flex-col gap-2 p-6 justify-center items-center hover:bg-slate-400 cursor-pointer border-b-2 border-slate-400 bg-slate-300">
               <img src={order_icon} alt="all products" className="h-6 w-6" />
               <p>All products</p>
             </div>
           </Link>
           <Link to="/orders">
-            <div className="flex flex-col gap-2 p-6 justify-center items-center hover:bg-slate-300 cursor-pointer border-b-2 border-slate-400 bg-slate-300">
+            <div className="flex flex-col gap-2 p-6 justify-center items-center hover:bg-slate-400 cursor-pointer border-b-2 border-slate-400 bg-slate-300">
               <img src={order_icon} alt="orders" className="h-6 w-6" />
               <p>Orders</p>
             </div>
           </Link>
           <Link to="/manage-users">
-            <div className="flex flex-col gap-2 p-6 justify-center items-center hover:bg-slate-300 cursor-pointer border-b-2 border-slate-400 bg-slate-300">
+            <div className="flex flex-col gap-2 p-6 justify-center items-center hover:bg-slate-400 cursor-pointer border-b-2 border-slate-400 bg-slate-300">
               <img src={manage_user} alt="manage user" className="h-6 w-6" />
               <p>Manage Users</p>
             </div>
           </Link>
           <Link to="/feedbacks">
-            <div className="flex flex-col gap-2 p-6 justify-center items-center hover:bg-slate-300 cursor-pointer border-b-2 border-slate-400 bg-slate-300">
+            <div className="flex flex-col gap-2 p-6 justify-center items-center hover:bg-slate-400 cursor-pointer border-b-2 border-slate-400 bg-slate-300">
               <img src={feedback_icon}  alt="add tool" className="h-6 w-6" />
               <p>User Feedbacks</p>
             </div>
           </Link>
           <Link to="/listtool">
-            <div className="flex flex-col gap-2 p-6 justify-center items-center hover:bg-slate-300 cursor-pointer border-b-2 border-slate-400 bg-slate-300">
+            <div className="flex flex-col gap-2 p-6 justify-center items-center hover:bg-slate-400 cursor-pointer border-b-2 border-slate-400 bg-slate-300">
               <img src={order_icon} alt="all tools" className="h-6 w-6" />
               <p>All Tools</p>
             </div>
