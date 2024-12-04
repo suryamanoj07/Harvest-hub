@@ -19,31 +19,31 @@ export const Sidebar = () => {
             </div>
           </Link>
           <Link to="/list">
-            <div className="flex flex-col gap-2 p-6 justify-center items-center hover:bg-slate-300 cursor-pointer border-b-2 border-slate-400 bg-slate-300">
+            <div className="flex flex-col gap-2 p-6 justify-center items-center hover:bg-slate-400 cursor-pointer border-b-2 border-slate-400 bg-slate-300">
               <img src={order_icon} alt="all products" className="h-6 w-6" />
               <p>All products</p>
             </div>
           </Link>
           <Link to="/orders">
-            <div className="flex flex-col gap-2 p-6 justify-center items-center hover:bg-slate-300 cursor-pointer border-b-2 border-slate-400 bg-slate-300">
+            <div className="flex flex-col gap-2 p-6 justify-center items-center hover:bg-slate-400 cursor-pointer border-b-2 border-slate-400 bg-slate-300">
               <img src={order_icon} alt="orders" className="h-6 w-6" />
               <p>Orders</p>
             </div>
           </Link>
           <Link to="/manage-users">
-            <div className="flex flex-col gap-2 p-6 justify-center items-center hover:bg-slate-300 cursor-pointer border-b-2 border-slate-400 bg-slate-300">
+            <div className="flex flex-col gap-2 p-6 justify-center items-center hover:bg-slate-400 cursor-pointer border-b-2 border-slate-400 bg-slate-300">
               <img src={manage_user} alt="manage user" className="h-6 w-6" />
               <p>Manage Users</p>
             </div>
           </Link>
           <Link to="/feedbacks">
-            <div className="flex flex-col gap-2 p-6 justify-center items-center hover:bg-slate-300 cursor-pointer border-b-2 border-slate-400 bg-slate-300">
+            <div className="flex flex-col gap-2 p-6 justify-center items-center hover:bg-slate-400 cursor-pointer border-b-2 border-slate-400 bg-slate-300">
               <img src={feedback_icon}  alt="add tool" className="h-6 w-6" />
               <p>User Feedbacks</p>
             </div>
           </Link>
           <Link to="/listtool">
-            <div className="flex flex-col gap-2 p-6 justify-center items-center hover:bg-slate-300 cursor-pointer border-b-2 border-slate-400 bg-slate-300">
+            <div className="flex flex-col gap-2 p-6 justify-center items-center hover:bg-slate-400 cursor-pointer border-b-2 border-slate-400 bg-slate-300">
               <img src={order_icon} alt="all tools" className="h-6 w-6" />
               <p>All Tools</p>
             </div>
